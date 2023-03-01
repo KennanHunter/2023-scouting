@@ -7,7 +7,12 @@ export const Home: FC = () => {
     return (
         <Stack>
             <Title align="center">Home</Title>
-            <Link to={"meta"}>
+            <Link
+                to={"meta"}
+                style={{
+                    all: "inherit",
+                }}
+            >
                 <Button fullWidth p={"xs"} my={"sm"}>
                     Create new scout entry
                 </Button>

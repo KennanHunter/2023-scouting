@@ -24,7 +24,6 @@ export const scouterOptions = [
     "Ryder Sroufe",
     "Sasha Myers",
     "Scott Thorn",
-    "Scott Thorn",
     "Sean Borneman",
     "Sierra Vrska",
     "Traevor Myers",

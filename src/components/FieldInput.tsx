@@ -2,22 +2,22 @@ import { AspectRatio, Box } from "@mantine/core";
 import { IconMapPin } from "@tabler/icons-react";
 import { FC, MouseEvent } from "react";
 
-type FieldPoint = {
+export type FieldPoint = {
     x: number;
     y: number;
 };
 
-type FieldData = FieldPoint[];
+export type FieldData = FieldPoint[];
 
 type FieldInputParams = {
     onChange: (data: FieldData) => void;
-    onePoint: boolean;
+    singlePoint?: boolean;
     data: FieldData;
 };
 
 export const FieldInput: FC<FieldInputParams> = ({
     data,
-    onePoint,
+    singlePoint,
     onChange,
 }) => {
     return (
@@ -29,22 +29,43 @@ export const FieldInput: FC<FieldInputParams> = ({
                 backgroundSize: "cover",
             }}
             onClick={(event: MouseEvent<HTMLDivElement>) => {
-                const localX = event.clientX - (event.target as any).offsetLeft;
-                const localY = event.clientY - (event.target as any).offsetTop;
+                const eventTarget = (event.target as HTMLDivElement);
 
-                console.log(`${localX} | ${localY}`);
+                const percentX = (event.clientX - eventTarget.offsetLeft) / eventTarget.clientWidth;
+                const percentY = (event.clientY - eventTarget.offsetTop) / eventTarget.clientHeight;
+
+                if (singlePoint) {
+                    onChange([
+                        {
+                            x: percentX,
+                            y: percentY
+                        }
+                    ])
+                    return
+                }
+
+                onChange(data.concat({
+                    x: percentX,
+                    y: percentY
+                }));
             }}
         >
-            {[{ x: 0.5, y: 0.5 }].map((point: FieldPoint) => (
-				<Box
-				key={point.toString()}>
-                	<IconMapPin
-                	    size={32}
-                	    style={{
-                	        position: "absolute",
-                	    }}
-                	></IconMapPin>
-				</Box>
+            {data.map((point: FieldPoint, index: number) => (
+                <Box sx={{
+                    pointerEvents: "none"
+                }} key={`point#${index}`}>
+                    <IconMapPin
+                        size={32}
+                        style={{
+                            position: "absolute",
+                            top: `${point.y * 100}%`,
+                            left: `${point.x * 100}%`,
+                            transform: "translate(-50%, -90%)",
+                            pointerEvents: "none",
+                            color: "#00ff00"
+                        }}
+                    ></IconMapPin>
+                </Box>
             ))}
         </AspectRatio>
     );
