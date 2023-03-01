@@ -1,0 +1,33 @@
+{
+    "name": "scouting",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.10.6",
+        "@mantine/core": "^5.10.5",
+        "@mantine/form": "^5.10.5",
+        "@mantine/hooks": "^5.10.5",
+        "@mantine/modals": "^5.10.5",
+        "@mantine/notifications": "^5.10.5",
+        "@tabler/icons": "^2.6.0",
+        "@tabler/icons-react": "^2.6.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.8.2",
+        "zod": "^3.20.6",
+        "zustand": "^4.3.5"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.27",
+        "@types/react-dom": "^18.0.10",
+        "@vitejs/plugin-react": "^3.1.0",
+        "typescript": "^4.9.3",
+        "vite": "^4.1.0"
+    }
+}
