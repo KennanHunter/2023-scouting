@@ -28,32 +28,42 @@ export const FieldInput: FC<FieldInputParams> = ({
                 backgroundOrigin: "center",
                 backgroundSize: "cover",
             }}
+            my={8}
             onClick={(event: MouseEvent<HTMLDivElement>) => {
-                const eventTarget = (event.target as HTMLDivElement);
+                const eventTarget = event.target as HTMLDivElement;
 
-                const percentX = (event.clientX - eventTarget.offsetLeft) / eventTarget.clientWidth;
-                const percentY = (event.clientY - eventTarget.offsetTop) / eventTarget.clientHeight;
+                const percentX =
+                    (event.clientX - eventTarget.offsetLeft) /
+                    eventTarget.clientWidth;
+                const percentY =
+                    (event.clientY - eventTarget.offsetTop) /
+                    eventTarget.clientHeight;
 
                 if (singlePoint) {
                     onChange([
                         {
                             x: percentX,
-                            y: percentY
-                        }
-                    ])
-                    return
+                            y: percentY,
+                        },
+                    ]);
+                    return;
                 }
 
-                onChange(data.concat({
-                    x: percentX,
-                    y: percentY
-                }));
+                onChange(
+                    data.concat({
+                        x: percentX,
+                        y: percentY,
+                    })
+                );
             }}
         >
             {data.map((point: FieldPoint, index: number) => (
-                <Box sx={{
-                    pointerEvents: "none"
-                }} key={`point#${index}`}>
+                <Box
+                    sx={{
+                        pointerEvents: "none",
+                    }}
+                    key={`point#${index}`}
+                >
                     <IconMapPin
                         size={32}
                         style={{
@@ -62,9 +72,9 @@ export const FieldInput: FC<FieldInputParams> = ({
                             left: `${point.x * 100}%`,
                             transform: "translate(-50%, -90%)",
                             pointerEvents: "none",
-                            color: "#00ff00"
+                            color: "#00ff00",
                         }}
-                    ></IconMapPin>
+                    />
                 </Box>
             ))}
         </AspectRatio>

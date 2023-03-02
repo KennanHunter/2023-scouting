@@ -8,7 +8,7 @@ export const Home: FC = () => {
         <Stack>
             <Title align="center">Home</Title>
             <Link
-                to={"meta"}
+                to={"/entry/meta"}
                 style={{
                     all: "inherit",
                 }}
