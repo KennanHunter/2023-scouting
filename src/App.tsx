@@ -8,7 +8,7 @@ const App: FC = () => {
         <Box
             sx={(theme) => ({
                 width: "100vw",
-                height: "max(100vh, 100%)",
+                minHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
                 backgroundColor:
