@@ -31,9 +31,9 @@ export const defaultActivePitState: PitState = {
     robotCanPlaceCone: false,
     robotCanPlaceCube: false,
 
-    autoGridPlaceTop: false,
-    autoGridPlaceMiddle: false,
-    autoGridPlaceBottom: false,
+    autoGridPlaceTop: 0,
+    autoGridPlaceMiddle: 0,
+    autoGridPlaceBottom: 0,
 
     autonomousNumberOfPrograms: 0,
 
