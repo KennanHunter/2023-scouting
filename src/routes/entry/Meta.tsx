@@ -4,19 +4,19 @@ import { scouterOptions } from "../../data/scouters";
 import { useActiveMatch } from "../../stores/activeMatch";
 
 export const Meta: FC = () => {
-    const scouter = useActiveMatch((state) => state.scouter);
-    const setScouter = useActiveMatch((state) => state.setScouter);
+    const set = useActiveMatch((state) => state.set);
+    const { scouter } = useActiveMatch((state) => state);
 
     return (
         <Stack>
-            <Title align="center">Meta Data</Title>
+            <Title align="center">Match Information</Title>
 
             <Select
                 label={"Scouter"}
                 searchable
                 data={scouterOptions}
                 value={scouter}
-                onChange={setScouter}
+                onChange={set("scouter")}
             />
         </Stack>
     );

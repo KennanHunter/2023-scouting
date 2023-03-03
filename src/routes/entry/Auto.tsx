@@ -1,44 +1,18 @@
-import { Checkbox, Stack, Title, Text } from "@mantine/core";
+import { Checkbox, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { FieldInput } from "../../components/FieldInput";
 import { GridInput } from "../../components/GridInput";
 import { useActiveMatch } from "../../stores/activeMatch";
 
 export const Auto: FC = () => {
-    const autonomousStartingLocation = useActiveMatch(
-        (state) => state.autonomousStartingLocation
-    );
-    const setAutonomousStartingLocation = useActiveMatch(
-        (state) => state.setAutonomousStartingLocation
-    );
-
-    const autonomousLeftCommunityZone = useActiveMatch(
-        (state) => state.autonomousLeftCommunityZone
-    );
-    const setAutonomousLeftCommunityZone = useActiveMatch(
-        (state) => state.setAutonomousLeftCommunityZone
-    );
-
-    const autonomousGridData = useActiveMatch(
-        (state) => state.autonomousGridData
-    );
-    const setAutonomousGridData = useActiveMatch(
-        (state) => state.setAutonomousGridData
-    );
-
-    const autonomousDockedToChargeStation = useActiveMatch(
-        (state) => state.autonomousDockedToChargeStation
-    );
-    const setAutonomousDockedToChargeStation = useActiveMatch(
-        (state) => state.setAutonomousDockedToChargeStation
-    );
-
-    const autonomousChargeStationEngaged = useActiveMatch(
-        (state) => state.autonomousChargeStationEngaged
-    );
-    const setAutonomousChargeStationEngaged = useActiveMatch(
-        (state) => state.setAutonomousChargeStationEngaged
-    );
+    const set = useActiveMatch((state) => state.set);
+    const {
+        autonomousChargeStationEngaged,
+        autonomousDockedToChargeStation,
+        autonomousGridData,
+        autonomousLeftCommunityZone,
+        autonomousStartingLocation,
+    } = useActiveMatch((state) => state);
 
     return (
         <Stack>
@@ -46,7 +20,7 @@ export const Auto: FC = () => {
 
             <Text size="lg">Starting Position</Text>
             <FieldInput
-                onChange={(data) => setAutonomousStartingLocation(data[0])}
+                onChange={(data) => set("autonomousStartingLocation")(data[0])}
                 singlePoint
                 data={
                     autonomousStartingLocation
@@ -60,12 +34,12 @@ export const Auto: FC = () => {
                 my={8}
                 checked={autonomousLeftCommunityZone}
                 onChange={(event) => {
-                    setAutonomousLeftCommunityZone(event.target.checked);
+                    set("autonomousLeftCommunityZone")(event.target.checked);
                 }}
             />
             <Text size="lg">Grid</Text>
             <GridInput
-                onChange={(data) => setAutonomousGridData(data)}
+                onChange={(data) => set("autonomousGridData")(data)}
                 data={autonomousGridData}
             />
             <Checkbox
@@ -74,7 +48,9 @@ export const Auto: FC = () => {
                 my={8}
                 checked={autonomousDockedToChargeStation}
                 onChange={(event) => {
-                    setAutonomousDockedToChargeStation(event.target.checked);
+                    set("autonomousDockedToChargeStation")(
+                        event.target.checked
+                    );
                 }}
             />
             <Checkbox
@@ -83,7 +59,7 @@ export const Auto: FC = () => {
                 my={8}
                 checked={autonomousChargeStationEngaged}
                 onChange={(event) => {
-                    setAutonomousChargeStationEngaged(event.target.checked);
+                    set("autonomousChargeStationEngaged")(event.target.checked);
                 }}
             />
         </Stack>

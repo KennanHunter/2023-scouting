@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { MatchState } from "./activeMatch";
+import { MatchState } from "./matchTypes";
 
 export const useMatchDB = create<{
     db: MatchState[];
@@ -11,7 +11,7 @@ export const useMatchDB = create<{
         (set) => ({
             db: [],
             push: (newMatch) => set((get) => ({ db: [...get.db, newMatch] })),
-            clear: () => set({ db: [] })
+            clear: () => set({ db: [] }),
         }),
         { name: "match-db" }
     )
