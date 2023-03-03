@@ -33,10 +33,10 @@ export const FieldInput: FC<FieldInputParams> = ({
                 const eventTarget = event.target as HTMLDivElement;
 
                 const percentX =
-                    (event.clientX - eventTarget.offsetLeft) /
+                    (event.clientX - eventTarget.offsetLeft + window.scrollX) /
                     eventTarget.clientWidth;
                 const percentY =
-                    (event.clientY - eventTarget.offsetTop) /
+                    (event.clientY - eventTarget.offsetTop + window.scrollY) /
                     eventTarget.clientHeight;
 
                 if (singlePoint) {

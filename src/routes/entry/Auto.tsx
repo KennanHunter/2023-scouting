@@ -1,10 +1,10 @@
-import { Checkbox, Stack } from "@mantine/core";
+import { Checkbox, Stack, Title, Text } from "@mantine/core";
 import { FC } from "react";
 import { FieldInput } from "../../components/FieldInput";
 import { GridInput } from "../../components/GridInput";
 import { useActiveMatch } from "../../stores/activeMatch";
 
-export const Start: FC = () => {
+export const Auto: FC = () => {
     const autonomousStartingLocation = useActiveMatch(
         (state) => state.autonomousStartingLocation
     );
@@ -42,7 +42,9 @@ export const Start: FC = () => {
 
     return (
         <Stack>
-            <h1>Match Start</h1>
+            <Title align="center">Auto</Title>
+
+            <Text size="lg">Starting Position</Text>
             <FieldInput
                 onChange={(data) => setAutonomousStartingLocation(data[0])}
                 singlePoint
@@ -61,6 +63,7 @@ export const Start: FC = () => {
                     setAutonomousLeftCommunityZone(event.target.checked);
                 }}
             />
+            <Text size="lg">Grid</Text>
             <GridInput
                 onChange={(data) => setAutonomousGridData(data)}
                 data={autonomousGridData}

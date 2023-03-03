@@ -1,6 +1,5 @@
-import { Button, Select, Stack, Title } from "@mantine/core";
+import { Select, Stack, Title } from "@mantine/core";
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { scouterOptions } from "../../data/scouters";
 import { useActiveMatch } from "../../stores/activeMatch";
 
@@ -11,6 +10,7 @@ export const Meta: FC = () => {
     return (
         <Stack>
             <Title align="center">Meta Data</Title>
+
             <Select
                 label={"Scouter"}
                 searchable
@@ -18,9 +18,6 @@ export const Meta: FC = () => {
                 value={scouter}
                 onChange={setScouter}
             />
-            <Link to={"/entry/start"} style={{ all: "unset" }}>
-                <Button fullWidth>Start</Button>
-            </Link>
         </Stack>
     );
 };

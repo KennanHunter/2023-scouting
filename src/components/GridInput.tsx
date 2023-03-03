@@ -106,8 +106,9 @@ export const GridInput: FC<GridInputParams> = ({ data, onChange }) => {
                     (column: GridColumn, index: number) => (
                         <Grid.Col span="auto" key={`gridcolumn#${index}`}>
                             <ActionIcon
-                                variant="outline"
+                                variant="filled"
                                 size="md"
+                                color={(Math.floor(index / 3) % 2 == 0) ? "blue" : "gray"}
                                 sx={{
                                     width: "100%",
                                 }}
@@ -122,8 +123,9 @@ export const GridInput: FC<GridInputParams> = ({ data, onChange }) => {
                                 )}
                             </ActionIcon>
                             <ActionIcon
-                                variant="outline"
+                                variant="filled"
                                 size="md"
+                                color={(Math.floor(index / 3) % 2 == 0) ? "blue" : "gray"}
                                 sx={{
                                     width: "100%",
                                 }}
@@ -138,8 +140,9 @@ export const GridInput: FC<GridInputParams> = ({ data, onChange }) => {
                                 )}
                             </ActionIcon>
                             <ActionIcon
-                                variant="outline"
+                                variant="filled"
                                 size="md"
+                                color={(index % 2 == 0) ? "violet" : "orange"}
                                 sx={{
                                     width: "100%",
                                 }}
@@ -153,7 +156,7 @@ export const GridInput: FC<GridInputParams> = ({ data, onChange }) => {
                     )
                 )}
             </Grid>
-            <Button variant="outline" size="xs" compact onClick={undo}>
+            <Button variant="filled" size="sm" compact fullWidth onClick={undo}>
                 Undo
             </Button>
         </Box>
