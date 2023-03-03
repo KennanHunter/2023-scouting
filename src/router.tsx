@@ -1,5 +1,6 @@
 import { createHashRouter, RouteObject } from "react-router-dom";
 import { Meta } from "./routes/match/Meta";
+
 import { Save } from "./routes/match/Save";
 import { Auto } from "./routes/match/Auto";
 import { Teleop } from "./routes/match/Teleop";
@@ -10,6 +11,7 @@ import { ViewData } from "./routes/database/ViewData";
 import { DatabaseLayout } from "./routes/database/_layout";
 import { PitLayout } from "./routes/pit/_layout";
 import { Robot } from "./routes/pit/Robot";
+import { MetaPit } from "./routes/pit/MetaPit";
 
 export const routeConfig = [
     {
@@ -40,7 +42,7 @@ export const routeConfig = [
         path: "/pit/",
         element: <PitLayout />,
         children: [
-            { path: "meta", element: <Meta /> },
+            { path: "meta", element: <MetaPit /> },
             { path: "robot", element: <Robot /> },
         ],
     },

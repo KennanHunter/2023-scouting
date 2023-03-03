@@ -3,13 +3,13 @@ import { FC } from "react";
 import { scouterOptions } from "../../data/scouters";
 import { useActivePit } from "../../stores/pit/activePit";
 
-export const Meta: FC = () => {
+export const MetaPit: FC = () => {
     const set = useActivePit((state) => state.set);
     const { scouter, teamNumber } = useActivePit((state) => state);
 
     return (
         <Stack>
-            <Title align="center">Match Information</Title>
+            <Title align="center">Pit Information</Title>
 
             <Select
                 label={"Scouter"}

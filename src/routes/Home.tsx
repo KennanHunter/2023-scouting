@@ -14,7 +14,7 @@ export const Home: FC = () => {
                 }}
             >
                 <Button fullWidth p={"xs"} my={"sm"}>
-                    Create new Match scout entry
+                    Create new MATCH scout entry
                 </Button>
             </Link>
             <Link
@@ -24,7 +24,7 @@ export const Home: FC = () => {
                 }}
             >
                 <Button fullWidth p={"xs"} my={"sm"}>
-                    Create new pit scout entry
+                    Create new PIT scout entry
                 </Button>
             </Link>
             <Link
