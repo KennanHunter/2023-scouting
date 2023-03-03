@@ -10,7 +10,7 @@ export const PitLayout: FC = () => {
     const active =
         useMemo(
             () =>
-                routeConfig[1].children?.reduce((prev, cur, index) => {
+                routeConfig[2].children?.reduce((prev, cur, index) => {
                     if (pathname.includes(cur.path)) return index;
                     else return prev;
                 }, 0),
@@ -37,9 +37,9 @@ export const PitLayout: FC = () => {
     return (
         <div>
             <Stepper active={active - 1} size="sm" iconSize={32} mb={8}>
+                <Stepper.Step label="Robot" allowStepSelect={false} />
                 <Stepper.Step label="Auto" allowStepSelect={false} />
                 <Stepper.Step label="Teleop" allowStepSelect={false} />
-                <Stepper.Step label="Endgame" allowStepSelect={false} />
             </Stepper>
 
             <Divider my="sm" />

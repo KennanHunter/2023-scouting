@@ -17,14 +17,14 @@ export type PitState = {
     robotCanEngageAuto: boolean;
     robotCanEngageTeleop: boolean;
 
-    robotCanPlaceCone: boolean;
-    robotCanPlaceCube: boolean;
+    robotCanManipulateCone: boolean;
+    robotCanManipulateCube: boolean;
 
     autonomousCanExitCommunity: boolean;
 
-    autonomousGridPlaceTop: number;
-    autonomousGridPlaceMiddle: number;
-    autonomousGridPlaceBottom: number;
+    autonomousGridPlaceTop: boolean;
+    autonomousGridPlaceMiddle: boolean;
+    autonomousGridPlaceBottom: boolean;
 
     autonomousNumberOfPrograms: number;
 

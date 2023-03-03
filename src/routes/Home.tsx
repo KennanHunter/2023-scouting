@@ -14,7 +14,17 @@ export const Home: FC = () => {
                 }}
             >
                 <Button fullWidth p={"xs"} my={"sm"}>
-                    Create new scout entry
+                    Create new MATCH scout entry
+                </Button>
+            </Link>
+            <Link
+                to={"/pit/meta"}
+                style={{
+                    all: "inherit",
+                }}
+            >
+                <Button fullWidth p={"xs"} my={"sm"}>
+                    Create new PIT scout entry
                 </Button>
             </Link>
             <Link

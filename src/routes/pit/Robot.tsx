@@ -12,20 +12,38 @@ export const Robot: FC = () => {
         robotCanPickupFloor,
         robotCanPickupRamp,
         robotCanPickupShelf,
+        robotCanManipulateCone,
+        robotCanManipulateCube,
+        robotCanDockAuto,
+        robotCanDockTeleop,
+        robotCanEngageAuto,
+        robotCanEngageTeleop,
     } = useActivePit((state) => state);
 
     return (
         <Stack>
-            <Title align="center">Pit</Title>
+            <Title align="center">Robot Information</Title>
 
             <NumberInput
-                value={robotWeight}
+                value={robotLength}
+                onChange={(value) => set("robotLength")(value ?? 0)}
+                error={
+                    robotLength < 0 ? "Value cannot be less than 0!" : undefined
+                }
+                placeholder="Length"
+                label="Length"
+                size="lg"
+                my={4}
+            />
+
+            <NumberInput
+                value={robotWidth}
                 onChange={(value) => set("robotWeight")(value ?? 0)}
                 error={
-                    robotWeight < 0 ? "Value cannot be less than 0!" : undefined
+                    robotWidth < 0 ? "Value cannot be less than 0!" : undefined
                 }
-                placeholder="Weight"
-                label="Weight"
+                placeholder="Width"
+                label="Width"
                 size="lg"
                 my={4}
             />
@@ -43,80 +61,103 @@ export const Robot: FC = () => {
             />
 
             <NumberInput
-                value={robotLength}
-                onChange={(value) => set("robotLength")(value ?? 0)}
+                value={robotWeight}
+                onChange={(value) => set("robotWeight")(value ?? 0)}
                 error={
-                    robotLength < 0 ? "Value cannot be less than 0!" : undefined
+                    robotWeight < 0 ? "Value cannot be less than 0!" : undefined
                 }
-                placeholder="Substation 2 Low Pickups"
-                label="Substation 2 Low Pickups"
+                placeholder="Weight"
+                label="Weight"
                 size="lg"
                 my={4}
             />
 
-            <NumberInput
-                value={robotWidth}
-                onChange={(value) => set("robotWeight")(value ?? 0)}
-                error={
-                    robotWidth < 0 ? "Value cannot be less than 0!" : undefined
-                }
-                placeholder="Width"
-                label="Width"
+            <Text size="lg" mt={8}>What game pieces can you hold?</Text>
+            <Checkbox
+                label="Cone"
                 size="lg"
-                my={4}
+                my={0}
+                checked={robotCanManipulateCone}
+                onChange={(event) => {
+                    set("robotCanManipulateCone")(event.target.checked);
+                }}
             />
             <Checkbox
-                label="Pickup from Ramp"
+                label="Cube"
                 size="lg"
-                my={8}
+                my={0}
+                checked={robotCanManipulateCube}
+                onChange={(event) => {
+                    set("robotCanManipulateCone")(event.target.checked);
+                }}
+            />
+
+            <Text size="lg" mt={8}>Where do you get game pieces?</Text>
+            <Checkbox
+                label="Ramp"
+                size="lg"
+                my={0}
                 checked={robotCanPickupRamp}
                 onChange={(event) => {
                     set("robotCanPickupRamp")(event.target.checked);
                 }}
             />
             <Checkbox
-                label="Pickup from Shelf"
+                label="Shelf"
                 size="lg"
-                my={8}
+                my={0}
                 checked={robotCanPickupShelf}
                 onChange={(event) => {
                     set("robotCanPickupShelf")(event.target.checked);
                 }}
             />
             <Checkbox
-                label="Pickup from Floor"
+                label="Floor"
                 size="lg"
-                my={8}
+                my={0}
                 checked={robotCanPickupFloor}
                 onChange={(event) => {
                     set("robotCanPickupFloor")(event.target.checked);
                 }}
             />
+
+            <Text size="lg" mt={8}>Can you dock in:</Text>
             <Checkbox
-                label="Place to "
+                label="Auto"
                 size="lg"
-                my={8}
-                checked={robotCanPickupFloor}
+                my={0}
+                checked={robotCanDockAuto}
                 onChange={(event) => {
-                    set("robotCanPickupFloor")(event.target.checked);
+                    set("robotCanDockAuto")(event.target.checked);
                 }}
             />
             <Checkbox
-                label="Pickup from Floor"
+                label="Teleop"
                 size="lg"
-                my={8}
-                checked={robotCanPickupFloor}
+                my={0}
+                checked={robotCanDockTeleop}
                 onChange={(event) => {
-                    set("robotCanPickupFloor")(event.target.checked);
+                    set("robotCanDockTeleop")(event.target.checked);
+                }}
+            />
+
+            <Text size="lg" mt={8}>Can you engage in:</Text>
+            <Checkbox
+                label="Auto"
+                size="lg"
+                my={0}
+                checked={robotCanEngageAuto}
+                onChange={(event) => {
+                    set("robotCanEngageAuto")(event.target.checked);
                 }}
             />
             <Checkbox
-                label="Pickup from Floor"
+                label="Teleop"
                 size="lg"
-                my={8}
-                checked={robotCanPickupFloor}
+                my={0}
+                checked={robotCanEngageTeleop}
                 onChange={(event) => {
-                    set("robotCanPickupFloor")(event.target.checked);
+                    set("robotCanEngageTeleop")(event.target.checked);
                 }}
             />
         </Stack>
