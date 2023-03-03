@@ -11,10 +11,9 @@ export const Save: FC = () => {
 
     return (
         <Stack>
-            <Title>Save</Title>
-            <Button>Save</Button>
+            <Title align="center">Save</Title>
 
-            <Link to={"/save"} style={{ all: "unset" }}>
+            <Link to={"/entry/meta"} style={{ all: "unset" }}>
                 <Button
                     fullWidth
                     onClick={() => {
@@ -22,8 +21,23 @@ export const Save: FC = () => {
 
                         resetActiveMatch();
                     }}
+                    my={4}
                 >
-                    Save
+                    Save and Reset
+                </Button>
+            </Link>
+
+            <Link to={"/"} style={{ all: "unset" }}>
+                <Button
+                    fullWidth
+                    onClick={() => {
+                        pushToDB(saveActiveMatch());
+
+                        resetActiveMatch();
+                    }}
+                    my={4}
+                >
+                    Save and Go Home
                 </Button>
             </Link>
         </Stack>

@@ -17,14 +17,16 @@ export const Home: FC = () => {
                     Create new scout entry
                 </Button>
             </Link>
-            <Button
-                fullWidth
-                p={"xs"}
-                my={"sm"}
-                onClick={() => sendUnimplemented()}
+            <Link
+                to={"/database/viewdata"}
+                style={{
+                    all: "inherit",
+                }}
             >
-                View local data
-            </Button>
+                <Button fullWidth p={"xs"} my={"sm"}>
+                    View local data
+                </Button>
+            </Link>
         </Stack>
     );
 };

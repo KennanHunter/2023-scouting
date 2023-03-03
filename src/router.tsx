@@ -1,9 +1,13 @@
 import { createHashRouter, RouteObject } from "react-router-dom";
 import { Meta } from "./routes/entry/Meta";
 import { Save } from "./routes/entry/Save";
-import { Start } from "./routes/entry/Start";
+import { Auto } from "./routes/entry/Auto";
+import { Teleop } from "./routes/entry/Teleop";
+import { Endgame } from "./routes/entry/Endgame";
 import { EntryLayout } from "./routes/entry/_layout";
 import { Home } from "./routes/Home";
+import { ViewData } from "./routes/database/ViewData";
+import { DatabaseLayout } from "./routes/database/_layout";
 
 export const routeConfig = [
     {
@@ -16,10 +20,25 @@ export const routeConfig = [
         children: [
             { path: "meta", element: <Meta /> },
             {
-                path: "start",
-                element: <Start />,
+                path: "auto",
+                element: <Auto />,
+            },
+            {
+                path: "teleop",
+                element: <Teleop />,
+            },
+            {
+                path: "endgame",
+                element: <Endgame />,
             },
             { path: "save", element: <Save /> },
+        ],
+    },
+    {
+        path: "/database/",
+        element: <DatabaseLayout />,
+        children: [
+            { path: "viewdata", element: <ViewData /> },
         ],
     },
 ] satisfies RouteObject[];

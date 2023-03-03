@@ -25,7 +25,7 @@ const App: FC = () => {
             <Box
                 sx={(theme) => ({
                     display: "grid",
-                    gridTemplateColumns: "auto min(700px, 90vw) auto",
+                    gridTemplateColumns: "auto auto auto",
                 })}
             >
                 <Paper
