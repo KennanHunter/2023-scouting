@@ -1,9 +1,9 @@
-import { Checkbox, NumberInput, Select, Stack, Title } from "@mantine/core";
+import { NumberInput, Select, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { scouterOptions } from "../../data/scouters";
 import { useActivePit } from "../../stores/pit/activePit";
 
-export const MetaPit: FC = () => {
+export const Meta: FC = () => {
     const set = useActivePit((state) => state.set);
     const { scouter, teamNumber } = useActivePit((state) => state);
 

@@ -28,12 +28,12 @@ export const defaultActivePitState: PitState = {
     robotCanEngageAuto: false,
     robotCanEngageTeleop: false,
 
-    robotCanPlaceCone: false,
-    robotCanPlaceCube: false,
+    robotCanManipulateCone: false,
+    robotCanManipulateCube: false,
 
-    autoGridPlaceTop: 0,
-    autoGridPlaceMiddle: 0,
-    autoGridPlaceBottom: 0,
+    autoGridPlaceTop: false,
+    autoGridPlaceMiddle: false,
+    autoGridPlaceBottom: false,
 
     autonomousNumberOfPrograms: 0,
 
