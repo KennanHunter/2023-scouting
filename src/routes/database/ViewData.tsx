@@ -2,7 +2,7 @@ import { Button, Flex, ScrollArea, Stack, Table, Text } from "@mantine/core";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { CSV } from "../../data/formats/CSV";
-import { useMatchDB } from "../../stores/matchDB";
+import { useMatchDB } from "../../stores/match/matchDB";
 
 export const ViewData: FC = () => {
     const matchDB = useMatchDB((state) => state.db);

@@ -9,16 +9,24 @@ type TabButtonsParams = {
 
 export const TabButtons: FC<TabButtonsParams> = ({
     nextPath,
-    previousPath
+    previousPath,
 }) => {
     return (
         <Group position="center" grow>
-            { previousPath ? <Link to={previousPath ?? ""} style={{ all: "unset" }}>
-                <Button mx={4}>Previous</Button>
-            </Link> : <></> }
-            { nextPath ? <Link to={nextPath ?? ""} style={{ all: "unset" }}>
-                <Button mx={4}>Next</Button>
-            </Link> : <></> }
-        </Group >
+            {previousPath ? (
+                <Link to={previousPath ?? ""} style={{ all: "unset" }}>
+                    <Button mx={4}>Previous</Button>
+                </Link>
+            ) : (
+                <></>
+            )}
+            {nextPath ? (
+                <Link to={nextPath ?? ""} style={{ all: "unset" }}>
+                    <Button mx={4}>Next</Button>
+                </Link>
+            ) : (
+                <></>
+            )}
+        </Group>
     );
 };

@@ -1,0 +1,70 @@
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { PitState } from "./pitTypes";
+
+type ActivePitActions = {
+    save: () => PitState;
+    reset: () => void;
+
+    set: <T extends keyof PitState>(setKey: T) => (value: PitState[T]) => void;
+};
+
+export const defaultActivePitState: PitState = {
+    scouter: "",
+    teamNumber: 0,
+
+    robotHeight: 0,
+    robotLength: 0,
+    robotWidth: 0,
+    robotWeight: 0,
+
+    robotCanPickupRamp: false,
+    robotCanPickupShelf: false,
+    robotCanPickupFloor: false,
+
+    robotCanDockAuto: false,
+    robotCanDockTeleop: false,
+
+    robotCanEngageAuto: false,
+    robotCanEngageTeleop: false,
+
+    robotCanPlaceCone: false,
+    robotCanPlaceCube: false,
+
+    autoGridPlaceTop: false,
+    autoGridPlaceMiddle: false,
+    autoGridPlaceBottom: false,
+
+    autonomousNumberOfPrograms: 0,
+
+    teleopGridPlaceTop: false,
+    teleopGridPlaceMiddle: false,
+    teleopGridPlaceBottom: false,
+
+    teleopPlaysDefense: false,
+
+    teleopRunnerRobot: false,
+} as any;
+
+export const useActivePit = create<PitState & ActivePitActions>()(
+    persist(
+        (set, get) => ({
+            ...defaultActivePitState,
+
+            save: () => {
+                const state = Object.entries(get()).filter(
+                    ([key, value]) => typeof value !== "function"
+                );
+
+                return Object.fromEntries(state) as PitState;
+            },
+
+            reset: () => set(defaultActivePitState),
+
+            set: (setKey) => (value) => set({ [setKey]: value }),
+        }),
+        {
+            name: "active-pit-persistence",
+        }
+    )
+);

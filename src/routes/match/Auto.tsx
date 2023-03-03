@@ -2,7 +2,7 @@ import { Checkbox, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { FieldInput } from "../../components/FieldInput";
 import { GridInput } from "../../components/GridInput";
-import { useActiveMatch } from "../../stores/activeMatch";
+import { useActiveMatch } from "../../stores/match/activeMatch";
 
 export const Auto: FC = () => {
     const set = useActiveMatch((state) => state.set);

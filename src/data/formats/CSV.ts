@@ -1,4 +1,4 @@
-import { MatchState } from "../../stores/matchTypes";
+import { MatchState } from "../../stores/match/matchTypes";
 
 const escapeString = (value: string): string => value.replace('"', '\\"');
 
@@ -7,10 +7,11 @@ export const CSV = {
         // a hacky csv generator to conform to Mady's data structure
         const table = Object.values(db).map((row) =>
             Object.entries(row)
-                .map(([key, value]): string => {
-                    if (typeof value === "string") return value;
-                    if (typeof value === "number") return JSON.stringify(value);
-                    if (typeof value === "object") {
+                .map(([key, val]): string => {
+                    if (typeof val === "boolean") return JSON.stringify(val);
+                    if (typeof val === "string") return val;
+                    if (typeof val === "number") return JSON.stringify(val);
+                    if (typeof val === "object") {
                     }
 
                     return "";
@@ -23,4 +24,6 @@ export const CSV = {
     },
     toBlob: (db: MatchState[]): Blob =>
         new Blob([CSV.toString(db)], { type: "text/csv" }),
+    toMadyString: (db: MatchState[]): string =>
+        db.map((row) => [row.scouter].join(",")).join("\n"),
 };

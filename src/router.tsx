@@ -1,13 +1,15 @@
 import { createHashRouter, RouteObject } from "react-router-dom";
-import { Meta } from "./routes/entry/Meta";
-import { Save } from "./routes/entry/Save";
-import { Auto } from "./routes/entry/Auto";
-import { Teleop } from "./routes/entry/Teleop";
-import { Endgame } from "./routes/entry/Endgame";
-import { EntryLayout } from "./routes/entry/_layout";
+import { Meta } from "./routes/match/Meta";
+import { Save } from "./routes/match/Save";
+import { Auto } from "./routes/match/Auto";
+import { Teleop } from "./routes/match/Teleop";
+import { Endgame } from "./routes/match/Endgame";
+import { MatchLayout } from "./routes/match/_layout";
 import { Home } from "./routes/Home";
 import { ViewData } from "./routes/database/ViewData";
 import { DatabaseLayout } from "./routes/database/_layout";
+import { PitLayout } from "./routes/pit/_layout";
+import { Robot } from "./routes/pit/Robot";
 
 export const routeConfig = [
     {
@@ -15,8 +17,8 @@ export const routeConfig = [
         element: <Home />,
     } as const,
     {
-        path: "/entry/",
-        element: <EntryLayout />,
+        path: "/match/",
+        element: <MatchLayout />,
         children: [
             { path: "meta", element: <Meta /> },
             {
@@ -35,11 +37,18 @@ export const routeConfig = [
         ],
     },
     {
+        path: "/pit/",
+        element: <PitLayout />,
+        children: [
+            { path: "meta", element: <Meta /> },
+            { path: "robot", element: <Robot /> },
+        ],
+    },
+
+    {
         path: "/database/",
         element: <DatabaseLayout />,
-        children: [
-            { path: "viewdata", element: <ViewData /> },
-        ],
+        children: [{ path: "viewdata", element: <ViewData /> }],
     },
 ] satisfies RouteObject[];
 export const router = createHashRouter(routeConfig);

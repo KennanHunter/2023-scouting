@@ -1,7 +1,7 @@
 import { NumberInput, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { GridInput } from "../../components/GridInput";
-import { useActiveMatch } from "../../stores/activeMatch";
+import { useActiveMatch } from "../../stores/match/activeMatch";
 
 export const Teleop: FC = () => {
     const set = useActiveMatch((state) => state.set);

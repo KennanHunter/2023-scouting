@@ -4,7 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { TabButtons } from "../../components/TabButtons";
 import { routeConfig } from "../../router";
 
-export const EntryLayout: FC = () => {
+export const MatchLayout: FC = () => {
     const { pathname } = useLocation();
 
     const active =

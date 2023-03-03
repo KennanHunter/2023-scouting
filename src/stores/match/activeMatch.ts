@@ -1,15 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { FieldPoint } from "../components/FieldInput";
-import { GridData } from "../components/GridInput";
-import { MatchState } from "./matchTypes";
-
-export enum ParkState {
-    DockEngage = "DockEngage",
-    Dock = "Dock",
-    Park = "Park",
-    None = "None",
-}
+import { MatchLevel, MatchState, ParkState } from "./matchTypes";
 
 type ActiveMatchActions = {
     save: () => MatchState;
@@ -22,6 +13,11 @@ type ActiveMatchActions = {
 
 const defaultActiveMatchState: MatchState = {
     scouter: "",
+    matchLevel: MatchLevel().Enum.Qualifications,
+    matchNumber: 0,
+    teamNumber: 0,
+
+    teamNoShow: false,
 
     autonomousStartingLocation: undefined,
     autonomousLeftCommunityZone: false,
@@ -35,11 +31,12 @@ const defaultActiveMatchState: MatchState = {
     teleopSubstation2HighPickups: 0,
     teleopGridData: undefined,
 
-    endgameParking: ParkState.None,
+    endgameParking: ParkState().enum.None,
     endgameTippedChargeStation: false,
     endgameRobotsDocked: 0,
+    endgameLinksCompleted: 0,
 
-    mechanicalFailures: "",
+    diedOnField: false,
     comments: "",
 };
 

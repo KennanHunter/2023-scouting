@@ -108,7 +108,11 @@ export const GridInput: FC<GridInputParams> = ({ data, onChange }) => {
                             <ActionIcon
                                 variant="filled"
                                 size="md"
-                                color={(Math.floor(index / 3) % 2 == 0) ? "blue" : "gray"}
+                                color={
+                                    Math.floor(index / 3) % 2 == 0
+                                        ? "blue"
+                                        : "gray"
+                                }
                                 sx={{
                                     width: "100%",
                                 }}
@@ -125,7 +129,11 @@ export const GridInput: FC<GridInputParams> = ({ data, onChange }) => {
                             <ActionIcon
                                 variant="filled"
                                 size="md"
-                                color={(Math.floor(index / 3) % 2 == 0) ? "blue" : "gray"}
+                                color={
+                                    Math.floor(index / 3) % 2 == 0
+                                        ? "blue"
+                                        : "gray"
+                                }
                                 sx={{
                                     width: "100%",
                                 }}
@@ -142,7 +150,7 @@ export const GridInput: FC<GridInputParams> = ({ data, onChange }) => {
                             <ActionIcon
                                 variant="filled"
                                 size="md"
-                                color={(index % 2 == 0) ? "violet" : "orange"}
+                                color={index % 2 == 0 ? "violet" : "orange"}
                                 sx={{
                                     width: "100%",
                                 }}

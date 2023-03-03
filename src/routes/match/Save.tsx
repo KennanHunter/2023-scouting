@@ -1,8 +1,8 @@
 import { Button, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { useActiveMatch } from "../../stores/activeMatch";
-import { useMatchDB } from "../../stores/matchDB";
+import { useActiveMatch } from "../../stores/match/activeMatch";
+import { useMatchDB } from "../../stores/match/matchDB";
 
 export const Save: FC = () => {
     const pushToDB = useMatchDB((state) => state.push);
@@ -13,7 +13,7 @@ export const Save: FC = () => {
         <Stack>
             <Title align="center">Save</Title>
 
-            <Link to={"/entry/meta"} style={{ all: "unset" }}>
+            <Link to={"/match/meta"} style={{ all: "unset" }}>
                 <Button
                     fullWidth
                     onClick={() => {
