@@ -4,7 +4,13 @@ import { useActivePit } from "../../stores/pit/activePit";
 
 export const Meta: FC = () => {
     const set = useActivePit((state) => state.set);
-    const { autonomousCanExitCommunity, autonomousGridPlaceBottom, autonomousGridPlaceMiddle, autonomousGridPlaceTop, autonomousNumberOfPrograms } = useActivePit((state) => state);
+    const {
+        autonomousCanExitCommunity,
+        autonomousGridPlaceBottom,
+        autonomousGridPlaceMiddle,
+        autonomousGridPlaceTop,
+        autonomousNumberOfPrograms,
+    } = useActivePit((state) => state);
 
     return (
         <Stack>
@@ -20,7 +26,9 @@ export const Meta: FC = () => {
                 }}
             />
 
-            <Text size="lg" mt={8}>Where do you place game pieces?</Text>
+            <Text size="lg" mt={8}>
+                Where do you place game pieces?
+            </Text>
             <Checkbox
                 label="Top"
                 size="lg"
@@ -51,7 +59,9 @@ export const Meta: FC = () => {
 
             <NumberInput
                 value={autonomousNumberOfPrograms}
-                onChange={(value) => set("autonomousNumberOfPrograms")(value ?? 0)}
+                onChange={(value) =>
+                    set("autonomousNumberOfPrograms")(value ?? 0)
+                }
                 error={
                     autonomousNumberOfPrograms < 0
                         ? "Value cannot be less than 0!"

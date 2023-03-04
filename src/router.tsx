@@ -58,4 +58,5 @@ export const routeConfig = [
         children: [{ path: "viewdata", element: <ViewData /> }],
     },
 ] satisfies RouteObject[];
+
 export const router = createHashRouter(routeConfig);

@@ -1,17 +1,24 @@
-import { Checkbox, Stack, Title, Text } from "@mantine/core";
+import { Checkbox, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
-import { scouterOptions } from "../../data/scouters";
 import { useActivePit } from "../../stores/pit/activePit";
 
 export const Meta: FC = () => {
     const set = useActivePit((state) => state.set);
-    const { teleopGridPlaceTop, teleopGridPlaceMiddle, teleopGridPlaceBottom, teleopPlaysDefense, teleopRunnerRobot } = useActivePit((state) => state);
+    const {
+        teleopGridPlaceTop,
+        teleopGridPlaceMiddle,
+        teleopGridPlaceBottom,
+        teleopPlaysDefense,
+        teleopRunnerRobot,
+    } = useActivePit((state) => state);
 
     return (
         <Stack>
             <Title align="center">Teleop Abilities</Title>
 
-            <Text size="lg" mt={8}>Where do you place game pieces?</Text>
+            <Text size="lg" mt={8}>
+                Where do you place game pieces?
+            </Text>
             <Checkbox
                 label="Top"
                 size="lg"
@@ -47,7 +54,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("teleopPlaysDefense")(event.target.checked);
                 }}
-            />  
+            />
             <Checkbox
                 label="Do you scavange/run pieces?"
                 size="lg"
@@ -56,7 +63,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("teleopRunnerRobot")(event.target.checked);
                 }}
-            />               
+            />
         </Stack>
     );
 };

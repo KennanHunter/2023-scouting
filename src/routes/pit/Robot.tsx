@@ -72,7 +72,9 @@ export const Robot: FC = () => {
                 my={4}
             />
 
-            <Text size="lg" mt={8}>What game pieces can you hold?</Text>
+            <Text size="lg" mt={8}>
+                What game pieces can you hold?
+            </Text>
             <Checkbox
                 label="Cone"
                 size="lg"
@@ -88,11 +90,13 @@ export const Robot: FC = () => {
                 my={4}
                 checked={robotCanManipulateCube}
                 onChange={(event) => {
-                    set("robotCanManipulateCone")(event.target.checked);
+                    set("robotCanManipulateCube")(event.target.checked);
                 }}
             />
 
-            <Text size="lg" mt={8}>Where do you get game pieces?</Text>
+            <Text size="lg" mt={8}>
+                Where do you get game pieces?
+            </Text>
             <Checkbox
                 label="Ramp"
                 size="lg"
@@ -121,7 +125,9 @@ export const Robot: FC = () => {
                 }}
             />
 
-            <Text size="lg" mt={8}>Can you dock in:</Text>
+            <Text size="lg" mt={8}>
+                Can you dock in:
+            </Text>
             <Checkbox
                 label="Auto"
                 size="lg"
@@ -141,7 +147,9 @@ export const Robot: FC = () => {
                 }}
             />
 
-            <Text size="lg" mt={8}>Can you engage in:</Text>
+            <Text size="lg" mt={8}>
+                Can you engage in:
+            </Text>
             <Checkbox
                 label="Auto"
                 size="lg"

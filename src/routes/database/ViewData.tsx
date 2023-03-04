@@ -1,7 +1,15 @@
-import { Button, Divider, Flex, ScrollArea, Stack, Table, Text } from "@mantine/core";
+import {
+    Button,
+    Divider,
+    Flex,
+    ScrollArea,
+    Stack,
+    Table,
+    Text,
+} from "@mantine/core";
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { CSV } from "../../data/formats/CSV";
+import { MadyCSV } from "../../data/formats/MadyCSV";
 import { useMatchDB } from "../../stores/match/matchDB";
 import { usePitDB } from "../../stores/pit/pitDB";
 
@@ -13,7 +21,7 @@ export const ViewData: FC = () => {
     const clearPitDB = usePitDB((state) => state.clear);
 
     const downloadMatchFile = () => {
-        const fileBlob = CSV.toBlob(matchDB);
+        const fileBlob = MadyCSV.match.blobify(matchDB);
 
         // im so god damn tired https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react
         const element = document.createElement("a");
@@ -29,7 +37,7 @@ export const ViewData: FC = () => {
     };
 
     const downloadPitFile = () => {
-        const fileBlob = CSV.toBlob(matchDB); // TODO: REPLACE WITH PIT CSV
+        const fileBlob = MadyCSV.pit.blobify(pitDB); // TODO: REPLACE WITH PIT CSV
 
         // im so god damn tired https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react
         const element = document.createElement("a");
@@ -59,13 +67,21 @@ export const ViewData: FC = () => {
 
             <Divider my="sm" />
 
-            {(matchDB.length) ? (
+            {matchDB.length ? (
                 <>
                     <Flex gap={"sm"} w={"100%"}>
-                        <Button m={4} onClick={clearMatchDB} style={{ flexGrow: 1 }}>
+                        <Button
+                            m={4}
+                            onClick={clearMatchDB}
+                            style={{ flexGrow: 1 }}
+                        >
                             Clear
                         </Button>
-                        <Button m={4} onClick={downloadMatchFile} style={{ flexGrow: 1 }}>
+                        <Button
+                            m={4}
+                            onClick={downloadMatchFile}
+                            style={{ flexGrow: 1 }}
+                        >
                             Download
                         </Button>
                     </Flex>
@@ -81,27 +97,40 @@ export const ViewData: FC = () => {
                             <tbody>
                                 {matchDB.map((match, index) => (
                                     <tr key={`match#${index}`}>
-                                        {Object.values(match).map((value, index) => (
-                                            <td key={index}>{JSON.stringify(value)}</td>
-                                        ))}
+                                        {Object.values(match).map(
+                                            (value, index) => (
+                                                <td key={index}>
+                                                    {JSON.stringify(value)}
+                                                </td>
+                                            )
+                                        )}
                                     </tr>
                                 ))}
                             </tbody>
                         </Table>
                     </ScrollArea>
-                </>) : (
-                    <Text size="lg">No match data to display</Text>
+                </>
+            ) : (
+                <Text size="lg">No match data to display</Text>
             )}
 
             <Divider my="sm" />
 
-            {(pitDB.length) ? (
+            {pitDB.length ? (
                 <>
                     <Flex gap={"sm"} w={"100%"}>
-                        <Button m={4} onClick={clearPitDB} style={{ flexGrow: 1 }}>
+                        <Button
+                            m={4}
+                            onClick={clearPitDB}
+                            style={{ flexGrow: 1 }}
+                        >
                             Clear
                         </Button>
-                        <Button m={4} onClick={downloadPitFile} style={{ flexGrow: 1 }}>
+                        <Button
+                            m={4}
+                            onClick={downloadPitFile}
+                            style={{ flexGrow: 1 }}
+                        >
                             Download
                         </Button>
                     </Flex>
@@ -117,16 +146,21 @@ export const ViewData: FC = () => {
                             <tbody>
                                 {pitDB.map((pit, index) => (
                                     <tr key={`match#${index}`}>
-                                        {Object.values(pit).map((value, index) => (
-                                            <td key={index}>{JSON.stringify(value)}</td>
-                                        ))}
+                                        {Object.values(pit).map(
+                                            (value, index) => (
+                                                <td key={index}>
+                                                    {JSON.stringify(value)}
+                                                </td>
+                                            )
+                                        )}
                                     </tr>
                                 ))}
                             </tbody>
                         </Table>
                     </ScrollArea>
-                </>) : (
-                    <Text size="lg">No pit data to display</Text>
+                </>
+            ) : (
+                <Text size="lg">No pit data to display</Text>
             )}
         </Stack>
     );

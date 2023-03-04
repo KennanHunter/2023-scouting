@@ -1,7 +1,6 @@
 import { Button, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { sendUnimplemented } from "../util/unimplemented";
 
 export const Home: FC = () => {
     return (
