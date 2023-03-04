@@ -42,6 +42,7 @@ export const Auto: FC = () => {
                 onChange={(data) => set("autonomousGridData")(data)}
                 data={autonomousGridData}
             />
+
             <Checkbox
                 label="Docked to Charge Station"
                 size="lg"

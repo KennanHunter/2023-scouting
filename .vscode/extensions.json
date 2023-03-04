@@ -2,6 +2,7 @@
     "recommendations": [
         "aaron-bond.better-comments",
         "streetsidesoftware.code-spell-checker",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "orta.vscode-twoslash-queries"
     ]
 }

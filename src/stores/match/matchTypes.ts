@@ -19,7 +19,7 @@ export type MatchState = {
 
     autonomousStartingLocation?: FieldPoint;
     autonomousLeftCommunityZone: boolean;
-    autonomousGridData?: GridData;
+    autonomousGridData: GridData;
     autonomousDockedToChargeStation: boolean;
     autonomousChargeStationEngaged: boolean;
 

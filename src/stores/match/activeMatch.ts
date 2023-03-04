@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { initGridData } from "../../components/GridInput";
 import { MatchLevel, MatchState, ParkState } from "./matchTypes";
 
 type ActiveMatchActions = {
@@ -21,7 +22,7 @@ const defaultActiveMatchState: MatchState = {
 
     autonomousStartingLocation: undefined,
     autonomousLeftCommunityZone: false,
-    autonomousGridData: undefined,
+    autonomousGridData: initGridData(),
     autonomousDockedToChargeStation: false,
     autonomousChargeStationEngaged: false,
 
@@ -29,7 +30,7 @@ const defaultActiveMatchState: MatchState = {
     teleopSubstation1Pickups: 0,
     teleopSubstation2LowPickups: 0,
     teleopSubstation2HighPickups: 0,
-    teleopGridData: undefined,
+    teleopGridData: initGridData(),
 
     endgameParking: ParkState().enum.None,
     endgameTippedChargeStation: false,

@@ -76,7 +76,7 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Cone"
                 size="lg"
-                my={0}
+                my={4}
                 checked={robotCanManipulateCone}
                 onChange={(event) => {
                     set("robotCanManipulateCone")(event.target.checked);
@@ -85,7 +85,7 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Cube"
                 size="lg"
-                my={0}
+                my={4}
                 checked={robotCanManipulateCube}
                 onChange={(event) => {
                     set("robotCanManipulateCone")(event.target.checked);

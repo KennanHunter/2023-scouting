@@ -24,6 +24,54 @@ export const CSV = {
     },
     toBlob: (db: MatchState[]): Blob =>
         new Blob([CSV.toString(db)], { type: "text/csv" }),
-    toMadyString: (db: MatchState[]): string =>
-        db.map((row) => [row.scouter].join(",")).join("\n"),
+    toMadyString: (db: MatchState[]): string => {
+        // @cspell:disable
+        const header: string = [
+            "EventKey",
+            "MatchLevel",
+            "MatchNumber",
+            "Team",
+            "ScoutName",
+            "NoShow",
+            "LeftCommunity",
+            "A-TopCones",
+            "A-TopCubes",
+            "A-MiddleCones",
+            "A-MiddleCubes",
+            "A-BottomCones",
+            "A-BottomCubes",
+            "ChargingStation",
+            "T-TopCones",
+            "T-TopCubes",
+            "T-MiddleCones",
+            "T-MiddleCubes",
+            "T-BottomCones",
+            "T-BottomCubes",
+            "PickupLocations",
+            "DiedonField",
+            "RunnerRobot",
+            "DefenseRating",
+            "ChargingStation",
+            "RobotsDocked",
+            "Comments",
+            "LinksCompleted",
+            "CoopertitionBonus",
+            "ScoutedTime",
+        ].join(",");
+        // @cspell:enable
+
+        return db
+            .splice(1)
+            .map((row) =>
+                [
+                    "",
+                    row.matchLevel,
+                    row.scouter,
+                    row.teamNoShow,
+                    row.teamNumber,
+                    row.autonomousLeftCommunityZone,
+                ].join(",")
+            )
+            .join("\n");
+    },
 };
