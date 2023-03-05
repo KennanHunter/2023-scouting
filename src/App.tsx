@@ -1,13 +1,24 @@
-import { Box, Flex, Paper, Title } from "@mantine/core";
+import {
+    ActionIcon,
+    Box,
+    Flex,
+    Paper,
+    Title,
+    useMantineColorScheme,
+} from "@mantine/core";
+import { IconMoonStars, IconSun } from "@tabler/icons-react";
 import { FC } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 
 const App: FC = () => {
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+    const dark = colorScheme === "dark";
+
     return (
         <Box
             sx={(theme) => ({
-                width: "100vw",
+                width: "100%",
                 minHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
@@ -17,11 +28,38 @@ const App: FC = () => {
                         : theme.colors.gray[2],
             })}
         >
-            <Box h={60} bg={"white"}>
-                <Flex align={"center"} h={"100%"} px={"sm"}>
+            <Paper
+                shadow={"md"}
+                h={60}
+                sx={(theme) => ({
+                    backgroundColor:
+                        theme.colorScheme === "dark"
+                            ? theme.colors.dark[7]
+                            : "white",
+                })}
+            >
+                <Flex
+                    align={"center"}
+                    h={"100%"}
+                    justify={"space-between"}
+                    px={"md"}
+                >
                     <Title>3494 Scouting App</Title>
+                    <ActionIcon
+                        variant="outline"
+                        color={dark ? "yellow" : "blue"}
+                        onClick={() => toggleColorScheme()}
+                        title="Toggle color scheme"
+                        size={"xl"}
+                    >
+                        {dark ? (
+                            <IconSun size="1.7rem" />
+                        ) : (
+                            <IconMoonStars size="1.7rem" />
+                        )}
+                    </ActionIcon>
                 </Flex>
-            </Box>
+            </Paper>
             <Box
                 sx={(theme) => ({
                     display: "grid",
