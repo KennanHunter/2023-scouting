@@ -27,7 +27,7 @@ export type MatchState = {
     teleopSubstation1Pickups: number;
     teleopSubstation2LowPickups: number;
     teleopSubstation2HighPickups: number;
-    teleopGridData?: GridData;
+    teleopGridData: GridData;
 
     endgameParking: ParkState;
     endgameTippedChargeStation: boolean;
