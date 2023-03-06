@@ -187,8 +187,8 @@ export const Robot: FC = () => {
                 label="Teleop"
                 size="lg"
                 my={{
-                    lg: 0,
-                    xs: 4
+                    sm: 4,
+                    md: 0
                 }}
                 checked={robotCanEngageTeleop}
                 onChange={(event) => {

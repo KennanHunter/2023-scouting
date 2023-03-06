@@ -4,15 +4,17 @@ import {
     Flex,
     Paper,
     Title,
-    useMantineColorScheme,
+    useMantineColorScheme
 } from "@mantine/core";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
 import { FC } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
+import { useIsMobile } from "./util/useIsMobile";
 
 const App: FC = () => {
     const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+    const isMobile = useIsMobile();
     const dark = colorScheme === "dark";
 
     return (
@@ -44,7 +46,9 @@ const App: FC = () => {
                     justify={"space-between"}
                     px={"md"}
                 >
-                    <Title>3494 Scouting App</Title>
+                    <Title>
+                        {isMobile ? "3494 Scouting" : "3494 Scouting App"}
+                    </Title>
                     <ActionIcon
                         variant="outline"
                         color={dark ? "yellow" : "blue"}
