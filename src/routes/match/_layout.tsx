@@ -5,12 +5,12 @@ import { FC, useMemo } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { TabButtons } from "../../components/TabButtons";
 import { routeConfig } from "../../router";
-import { useMatchDB } from "../../stores/match/matchDB";
+import { useActiveMatch } from "../../stores/match/activeMatch";
 
 export const MatchLayout: FC = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const clearMatchDB = useMatchDB((state) => state.clear);
+    const clearActiveMatch = useActiveMatch((state) => state.clear);
 
     const active =
         useMemo(
@@ -53,7 +53,7 @@ export const MatchLayout: FC = () => {
 
             <Divider my="sm" />
 
-            <TabButtons previousPath={previousPath} nextPath={nextPath}>
+            <TabButtons previousPath={previousPath} nextPath={nextPath} enablePrevious={true} enableNext={true}>
                 <Tooltip label={"Clear all data and Quit"}>
                     <Button
                         leftIcon={<IconTrash />}
@@ -68,7 +68,7 @@ export const MatchLayout: FC = () => {
                                 confirmProps: { color: "red" },
 
                                 onConfirm: () => {
-                                    clearMatchDB();
+                                    clearActiveMatch();
                                     navigate("/");
                                 },
                             });

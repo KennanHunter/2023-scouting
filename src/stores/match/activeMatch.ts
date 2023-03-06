@@ -5,7 +5,7 @@ import { MatchLevel, MatchState, ParkState } from "./matchTypes";
 
 type ActiveMatchActions = {
     save: () => MatchState;
-    reset: () => void;
+    clear: () => void;
 
     set: <T extends keyof MatchState>(
         setKey: T
@@ -54,9 +54,7 @@ export const useActiveMatch = create<MatchState & ActiveMatchActions>()(
                 return Object.fromEntries(state) as MatchState;
             },
 
-            reset: () => {
-                set(defaultActiveMatchState);
-            },
+            clear: () => set(defaultActiveMatchState),
 
             set: (setKey) => (value) => set({ [setKey]: value }),
         }),

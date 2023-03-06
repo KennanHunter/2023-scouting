@@ -7,7 +7,7 @@ import { useMatchDB } from "../../stores/match/matchDB";
 export const Save: FC = () => {
     const pushToDB = useMatchDB((state) => state.push);
     const saveActiveMatch = useActiveMatch((state) => state.save);
-    const resetActiveMatch = useActiveMatch((state) => state.reset);
+    const resetActiveMatch = useActiveMatch((state) => state.clear);
 
     return (
         <Stack>

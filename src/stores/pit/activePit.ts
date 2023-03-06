@@ -4,7 +4,7 @@ import { PitState } from "./pitTypes";
 
 type ActivePitActions = {
     save: () => PitState;
-    reset: () => void;
+    clear: () => void;
 
     set: <T extends keyof PitState>(setKey: T) => (value: PitState[T]) => void;
 };
@@ -59,7 +59,7 @@ export const useActivePit = create<PitState & ActivePitActions>()(
                 return Object.fromEntries(state) as PitState;
             },
 
-            reset: () => set(defaultActivePitState),
+            clear: () => set(defaultActivePitState),
 
             set: (setKey) => (value) => set({ [setKey]: value }),
         }),

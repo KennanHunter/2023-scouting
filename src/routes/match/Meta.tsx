@@ -21,6 +21,7 @@ export const Meta: FC = () => {
                 value={scouter}
                 onChange={set("scouter")}
                 my={4}
+                error={scouter ? undefined : "You must select your name"}
             />
 
             <Select

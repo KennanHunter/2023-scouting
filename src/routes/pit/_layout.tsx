@@ -5,12 +5,12 @@ import { FC, useMemo } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { TabButtons } from "../../components/TabButtons";
 import { routeConfig } from "../../router";
-import { usePitDB } from "../../stores/pit/pitDB";
+import { useActivePit } from "../../stores/pit/activePit";
 
 export const PitLayout: FC = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const clearPitDB = usePitDB((state) => state.clear);
+    const clearActivePit = useActivePit((state) => state.clear);
 
     const active =
         useMemo(
@@ -53,7 +53,12 @@ export const PitLayout: FC = () => {
 
             <Divider my="sm" />
 
-            <TabButtons previousPath={previousPath} nextPath={nextPath}>
+            <TabButtons
+                previousPath={previousPath}
+                nextPath={nextPath}
+                enablePrevious={true}
+                enableNext={true}
+            >
                 <Tooltip label={"Clear all data and Quit"}>
                     <Button
                         leftIcon={<IconTrash />}
@@ -68,7 +73,7 @@ export const PitLayout: FC = () => {
                                 confirmProps: { color: "red" },
 
                                 onConfirm: () => {
-                                    clearPitDB();
+                                    clearActivePit();
                                     navigate("/");
                                 },
                             });

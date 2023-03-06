@@ -7,7 +7,7 @@ import { useActivePit } from "../../stores/pit/activePit";
 export const Save: FC = () => {
     const pushToDB = usePitDB((state) => state.push);
     const saveActivePit = useActivePit((state) => state.save);
-    const resetActivePit = useActivePit((state) => state.reset);
+    const resetActivePit = useActivePit((state) => state.clear);
 
     return (
         <Stack>
