@@ -1,11 +1,16 @@
-import { Divider, Stepper } from "@mantine/core";
+import { Button, Divider, Stepper, Tooltip } from "@mantine/core";
+import { openConfirmModal } from "@mantine/modals";
+import { IconTrash } from "@tabler/icons-react";
 import { FC, useMemo } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { TabButtons } from "../../components/TabButtons";
 import { routeConfig } from "../../router";
+import { usePitDB } from "../../stores/pit/pitDB";
 
 export const PitLayout: FC = () => {
     const { pathname } = useLocation();
+    const navigate = useNavigate();
+    const clearPitDB = usePitDB((state) => state.clear);
 
     const active =
         useMemo(
@@ -17,7 +22,7 @@ export const PitLayout: FC = () => {
             [pathname]
         ) ?? 0;
 
-    const [previousPath, nextPath] = (() => {
+    const [previousPath, nextPath] = useMemo(() => {
         let returnValue: [string | undefined, string | undefined] = [
             undefined,
             undefined,
@@ -32,7 +37,7 @@ export const PitLayout: FC = () => {
             returnValue[1] = children[active + 1].path;
 
         return returnValue;
-    })();
+    }, [routeConfig, active]);
 
     return (
         <div>
@@ -48,7 +53,31 @@ export const PitLayout: FC = () => {
 
             <Divider my="sm" />
 
-            <TabButtons previousPath={previousPath} nextPath={nextPath} />
+            <TabButtons previousPath={previousPath} nextPath={nextPath}>
+                <Tooltip label={"Clear all data and Quit"}>
+                    <Button
+                        leftIcon={<IconTrash />}
+                        onClick={() => {
+                            openConfirmModal({
+                                title: "Confirm",
+                                children: "This action will delete all data",
+                                labels: {
+                                    confirm: "Confirm",
+                                    cancel: "Cancel",
+                                },
+                                confirmProps: { color: "red" },
+
+                                onConfirm: () => {
+                                    clearPitDB();
+                                    navigate("/");
+                                },
+                            });
+                        }}
+                    >
+                        Clear
+                    </Button>
+                </Tooltip>
+            </TabButtons>
         </div>
     );
 };

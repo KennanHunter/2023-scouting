@@ -1,5 +1,5 @@
 import { Button, Group } from "@mantine/core";
-import { FC } from "react";
+import { Children, FC, PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
 
 type TabButtonsParams = {
@@ -7,9 +7,10 @@ type TabButtonsParams = {
     previousPath?: string;
 };
 
-export const TabButtons: FC<TabButtonsParams> = ({
+export const TabButtons: FC<PropsWithChildren<TabButtonsParams>> = ({
     nextPath,
     previousPath,
+    children,
 }) => {
     return (
         <Group position="center" grow>
@@ -20,6 +21,7 @@ export const TabButtons: FC<TabButtonsParams> = ({
             ) : (
                 <></>
             )}
+            {children}
             {nextPath ? (
                 <Link to={nextPath ?? ""} style={{ all: "unset" }}>
                     <Button mx={4}>Next</Button>

@@ -4,6 +4,7 @@ import {
     MantineProvider,
 } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
+import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
 import { FC, PropsWithChildren } from "react";
 
@@ -27,7 +28,9 @@ export const MantineWrapper: FC<PropsWithChildren<{}>> = ({ children }) => {
                 withGlobalStyles
                 withNormalizeCSS
             >
-                <NotificationsProvider>{children}</NotificationsProvider>
+                <NotificationsProvider>
+                    <ModalsProvider>{children}</ModalsProvider>
+                </NotificationsProvider>
             </MantineProvider>
         </ColorSchemeProvider>
     );
