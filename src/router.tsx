@@ -16,6 +16,7 @@ import { Robot } from "./routes/pit/Robot";
 import { Save as PitSave } from "./routes/pit/Save";
 import { Meta as PitTeleop } from "./routes/pit/Teleop";
 import { PitLayout } from "./routes/pit/_layout";
+import { ScanQR } from "./routes/database/ScanQR";
 
 export const routeConfig = [
     {
@@ -61,6 +62,10 @@ export const routeConfig = [
             {
                 path: "create/",
                 children: [{ path: "qr", element: <CreateQR /> }],
+            },
+            {
+                path: "scan/",
+                children: [{ path: "qr", element: <ScanQR /> }],
             },
         ],
     },

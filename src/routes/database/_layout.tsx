@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 export const DatabaseLayout: FC = () => {
     return (
-        <div>
+        <div style={{ width: "90vw"}}>
             <Outlet />
         </div>
     );

@@ -22,6 +22,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.8.2",
+        "react-web-qr-reader": "^1.0.4",
         "zod": "^3.21.3",
         "zustand": "^4.3.5"
     },
