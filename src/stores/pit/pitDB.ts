@@ -10,7 +10,7 @@ export const usePitDB = create<{
     persist(
         (set) => ({
             db: [],
-            push: (newPit) => set((get) => ({ db: [...get.db, newPit] })),
+            push: (newPit) => set((get) => ({ db: [...get.db, {...newPit, time: new Date()}] })),
             clear: () => set({ db: [] }),
         }),
         { name: "pit-db" }

@@ -11,6 +11,7 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import { CSV } from "../../data/formats/CSV";
 import { MadyCSV } from "../../data/formats/MadyCSV";
+import { JSONGzip } from "../../data/formats/JSONGzip";
 import { useMatchDB } from "../../stores/match/matchDB";
 import { usePitDB } from "../../stores/pit/pitDB";
 import { Exporter } from "../../data/formats/types";
@@ -35,9 +36,9 @@ export const ViewData: FC = () => {
         element.remove();
     }
 
-    const downloadMatchFile = (exporter: Exporter) => downloadBlob(exporter.match.blobify(matchDB));
+    const downloadMatchFile = (exporter: Exporter<string>) => downloadBlob(exporter.match.blobify(matchDB));
 
-    const downloadPitFile = (exporter: Exporter) => downloadBlob(exporter.pit.blobify(pitDB));
+    const downloadPitFile = (exporter: Exporter<string>) => downloadBlob(exporter.pit.blobify(pitDB));
 
     return (
         <Stack
@@ -82,6 +83,13 @@ export const ViewData: FC = () => {
                             style={{ flexGrow: 1 }}
                         >
                             Download Mady CSV
+                        </Button>
+                        <Button
+                            m={4}
+                            onClick={() => downloadMatchFile(JSONGzip)}
+                            style={{ flexGrow: 1 }}
+                        >
+                            Download Gzipped JSON
                         </Button>
                     </Flex>
                     <ScrollArea>
@@ -138,6 +146,13 @@ export const ViewData: FC = () => {
                             style={{ flexGrow: 1 }}
                         >
                             Download Mady CSV
+                        </Button>
+                        <Button
+                            m={4}
+                            onClick={() => downloadMatchFile(JSONGzip)}
+                            style={{ flexGrow: 1 }}
+                        >
+                            Download Gzipped JSON
                         </Button>
                     </Flex>
                     <ScrollArea>

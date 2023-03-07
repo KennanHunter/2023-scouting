@@ -4,9 +4,9 @@ import { gridUtilities } from "../../util/gridUtilities";
 import { escapeString, wrapString } from "./utilities";
 import { Exporter } from "./types";
 
-export const MadyCSV : Exporter = {
+export const MadyCSV : Exporter<string> = {
     match: {
-        stringify: (db: MatchState[]): string => {
+        stringify: (db: MatchState[]) => {
             // @cspell:disable
             const header: string = [
                 "EventKey",
@@ -82,7 +82,7 @@ export const MadyCSV : Exporter = {
                         row.comments,
                         row.endgameLinksCompleted,
                         "false", // TODO: Cooperation bonus
-                        new Date().toString(),
+                        row.time.toString(),
                     ]
                         .map(String)
                         .map(escapeString)
@@ -95,7 +95,7 @@ export const MadyCSV : Exporter = {
             new Blob([MadyCSV.match.stringify(db)], { type: "text/csv" }),
     },
     pit: {
-        stringify: (db: PitState[]): string => {
+        stringify: (db: PitState[]) => {
             // @cspell:disable
             const header: string = [
                 "TeamNumber",
@@ -136,8 +136,8 @@ export const MadyCSV : Exporter = {
                         row.autonomousNumberOfPrograms,
                         "", // TODO: Implement GridLocation for teleop
                         row.teleopPlaysDefense,
-                        false, // TODO: Scavenger/RunnerBot
-                        new Date().toString(),
+                        row.teleopRunnerRobot,
+                        row.time.toString(),
                     ]
                         .map(String)
                         .map(escapeString)

@@ -3,9 +3,9 @@ import { PitState } from "../../stores/pit/pitTypes";
 import { escapeString } from "./utilities";
 import { Exporter } from "./types";
 
-export const CSV: Exporter = {
+export const CSV: Exporter<string> = {
     match: {
-        stringify: (db: MatchState[]): string => {
+        stringify: (db: MatchState[]) => {
             // a hacky csv generator to conform to Mady's data structure
             const table = Object.values(db).map((row) =>
                 Object.entries(row)
@@ -28,7 +28,7 @@ export const CSV: Exporter = {
             new Blob([CSV.match.stringify(db)], { type: "text/csv" }),
     },
     pit: {
-        stringify: (db: PitState[]): string => {
+        stringify: (db: PitState[]) => {
             // a hacky csv generator to conform to Mady's data structure
             const table = Object.values(db).map((row) =>
                 Object.entries(row)

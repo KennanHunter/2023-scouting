@@ -10,7 +10,7 @@ export const useMatchDB = create<{
     persist(
         (set) => ({
             db: [],
-            push: (newMatch) => set((get) => ({ db: [...get.db, newMatch] })),
+            push: (newMatch) => set((get) => ({ db: [...get.db, {...newMatch, time: new Date()}] })),
             clear: () => set({ db: [] }),
         }),
         { name: "match-db" }

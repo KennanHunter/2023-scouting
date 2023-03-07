@@ -48,5 +48,7 @@ export const PitState = () =>
         teleopRunnerRobot: z.boolean(),
 
         comments: z.string(),
+
+        time: z.date(),
     });
 export type PitState = z.infer<ReturnType<typeof PitState>>;
