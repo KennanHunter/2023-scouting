@@ -2,8 +2,9 @@ import { MatchState } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
 import { gridUtilities } from "../../util/gridUtilities";
 import { escapeString, wrapString } from "./utilities";
+import { Exporter } from "./types";
 
-export const MadyCSV = {
+export const MadyCSV : Exporter = {
     match: {
         stringify: (db: MatchState[]): string => {
             // @cspell:disable

@@ -9,9 +9,11 @@ import {
 } from "@mantine/core";
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { CSV } from "../../data/formats/CSV";
 import { MadyCSV } from "../../data/formats/MadyCSV";
 import { useMatchDB } from "../../stores/match/matchDB";
 import { usePitDB } from "../../stores/pit/pitDB";
+import { Exporter } from "../../data/formats/types";
 
 export const ViewData: FC = () => {
     const matchDB = useMatchDB((state) => state.db);
@@ -20,10 +22,7 @@ export const ViewData: FC = () => {
     const pitDB = usePitDB((state) => state.db);
     const clearPitDB = usePitDB((state) => state.clear);
 
-    const downloadMatchFile = () => {
-        const fileBlob = MadyCSV.match.blobify(matchDB);
-
-        // im so god damn tired https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react
+    const downloadBlob = (fileBlob: Blob) => {
         const element = document.createElement("a");
 
         element.href = URL.createObjectURL(fileBlob);
@@ -34,23 +33,11 @@ export const ViewData: FC = () => {
         element.click();
 
         element.remove();
-    };
+    }
 
-    const downloadPitFile = () => {
-        const fileBlob = MadyCSV.pit.blobify(pitDB); // TODO: REPLACE WITH PIT CSV
+    const downloadMatchFile = (exporter: Exporter) => downloadBlob(exporter.match.blobify(matchDB));
 
-        // im so god damn tired https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react
-        const element = document.createElement("a");
-
-        element.href = URL.createObjectURL(fileBlob);
-        element.download = `data.${fileBlob.type.split("/")[1]}`;
-
-        document.body.appendChild(element); // Required for this to work in FireFox
-
-        element.click();
-
-        element.remove();
-    };
+    const downloadPitFile = (exporter: Exporter) => downloadBlob(exporter.pit.blobify(pitDB));
 
     return (
         <Stack
@@ -62,6 +49,11 @@ export const ViewData: FC = () => {
             <Link to={"/"} style={{ all: "unset", flexGrow: 1 }}>
                 <Button fullWidth my={4}>
                     Home
+                </Button>
+            </Link>
+            <Link to={"/database/create/qr"} style={{ all: "unset", flexGrow: 1 }}>
+                <Button fullWidth my={4}>
+                    View QR Codes
                 </Button>
             </Link>
 
@@ -79,10 +71,17 @@ export const ViewData: FC = () => {
                         </Button>
                         <Button
                             m={4}
-                            onClick={downloadMatchFile}
+                            onClick={() => downloadMatchFile(CSV)}
                             style={{ flexGrow: 1 }}
                         >
-                            Download
+                            Download CSV
+                        </Button>
+                        <Button
+                            m={4}
+                            onClick={() => downloadMatchFile(MadyCSV)}
+                            style={{ flexGrow: 1 }}
+                        >
+                            Download Mady CSV
                         </Button>
                     </Flex>
                     <ScrollArea>
@@ -128,10 +127,17 @@ export const ViewData: FC = () => {
                         </Button>
                         <Button
                             m={4}
-                            onClick={downloadPitFile}
+                            onClick={() => downloadPitFile(CSV)}
                             style={{ flexGrow: 1 }}
                         >
-                            Download
+                            Download CSV
+                        </Button>
+                        <Button
+                            m={4}
+                            onClick={() => downloadPitFile(MadyCSV)}
+                            style={{ flexGrow: 1 }}
+                        >
+                            Download Mady CSV
                         </Button>
                     </Flex>
                     <ScrollArea>

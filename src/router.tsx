@@ -1,20 +1,21 @@
 import { createHashRouter, RouteObject } from "react-router-dom";
 import { Meta as MatchMeta } from "./routes/match/Meta";
 
-import { Save as MatchSave } from "./routes/match/Save";
-import { Auto as MatchAuto } from "./routes/match/Auto";
-import { Teleop as MatchTeleop } from "./routes/match/Teleop";
-import { Endgame } from "./routes/match/Endgame";
-import { MatchLayout } from "./routes/match/_layout";
-import { Home } from "./routes/Home";
+import { CreateQR } from "./routes/database/CreateQR";
 import { ViewData } from "./routes/database/ViewData";
 import { DatabaseLayout } from "./routes/database/_layout";
-import { PitLayout } from "./routes/pit/_layout";
-import { Robot } from "./routes/pit/Robot";
-import { Meta as PitMeta } from "./routes/pit/Meta";
+import { Home } from "./routes/Home";
+import { Auto as MatchAuto } from "./routes/match/Auto";
+import { Endgame } from "./routes/match/Endgame";
+import { Save as MatchSave } from "./routes/match/Save";
+import { Teleop as MatchTeleop } from "./routes/match/Teleop";
+import { MatchLayout } from "./routes/match/_layout";
 import { Meta as PitAuto } from "./routes/pit/Auto";
-import { Meta as PitTeleop } from "./routes/pit/Teleop";
+import { Meta as PitMeta } from "./routes/pit/Meta";
+import { Robot } from "./routes/pit/Robot";
 import { Save as PitSave } from "./routes/pit/Save";
+import { Meta as PitTeleop } from "./routes/pit/Teleop";
+import { PitLayout } from "./routes/pit/_layout";
 
 export const routeConfig = [
     {
@@ -55,7 +56,13 @@ export const routeConfig = [
     {
         path: "/database/",
         element: <DatabaseLayout />,
-        children: [{ path: "viewdata", element: <ViewData /> }],
+        children: [
+            { path: "viewdata", element: <ViewData /> },
+            {
+                path: "create/",
+                children: [{ path: "qr", element: <CreateQR /> }],
+            },
+        ],
     },
 ] satisfies RouteObject[];
 

@@ -11,7 +11,7 @@ export type MatchLevel = z.infer<ReturnType<typeof MatchLevel>>;
 
 export const MatchState = () =>
     z.object({
-        scouter: z.string().refine((val) => val !== "", "Please select your name"),
+        scouter: z.string().refine((val) => val !== ""),
         matchLevel: MatchLevel(),
         matchNumber: z.number().positive("Match number must be positive"),
         teamNumber: z
@@ -35,8 +35,8 @@ export const MatchState = () =>
 
         endgameParking: ParkState(),
         endgameTippedChargeStation: z.boolean(),
-        endgameRobotsDocked: z.number().min(0),
-        endgameLinksCompleted: z.number().min(0),
+        endgameRobotsDocked: z.number().min(0).max(3),
+        endgameLinksCompleted: z.number().min(0).max(9),
 
         diedOnField: z.boolean(),
         comments: z.string(),
