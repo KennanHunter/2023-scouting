@@ -1,20 +1,23 @@
 import {
     Button,
     Divider,
+    FileInput,
     Flex,
     ScrollArea,
+    Select,
     Stack,
     Table,
     Text,
+    Title,
 } from "@mantine/core";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { CSV } from "../../data/formats/CSV";
 import { MadyCSV } from "../../data/formats/MadyCSV";
 import { JSONGzip } from "../../data/formats/JSONGzip";
 import { useMatchDB } from "../../stores/match/matchDB";
 import { usePitDB } from "../../stores/pit/pitDB";
-import { Exporter } from "../../data/formats/types";
+import { Exporter, exporters } from "../../data/formats/types";
 
 export const ViewData: FC = () => {
     const matchDB = useMatchDB((state) => state.db);
@@ -22,6 +25,8 @@ export const ViewData: FC = () => {
 
     const pitDB = usePitDB((state) => state.db);
     const clearPitDB = usePitDB((state) => state.clear);
+
+    const [ selectedFormat, setSelectedFormat ] = useState<string>("CSV");
 
     const downloadBlob = (fileBlob: Blob) => {
         const element = document.createElement("a");
@@ -36,9 +41,17 @@ export const ViewData: FC = () => {
         element.remove();
     }
 
-    const downloadMatchFile = (exporter: Exporter<string>) => downloadBlob(exporter.match.blobify(matchDB));
+    const uploadBlob = (): Blob => {
+        return new Blob([]);
+    }
 
-    const downloadPitFile = (exporter: Exporter<string>) => downloadBlob(exporter.pit.blobify(pitDB));
+    const downloadMatchFile = (exporter: Exporter<string | Uint8Array>) => downloadBlob(exporter.match.blobify(matchDB));
+
+    const uploadMatchFile = (exporter: Exporter<string | Uint8Array>) => exporter.match.deblobify(uploadBlob());
+
+    const downloadPitFile = (exporter: Exporter<string | Uint8Array>) => downloadBlob(exporter.pit.blobify(pitDB));
+
+    const uploadPitFile = (exporter: Exporter<string | Uint8Array>) => exporter.pit.deblobify(uploadBlob());;
 
     return (
         <Stack
@@ -57,11 +70,26 @@ export const ViewData: FC = () => {
                     View QR Codes
                 </Button>
             </Link>
+            <Select
+                label={"Format"}
+                searchable
+                data={Object.keys(exporters)}
+                value={selectedFormat}
+                onChange={(value) => setSelectedFormat(value ?? "CSV")}
+                m={4}
+            />
 
             <Divider my="sm" />
 
+            <Title align="center">Match Data</Title>
+            
             {matchDB.length ? (
                 <>
+                    <FileInput
+                        m={4}
+                        placeholder="Select a File"
+                        label="Upload File"
+                    />
                     <Flex gap={"sm"} w={"100%"}>
                         <Button
                             m={4}
@@ -72,24 +100,17 @@ export const ViewData: FC = () => {
                         </Button>
                         <Button
                             m={4}
-                            onClick={() => downloadMatchFile(CSV)}
+                            onClick={() => downloadMatchFile(exporters[selectedFormat])}
                             style={{ flexGrow: 1 }}
                         >
-                            Download CSV
+                            Download
                         </Button>
                         <Button
                             m={4}
-                            onClick={() => downloadMatchFile(MadyCSV)}
+                            onClick={() => downloadMatchFile(exporters[selectedFormat])}
                             style={{ flexGrow: 1 }}
                         >
-                            Download Mady CSV
-                        </Button>
-                        <Button
-                            m={4}
-                            onClick={() => downloadMatchFile(JSONGzip)}
-                            style={{ flexGrow: 1 }}
-                        >
-                            Download Gzipped JSON
+                            Upload
                         </Button>
                     </Flex>
                     <ScrollArea>
@@ -123,8 +144,15 @@ export const ViewData: FC = () => {
 
             <Divider my="sm" />
 
+            <Title align="center">Pit Data</Title>
+
             {pitDB.length ? (
                 <>
+                    <FileInput
+                        m={4}
+                        placeholder="Select a File"
+                        label="Upload File"
+                    />
                     <Flex gap={"sm"} w={"100%"}>
                         <Button
                             m={4}
@@ -135,24 +163,17 @@ export const ViewData: FC = () => {
                         </Button>
                         <Button
                             m={4}
-                            onClick={() => downloadPitFile(CSV)}
+                            onClick={() => downloadPitFile(exporters[selectedFormat])}
                             style={{ flexGrow: 1 }}
                         >
-                            Download CSV
+                            Download
                         </Button>
                         <Button
                             m={4}
-                            onClick={() => downloadPitFile(MadyCSV)}
+                            onClick={() => downloadPitFile(exporters[selectedFormat])}
                             style={{ flexGrow: 1 }}
                         >
-                            Download Mady CSV
-                        </Button>
-                        <Button
-                            m={4}
-                            onClick={() => downloadMatchFile(JSONGzip)}
-                            style={{ flexGrow: 1 }}
-                        >
-                            Download Gzipped JSON
+                            Upload
                         </Button>
                     </Flex>
                     <ScrollArea>

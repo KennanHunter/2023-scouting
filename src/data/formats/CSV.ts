@@ -24,8 +24,11 @@ export const CSV: Exporter<string> = {
     
             return table.join("\n");
         },
-        blobify: (db: MatchState[]): Blob =>
+        blobify: (db: MatchState[]) =>
             new Blob([CSV.match.stringify(db)], { type: "text/csv" }),
+
+        parse: () => [],
+        deblobify: () => [],
     },
     pit: {
         stringify: (db: PitState[]) => {
@@ -47,7 +50,10 @@ export const CSV: Exporter<string> = {
     
             return table.join("\n");
         },
-        blobify: (db: PitState[]): Blob =>
+        blobify: (db: PitState[]) =>
             new Blob([CSV.pit.stringify(db)], { type: "text/csv" }),
+
+        parse: () => [],
+        deblobify: () => [],
     }
 };

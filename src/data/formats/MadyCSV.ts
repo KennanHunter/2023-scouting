@@ -93,6 +93,9 @@ export const MadyCSV : Exporter<string> = {
         },
         blobify: (db: MatchState[]) =>
             new Blob([MadyCSV.match.stringify(db)], { type: "text/csv" }),
+
+        parse: () => [],
+        deblobify: () => [],
     },
     pit: {
         stringify: (db: PitState[]) => {
@@ -148,5 +151,8 @@ export const MadyCSV : Exporter<string> = {
         },
         blobify: (db: PitState[]) =>
             new Blob([MadyCSV.pit.stringify(db)], { type: "text/csv" }),
+
+        parse: () => [],
+        deblobify: (blob: Blob) => [],
     },
 };

@@ -9,14 +9,14 @@ export const JSONGzip : Exporter<Uint8Array> = {
         stringify: (db: MatchState[]) => {
             return pako.deflate(new TextEncoder().encode(JSON.stringify(db)));
         },
-        blobify: (db: MatchState[]): Blob =>
+        blobify: (db: MatchState[]) =>
             new Blob([JSONGzip.match.stringify(db)], { type: "application/gzip" }),
     },
     pit: {
         stringify: (db: PitState[]) => {
             return pako.deflate(new TextEncoder().encode(JSON.stringify(db)));
         },
-        blobify: (db: PitState[]): Blob =>
+        blobify: (db: PitState[]) =>
             new Blob([JSONGzip.pit.stringify(db)], { type: "application/gzip" }),
     }
 };
