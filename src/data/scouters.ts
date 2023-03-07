@@ -27,4 +27,5 @@ export const scouterOptions = [
     "Sean Borneman",
     "Sierra Vrska",
     "Traevor Myers",
+    "Ini Akin-Olukunle",
 ];
