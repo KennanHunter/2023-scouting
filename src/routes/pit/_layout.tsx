@@ -6,6 +6,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { TabButtons } from "../../components/TabButtons";
 import { routeConfig } from "../../router";
 import { useActivePit } from "../../stores/pit/activePit";
+import { useValidationState } from "../../stores/validation/validationStore";
 
 export const PitLayout: FC = () => {
     const { pathname } = useLocation();
@@ -39,6 +40,8 @@ export const PitLayout: FC = () => {
         return returnValue;
     }, [routeConfig, active]);
 
+    const childValidated = useValidationState().valid;
+
     return (
         <div>
             <Stepper active={active - 1} size="sm" iconSize={32} mb={8}>
@@ -56,7 +59,7 @@ export const PitLayout: FC = () => {
             <TabButtons
                 previousPath={previousPath}
                 nextPath={nextPath}
-                enableNext={true}
+                enableNext={childValidated}
             >
                 <Tooltip label={"Clear all data and Quit"}>
                     <Button

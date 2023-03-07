@@ -1,6 +1,8 @@
-import { Checkbox, Stack, Text, Title, Divider } from "@mantine/core";
+import { Checkbox, Stack, Text, Title, Divider, Textarea } from "@mantine/core";
 import { FC } from "react";
 import { useActivePit } from "../../stores/pit/activePit";
+import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
 
 export const Meta: FC = () => {
     const set = useActivePit((state) => state.set);
@@ -10,10 +12,13 @@ export const Meta: FC = () => {
         teleopGridPlaceBottom,
         teleopPlaysDefense,
         teleopRunnerRobot,
+        comments,
     } = useActivePit((state) => state);
 
+    const errors = useActivePitErrors();
+
     return (
-        <Stack>
+        <StackValidationChecker>
             <Title align="center">Teleop Abilities</Title>
 
             <Text size="lg" mt={8}>
@@ -27,6 +32,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("teleopGridPlaceTop")(event.target.checked);
                 }}
+                error={errors.teleopGridPlaceTop}
             />
             <Checkbox
                 label="Middle"
@@ -36,6 +42,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("teleopGridPlaceMiddle")(event.target.checked);
                 }}
+                error={errors.teleopGridPlaceMiddle}
             />
             <Checkbox
                 label="Bottom"
@@ -45,6 +52,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("teleopGridPlaceBottom")(event.target.checked);
                 }}
+                error={errors.teleopGridPlaceBottom}
             />
             <Divider my="xs" variant="dashed"/>
 
@@ -56,6 +64,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("teleopPlaysDefense")(event.target.checked);
                 }}
+                error={errors.teleopPlaysDefense}
             />
             <Checkbox
                 label="Do you scavange/run pieces?"
@@ -65,7 +74,17 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("teleopRunnerRobot")(event.target.checked);
                 }}
+                error={errors.teleopRunnerRobot}
             />
-        </Stack>
+
+            <Textarea
+                value={comments}
+                onChange={(event) => set("comments")(event.target.value)}
+                label="Comments"
+                size="lg"
+                my={4}
+                error={errors.comments}
+            />
+        </StackValidationChecker>
     );
 };

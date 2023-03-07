@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { PitState } from "./pitTypes";
+import { DrivetrainType, PitState } from "./pitTypes";
 
 type ActivePitActions = {
     save: () => PitState;
@@ -18,6 +18,8 @@ export const defaultActivePitState: PitState = {
     robotWidth: 0,
     robotWeight: 0,
 
+    robotDrivetrain: DrivetrainType().enum.None,
+
     robotCanPickupRamp: false,
     robotCanPickupShelf: false,
     robotCanPickupFloor: false,
@@ -31,9 +33,11 @@ export const defaultActivePitState: PitState = {
     robotCanManipulateCone: false,
     robotCanManipulateCube: false,
 
-    autoGridPlaceTop: false,
-    autoGridPlaceMiddle: false,
-    autoGridPlaceBottom: false,
+    autonomousCanExitCommunity: false,
+
+    autonomousGridPlaceTop: false,
+    autonomousGridPlaceMiddle: false,
+    autonomousGridPlaceBottom: false,
 
     autonomousNumberOfPrograms: 0,
 
@@ -44,6 +48,8 @@ export const defaultActivePitState: PitState = {
     teleopPlaysDefense: false,
 
     teleopRunnerRobot: false,
+
+    comments: "",
 } as any;
 
 export const useActivePit = create<PitState & ActivePitActions>()(

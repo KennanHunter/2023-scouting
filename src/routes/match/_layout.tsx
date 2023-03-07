@@ -23,7 +23,7 @@ export const MatchLayout: FC = () => {
             [pathname]
         ) ?? 0;
 
-    const [previousPath, nextPath] = (() => {
+    const [previousPath, nextPath] = useMemo(() => {
         let returnValue: [string | undefined, string | undefined] = [
             undefined,
             undefined,
@@ -38,7 +38,7 @@ export const MatchLayout: FC = () => {
             returnValue[1] = children[active + 1].path;
 
         return returnValue;
-    })();
+    }, [routeConfig, active]);
 
     const childValidated = useValidationState().valid;
 

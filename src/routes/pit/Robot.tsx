@@ -1,6 +1,9 @@
-import { Checkbox, NumberInput, Stack, Text, Title, Divider } from "@mantine/core";
+import { Checkbox, NumberInput, Stack, Text, Title, Divider, Select } from "@mantine/core";
 import { FC } from "react";
 import { useActivePit } from "../../stores/pit/activePit";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
+import { DrivetrainType } from "../../stores/pit/pitTypes";
 
 export const Robot: FC = () => {
     const set = useActivePit((state) => state.set);
@@ -9,6 +12,7 @@ export const Robot: FC = () => {
         robotLength,
         robotWidth,
         robotWeight,
+        robotDrivetrain,
         robotCanPickupFloor,
         robotCanPickupRamp,
         robotCanPickupShelf,
@@ -20,16 +24,16 @@ export const Robot: FC = () => {
         robotCanEngageTeleop,
     } = useActivePit((state) => state);
 
+    const errors = useActivePitErrors();
+
     return (
-        <Stack>
+        <StackValidationChecker>
             <Title align="center">Robot Information</Title>
 
             <NumberInput
                 value={robotLength}
                 onChange={(value) => set("robotLength")(value ?? 0)}
-                error={
-                    robotLength < 0 ? "Value cannot be less than 0!" : undefined
-                }
+                error={errors.robotLength}
                 placeholder="Length"
                 label="Length"
                 size="lg"
@@ -38,10 +42,8 @@ export const Robot: FC = () => {
 
             <NumberInput
                 value={robotWidth}
-                onChange={(value) => set("robotWeight")(value ?? 0)}
-                error={
-                    robotWidth < 0 ? "Value cannot be less than 0!" : undefined
-                }
+                onChange={(value) => set("robotWidth")(value ?? 0)}
+                error={errors.robotWidth}
                 placeholder="Width"
                 label="Width"
                 size="lg"
@@ -51,9 +53,7 @@ export const Robot: FC = () => {
             <NumberInput
                 value={robotHeight}
                 onChange={(value) => set("robotHeight")(value ?? 0)}
-                error={
-                    robotHeight < 0 ? "Value cannot be less than 0!" : undefined
-                }
+                error={errors.robotHeight}
                 placeholder="Height"
                 label="Height"
                 size="lg"
@@ -63,13 +63,23 @@ export const Robot: FC = () => {
             <NumberInput
                 value={robotWeight}
                 onChange={(value) => set("robotWeight")(value ?? 0)}
-                error={
-                    robotWeight < 0 ? "Value cannot be less than 0!" : undefined
-                }
+                error={errors.robotWeight}
                 placeholder="Weight"
                 label="Weight"
                 size="lg"
                 my={4}
+            />
+
+
+            <Select
+                label={"What type of drivetrain do you have?"}
+                size="lg"
+                searchable
+                data={DrivetrainType().options}
+                value={robotDrivetrain}
+                onChange={set("robotDrivetrain")}
+                my={4}
+                error={errors.robotDrivetrain}
             />
 
             <Text size="lg" mt={8}>
@@ -83,6 +93,7 @@ export const Robot: FC = () => {
                 onChange={(event) => {
                     set("robotCanManipulateCone")(event.target.checked);
                 }}
+                error={errors.robotCanManipulateCone}
             />
             <Checkbox
                 label="Cube"
@@ -92,6 +103,7 @@ export const Robot: FC = () => {
                 onChange={(event) => {
                     set("robotCanManipulateCube")(event.target.checked);
                 }}
+                error={errors.robotCanManipulateCube}
             />
 
             <Divider my="xs" variant="dashed"/>
@@ -107,6 +119,7 @@ export const Robot: FC = () => {
                 onChange={(event) => {
                     set("robotCanPickupRamp")(event.target.checked);
                 }}
+                error={errors.robotCanPickupRamp}
             />
             <Checkbox
                 label="Shelf"
@@ -116,6 +129,7 @@ export const Robot: FC = () => {
                 onChange={(event) => {
                     set("robotCanPickupShelf")(event.target.checked);
                 }}
+                error={errors.robotCanPickupShelf}
             />
             <Checkbox
                 label="Floor"
@@ -125,6 +139,7 @@ export const Robot: FC = () => {
                 onChange={(event) => {
                     set("robotCanPickupFloor")(event.target.checked);
                 }}
+                error={errors.robotCanPickupFloor}
             />
 
             <Divider my="xs" variant="dashed"/>
@@ -140,6 +155,7 @@ export const Robot: FC = () => {
                 onChange={(event) => {
                     set("robotCanDockAuto")(event.target.checked);
                 }}
+                error={errors.robotCanDockAuto}
             />
             <Checkbox
                 label="Teleop"
@@ -149,6 +165,7 @@ export const Robot: FC = () => {
                 onChange={(event) => {
                     set("robotCanDockTeleop")(event.target.checked);
                 }}
+                error={errors.robotCanDockTeleop}
             />
 
             <Divider my="xs" variant="dashed"/>
@@ -164,6 +181,7 @@ export const Robot: FC = () => {
                 onChange={(event) => {
                     set("robotCanEngageAuto")(event.target.checked);
                 }}
+                error={errors.robotCanEngageAuto}
             />
             <Checkbox
                 label="Teleop"
@@ -173,7 +191,8 @@ export const Robot: FC = () => {
                 onChange={(event) => {
                     set("robotCanEngageTeleop")(event.target.checked);
                 }}
+                error={errors.robotCanEngageTeleop}
             />
-        </Stack>
+        </StackValidationChecker>
     );
 };

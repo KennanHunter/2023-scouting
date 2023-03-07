@@ -2,13 +2,17 @@ import { NumberInput, Select, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { scouterOptions } from "../../data/scouters";
 import { useActivePit } from "../../stores/pit/activePit";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
 
 export const Meta: FC = () => {
     const set = useActivePit((state) => state.set);
     const { scouter, teamNumber } = useActivePit((state) => state);
 
+    const errors = useActivePitErrors();
+
     return (
-        <Stack>
+        <StackValidationChecker>
             <Title align="center">Pit Information</Title>
 
             <Select
@@ -19,20 +23,18 @@ export const Meta: FC = () => {
                 value={scouter}
                 onChange={set("scouter")}
                 my={4}
-                error={scouter ? undefined : "You must select your name"}
+                error={errors.scouter}
             />
 
             <NumberInput
                 value={teamNumber}
                 onChange={(value) => set("teamNumber")(value ?? 0)}
-                error={
-                    teamNumber <= 0 ? "You must set a team number!" : undefined
-                }
+                error={errors.teamNumber}
                 placeholder="Team Number"
                 label="Team Number"
                 size="lg"
                 my={4}
             />
-        </Stack>
+        </StackValidationChecker>
     );
 };

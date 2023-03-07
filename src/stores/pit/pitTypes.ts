@@ -1,38 +1,52 @@
-export type PitState = {
-    scouter: string;
-    teamNumber: number;
+import { z } from "zod";
 
-    robotHeight: number;
-    robotLength: number;
-    robotWidth: number;
-    robotWeight: number;
+export const DrivetrainType = () => z.enum(["None", "Tank", "Swerve", "Mecanum", "Holonomic"]);
+export type DrivetrainType = z.infer<ReturnType<typeof DrivetrainType>>;
 
-    robotCanPickupRamp: boolean;
-    robotCanPickupShelf: boolean;
-    robotCanPickupFloor: boolean;
+export const PitState = () =>
+    z.object({
+        scouter: z.string().refine((val) => val !== "", "Please select your name"),
+        teamNumber: z
+            .number()
+            .max(20000, "No team numbers are this big")
+            .positive("All team numbers are positive"),
 
-    robotCanDockAuto: boolean;
-    robotCanDockTeleop: boolean;
+        robotHeight: z.number().positive(),
+        robotLength: z.number().positive(),
+        robotWidth: z.number().positive(),
+        robotWeight: z.number().positive(),
 
-    robotCanEngageAuto: boolean;
-    robotCanEngageTeleop: boolean;
+        robotDrivetrain: DrivetrainType(),
+    
+        robotCanPickupRamp: z.boolean(),
+        robotCanPickupShelf: z.boolean(),
+        robotCanPickupFloor: z.boolean(),
+    
+        robotCanDockAuto: z.boolean(),
+        robotCanDockTeleop: z.boolean(),
+    
+        robotCanEngageAuto: z.boolean(),
+        robotCanEngageTeleop: z.boolean(),
+    
+        robotCanManipulateCone: z.boolean(),
+        robotCanManipulateCube: z.boolean(),
+    
+        autonomousCanExitCommunity: z.boolean(),
+    
+        autonomousGridPlaceTop: z.boolean(),
+        autonomousGridPlaceMiddle: z.boolean(),
+        autonomousGridPlaceBottom: z.boolean(),
+    
+        autonomousNumberOfPrograms: z.number().min(0),
+    
+        teleopGridPlaceTop: z.boolean(),
+        teleopGridPlaceMiddle: z.boolean(),
+        teleopGridPlaceBottom: z.boolean(),
+    
+        teleopPlaysDefense: z.boolean(),
+    
+        teleopRunnerRobot: z.boolean(),
 
-    robotCanManipulateCone: boolean;
-    robotCanManipulateCube: boolean;
-
-    autonomousCanExitCommunity: boolean;
-
-    autonomousGridPlaceTop: boolean;
-    autonomousGridPlaceMiddle: boolean;
-    autonomousGridPlaceBottom: boolean;
-
-    autonomousNumberOfPrograms: number;
-
-    teleopGridPlaceTop: boolean;
-    teleopGridPlaceMiddle: boolean;
-    teleopGridPlaceBottom: boolean;
-
-    teleopPlaysDefense: boolean;
-
-    teleopRunnerRobot: boolean;
-};
+        comments: z.string(),
+    });
+export type PitState = z.infer<ReturnType<typeof PitState>>;

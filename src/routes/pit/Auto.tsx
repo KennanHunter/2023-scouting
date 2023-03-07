@@ -1,6 +1,8 @@
 import { Checkbox, NumberInput, Stack, Title, Text, Divider } from "@mantine/core";
 import { FC } from "react";
 import { useActivePit } from "../../stores/pit/activePit";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
 
 export const Meta: FC = () => {
     const set = useActivePit((state) => state.set);
@@ -12,8 +14,10 @@ export const Meta: FC = () => {
         autonomousNumberOfPrograms,
     } = useActivePit((state) => state);
 
+    const errors = useActivePitErrors();
+
     return (
-        <Stack>
+        <StackValidationChecker>
             <Title align="center">Auto Abilities</Title>
 
             <Checkbox
@@ -24,6 +28,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("autonomousCanExitCommunity")(event.target.checked);
                 }}
+                error={errors.autonomousCanExitCommunity}
             />
 
             <Text size="lg" mt={8}>
@@ -37,6 +42,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("autonomousGridPlaceTop")(event.target.checked);
                 }}
+                error={errors.autonomousGridPlaceTop}
             />
             <Checkbox
                 label="Middle"
@@ -46,6 +52,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("autonomousGridPlaceMiddle")(event.target.checked);
                 }}
+                error={errors.autonomousGridPlaceMiddle}
             />
             <Checkbox
                 label="Bottom"
@@ -55,6 +62,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("autonomousGridPlaceBottom")(event.target.checked);
                 }}
+                error={errors.autonomousGridPlaceBottom}
             />
 
             <Divider my="xs" variant="dashed"/>
@@ -64,16 +72,12 @@ export const Meta: FC = () => {
                 onChange={(value) =>
                     set("autonomousNumberOfPrograms")(value ?? 0)
                 }
-                error={
-                    autonomousNumberOfPrograms < 0
-                        ? "Value cannot be less than 0!"
-                        : undefined
-                }
+                error={errors.autonomousNumberOfPrograms}
                 placeholder="Number of Auto Programs"
                 label="Number of Auto Programs"
                 size="lg"
                 my={4}
             />
-        </Stack>
+        </StackValidationChecker>
     );
 };
