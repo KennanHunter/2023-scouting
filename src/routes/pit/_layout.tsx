@@ -56,7 +56,6 @@ export const PitLayout: FC = () => {
             <TabButtons
                 previousPath={previousPath}
                 nextPath={nextPath}
-                enablePrevious={true}
                 enableNext={true}
             >
                 <Tooltip label={"Clear all data and Quit"}>

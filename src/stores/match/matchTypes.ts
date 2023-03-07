@@ -9,31 +9,36 @@ export const MatchLevel = () =>
     z.enum(["Qualifications", "Quarterfinals", "Semifinals", "Finals"]);
 export type MatchLevel = z.infer<ReturnType<typeof MatchLevel>>;
 
-export type MatchState = {
-    scouter: string;
-    matchLevel: MatchLevel;
-    matchNumber: number;
-    teamNumber: number;
+export const MatchState = () =>
+    z.object({
+        scouter: z.string().refine((val) => val !== ""),
+        matchLevel: MatchLevel(),
+        matchNumber: z.number().positive("Match number must be positive"),
+        teamNumber: z
+            .number()
+            .max(20000, "No team numbers are this big")
+            .positive("All team numbers are positive"),
 
-    teamNoShow: boolean;
+        teamNoShow: z.boolean(),
 
-    autonomousStartingLocation?: FieldPoint;
-    autonomousLeftCommunityZone: boolean;
-    autonomousGridData: GridData;
-    autonomousDockedToChargeStation: boolean;
-    autonomousChargeStationEngaged: boolean;
+        autonomousStartingLocation: FieldPoint(),
+        autonomousLeftCommunityZone: z.boolean(),
+        autonomousGridData: GridData(),
+        autonomousDockedToChargeStation: z.boolean(),
+        autonomousChargeStationEngaged: z.boolean(),
 
-    teleopGroundPickups: number;
-    teleopSubstation1Pickups: number;
-    teleopSubstation2LowPickups: number;
-    teleopSubstation2HighPickups: number;
-    teleopGridData: GridData;
+        teleopGroundPickups: z.number().positive(),
+        teleopSubstation1Pickups: z.number().positive(),
+        teleopSubstation2LowPickups: z.number().positive(),
+        teleopSubstation2HighPickups: z.number().positive(),
+        teleopGridData: GridData(),
 
-    endgameParking: ParkState;
-    endgameTippedChargeStation: boolean;
-    endgameRobotsDocked: number;
-    endgameLinksCompleted: number;
+        endgameParking: ParkState(),
+        endgameTippedChargeStation: z.boolean(),
+        endgameRobotsDocked: z.number(),
+        endgameLinksCompleted: z.number(),
 
-    diedOnField: boolean;
-    comments: string;
-};
+        diedOnField: z.boolean(),
+        comments: z.string(),
+    });
+export type MatchState = z.infer<ReturnType<typeof MatchState>>;

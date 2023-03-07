@@ -1,13 +1,18 @@
 import { AspectRatio, Box } from "@mantine/core";
 import { IconMapPin } from "@tabler/icons-react";
 import { FC, MouseEvent } from "react";
+import z from "zod";
 
-export type FieldPoint = {
-    x: number;
-    y: number;
-};
+export const FieldPoint = () =>
+    z.object({
+        x: z.number().min(0).max(1),
+        y: z.number().min(0).max(1),
+    });
 
-export type FieldData = FieldPoint[];
+export type FieldPoint = z.infer<ReturnType<typeof FieldPoint>>;
+
+export const FieldData = () => FieldPoint().array();
+export type FieldData = z.infer<ReturnType<typeof FieldData>>;
 
 type FieldInputParams = {
     onChange: (data: FieldData) => void;

@@ -1,4 +1,4 @@
-import { Checkbox, NumberInput, Stack, Title, Text } from "@mantine/core";
+import { Checkbox, NumberInput, Stack, Title, Text, Divider } from "@mantine/core";
 import { FC } from "react";
 import { useActivePit } from "../../stores/pit/activePit";
 
@@ -32,7 +32,7 @@ export const Meta: FC = () => {
             <Checkbox
                 label="Top"
                 size="lg"
-                my={0}
+                my={4}
                 checked={autonomousGridPlaceTop}
                 onChange={(event) => {
                     set("autonomousGridPlaceTop")(event.target.checked);
@@ -41,7 +41,7 @@ export const Meta: FC = () => {
             <Checkbox
                 label="Middle"
                 size="lg"
-                my={0}
+                my={4}
                 checked={autonomousGridPlaceMiddle}
                 onChange={(event) => {
                     set("autonomousGridPlaceMiddle")(event.target.checked);
@@ -50,12 +50,14 @@ export const Meta: FC = () => {
             <Checkbox
                 label="Bottom"
                 size="lg"
-                my={0}
+                my={4}
                 checked={autonomousGridPlaceBottom}
                 onChange={(event) => {
                     set("autonomousGridPlaceBottom")(event.target.checked);
                 }}
             />
+
+            <Divider my="xs" variant="dashed"/>
 
             <NumberInput
                 value={autonomousNumberOfPrograms}

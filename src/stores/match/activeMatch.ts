@@ -20,7 +20,7 @@ const defaultActiveMatchState: MatchState = {
 
     teamNoShow: false,
 
-    autonomousStartingLocation: undefined,
+    autonomousStartingLocation: { x: 0.5, y: 0.5 },
     autonomousLeftCommunityZone: false,
     autonomousGridData: initGridData(),
     autonomousDockedToChargeStation: false,

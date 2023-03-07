@@ -1,33 +1,40 @@
 import { ActionIcon, Box, Button, Grid, Text } from "@mantine/core";
 import { IconSquare, IconTrafficCone } from "@tabler/icons-react";
 import { FC } from "react";
+import z from "zod";
 
-export type GridColumn = {
-    level2: number;
-    level1: number;
-    hybridCone: number;
-    hybridCube: number;
-};
+export const GridColumn = () =>
+    z.object({
+        level2: z.number().positive(),
+        level1: z.number().positive(),
+        hybridCone: z.number().positive(),
+        hybridCube: z.number().positive(),
+    });
+export type GridColumn = z.infer<ReturnType<typeof GridColumn>>;
 
-export type GridHistoryEntry = {
-    column: number;
-    level: number;
-};
+export const GridHistoryEntry = () =>
+    z.object({
+        column: z.number(),
+        level: z.number(),
+    });
+export type GridHistoryEntry = z.infer<ReturnType<typeof GridHistoryEntry>>;
 
-export type GridData = {
-    gridColumns: [
-        GridColumn,
-        GridColumn,
-        GridColumn,
-        GridColumn,
-        GridColumn,
-        GridColumn,
-        GridColumn,
-        GridColumn,
-        GridColumn
-    ];
-    history: GridHistoryEntry[];
-};
+export const GridData = () =>
+    z.object({
+        gridColumns: z.tuple([
+            GridColumn(),
+            GridColumn(),
+            GridColumn(),
+            GridColumn(),
+            GridColumn(),
+            GridColumn(),
+            GridColumn(),
+            GridColumn(),
+            GridColumn(),
+        ]),
+        history: GridHistoryEntry().array(),
+    });
+export type GridData = z.infer<ReturnType<typeof GridData>>;
 
 type GridInputParams = {
     onChange: (data: GridData) => void;

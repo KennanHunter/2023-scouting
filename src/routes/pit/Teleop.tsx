@@ -1,4 +1,4 @@
-import { Checkbox, Stack, Text, Title } from "@mantine/core";
+import { Checkbox, Stack, Text, Title, Divider } from "@mantine/core";
 import { FC } from "react";
 import { useActivePit } from "../../stores/pit/activePit";
 
@@ -22,7 +22,7 @@ export const Meta: FC = () => {
             <Checkbox
                 label="Top"
                 size="lg"
-                my={0}
+                my={4}
                 checked={teleopGridPlaceTop}
                 onChange={(event) => {
                     set("teleopGridPlaceTop")(event.target.checked);
@@ -31,7 +31,7 @@ export const Meta: FC = () => {
             <Checkbox
                 label="Middle"
                 size="lg"
-                my={0}
+                my={4}
                 checked={teleopGridPlaceMiddle}
                 onChange={(event) => {
                     set("teleopGridPlaceMiddle")(event.target.checked);
@@ -40,12 +40,14 @@ export const Meta: FC = () => {
             <Checkbox
                 label="Bottom"
                 size="lg"
-                mb={8}
+                my={4}
                 checked={teleopGridPlaceBottom}
                 onChange={(event) => {
                     set("teleopGridPlaceBottom")(event.target.checked);
                 }}
             />
+            <Divider my="xs" variant="dashed"/>
+
             <Checkbox
                 label="Do you play defense?"
                 size="lg"

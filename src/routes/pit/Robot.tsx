@@ -1,4 +1,4 @@
-import { Checkbox, NumberInput, Stack, Text, Title } from "@mantine/core";
+import { Checkbox, NumberInput, Stack, Text, Title, Divider } from "@mantine/core";
 import { FC } from "react";
 import { useActivePit } from "../../stores/pit/activePit";
 
@@ -78,10 +78,7 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Cone"
                 size="lg"
-                my={{
-                    lg: 0,
-                    xs: 4
-                }}
+                my={4}
                 checked={robotCanManipulateCone}
                 onChange={(event) => {
                     set("robotCanManipulateCone")(event.target.checked);
@@ -90,15 +87,14 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Cube"
                 size="lg"
-                my={{
-                    lg: 0,
-                    xs: 4
-                }}
+                my={4}
                 checked={robotCanManipulateCube}
                 onChange={(event) => {
                     set("robotCanManipulateCube")(event.target.checked);
                 }}
             />
+
+            <Divider my="xs" variant="dashed"/>
 
             <Text size="lg" mt={8}>
                 Where do you get game pieces?
@@ -106,10 +102,7 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Ramp"
                 size="lg"
-                my={{
-                    lg: 0,
-                    xs: 4
-                }}
+                my={4}
                 checked={robotCanPickupRamp}
                 onChange={(event) => {
                     set("robotCanPickupRamp")(event.target.checked);
@@ -118,10 +111,7 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Shelf"
                 size="lg"
-                my={{
-                    lg: 0,
-                    xs: 4
-                }}
+                my={4}
                 checked={robotCanPickupShelf}
                 onChange={(event) => {
                     set("robotCanPickupShelf")(event.target.checked);
@@ -130,15 +120,14 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Floor"
                 size="lg"
-                my={{
-                    lg: 0,
-                    xs: 4
-                }}
+                my={4}
                 checked={robotCanPickupFloor}
                 onChange={(event) => {
                     set("robotCanPickupFloor")(event.target.checked);
                 }}
             />
+
+            <Divider my="xs" variant="dashed"/>
 
             <Text size="lg" mt={8}>
                 Can you dock in:
@@ -146,10 +135,7 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Auto"
                 size="lg"
-                my={{
-                    lg: 0,
-                    xs: 4
-                }}
+                my={4}
                 checked={robotCanDockAuto}
                 onChange={(event) => {
                     set("robotCanDockAuto")(event.target.checked);
@@ -158,15 +144,14 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Teleop"
                 size="lg"
-                my={{
-                    lg: 0,
-                    xs: 4
-                }}
+                my={4}
                 checked={robotCanDockTeleop}
                 onChange={(event) => {
                     set("robotCanDockTeleop")(event.target.checked);
                 }}
             />
+
+            <Divider my="xs" variant="dashed"/>
 
             <Text size="lg" mt={8}>
                 Can you engage in:
@@ -174,10 +159,7 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Auto"
                 size="lg"
-                my={{
-                    lg: 0,
-                    xs: 4
-                }}
+                my={4}
                 checked={robotCanEngageAuto}
                 onChange={(event) => {
                     set("robotCanEngageAuto")(event.target.checked);
@@ -186,10 +168,7 @@ export const Robot: FC = () => {
             <Checkbox
                 label="Teleop"
                 size="lg"
-                my={{
-                    sm: 4,
-                    md: 0
-                }}
+                my={4}
                 checked={robotCanEngageTeleop}
                 onChange={(event) => {
                     set("robotCanEngageTeleop")(event.target.checked);

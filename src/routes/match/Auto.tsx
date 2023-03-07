@@ -3,6 +3,8 @@ import { FC } from "react";
 import { FieldInput } from "../../components/FieldInput";
 import { GridInput } from "../../components/GridInput";
 import { useActiveMatch } from "../../stores/match/activeMatch";
+import { MatchState } from "../../stores/match/matchTypes";
+import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 
 export const Auto: FC = () => {
     const set = useActiveMatch((state) => state.set);
@@ -13,6 +15,8 @@ export const Auto: FC = () => {
         autonomousLeftCommunityZone,
         autonomousStartingLocation,
     } = useActiveMatch((state) => state);
+
+    const errors = useActiveMatchErrors();
 
     return (
         <Stack>
@@ -36,6 +40,16 @@ export const Auto: FC = () => {
                 onChange={(event) => {
                     set("autonomousLeftCommunityZone")(event.target.checked);
                 }}
+                error={(() => {
+                    const safeParseResult =
+                        MatchState().shape.autonomousLeftCommunityZone.safeParse(
+                            autonomousLeftCommunityZone
+                        );
+
+                    if (safeParseResult.success) return undefined;
+
+                    return safeParseResult.error.message;
+                })()}
             />
             <Text size="lg">Grid</Text>
             <GridInput
@@ -53,6 +67,9 @@ export const Auto: FC = () => {
                         event.target.checked
                     );
                 }}
+                error={
+                    
+                }
             />
             <Checkbox
                 label="Charging Station Engaged"
@@ -62,6 +79,9 @@ export const Auto: FC = () => {
                 onChange={(event) => {
                     set("autonomousChargeStationEngaged")(event.target.checked);
                 }}
+                error={
+                    
+                }
             />
         </Stack>
     );
