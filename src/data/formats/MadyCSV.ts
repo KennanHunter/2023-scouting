@@ -4,7 +4,7 @@ import { gridUtilities } from "../../util/gridUtilities";
 import { escapeString, wrapString } from "./utilities";
 import { Exporter } from "./types";
 
-export const MadyCSV : Exporter<string> = {
+export const MadyCSV: Exporter<string> = {
     match: {
         stringify: (db: MatchState[]) => {
             // @cspell:disable
@@ -82,7 +82,7 @@ export const MadyCSV : Exporter<string> = {
                         row.comments,
                         row.endgameLinksCompleted,
                         "false", // TODO: Cooperation bonus
-                        row.time.toString(),
+                        row.time ? row.time.toString() : new Date().toString(),
                     ]
                         .map(String)
                         .map(escapeString)
