@@ -1,5 +1,5 @@
 import { Button, Group } from "@mantine/core";
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 type TabButtonsParams = {
@@ -25,8 +25,8 @@ export const TabButtons: FC<PropsWithChildren<TabButtonsParams>> = ({
             )}
             {children}
             {nextPath ? (
-                <Link to={nextPath ?? ""} style={{ all: "unset" }}>
-                    <Button mx={4} data-disabled={!enableNext}>
+                <Link to={enableNext ? (nextPath ?? "") : "."} relative={enableNext ? undefined : "path"} style={{ all: "unset" }}>
+                    <Button mx={4} disabled={!enableNext}>
                         Next
                     </Button>
                 </Link>

@@ -9,6 +9,8 @@ import {
 import { FC } from "react";
 import { useActiveMatch } from "../../stores/match/activeMatch";
 import { ParkState } from "../../stores/match/matchTypes";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 
 export const Endgame: FC = () => {
     const set = useActiveMatch((state) => state.set);
@@ -21,8 +23,10 @@ export const Endgame: FC = () => {
         comments,
     } = useActiveMatch((state) => state);
 
+    const errors = useActiveMatchErrors();
+
     return (
-        <Stack>
+        <StackValidationChecker>
             <Title align="center">Endgame</Title>
 
             <Radio.Group
@@ -30,6 +34,7 @@ export const Endgame: FC = () => {
                 my={4}
                 onChange={(value) => set("endgameParking")(value as ParkState)}
                 value={endgameParking}
+                error={errors.endgameParking}
             >
                 <Radio
                     value={ParkState().enum.DockEngage}
@@ -60,11 +65,7 @@ export const Endgame: FC = () => {
             <NumberInput
                 value={endgameRobotsDocked}
                 onChange={(value) => set("endgameRobotsDocked")(value ?? 0)}
-                error={
-                    endgameRobotsDocked < 0
-                        ? "Value cannot be less than 0!"
-                        : undefined
-                }
+                error={errors.endgameRobotsDocked}
                 placeholder="Robots Docked"
                 label="Robots Docked"
                 size="lg"
@@ -74,25 +75,22 @@ export const Endgame: FC = () => {
             <NumberInput
                 value={endgameLinksCompleted}
                 onChange={(value) => set("endgameLinksCompleted")(value ?? 0)}
-                error={
-                    endgameLinksCompleted < 0
-                        ? "Value cannot be less than 0!"
-                        : undefined
-                }
-                placeholder="Ground Pickups"
-                label="Ground Pickups"
+                error={errors.endgameLinksCompleted}
+                placeholder="Links Completed"
+                label="Links Completed"
                 size="lg"
                 my={4}
             />
 
             <Checkbox
-                label="Died on Field"
+                label="Tipped Charge Station"
                 size="lg"
                 my={8}
-                checked={diedOnField}
+                checked={endgameTippedChargeStation}
                 onChange={(event) => {
-                    set("diedOnField")(event.target.checked);
+                    set("endgameTippedChargeStation")(event.target.checked);
                 }}
+                error={errors.endgameTippedChargeStation}
             />
 
             <Checkbox
@@ -103,6 +101,7 @@ export const Endgame: FC = () => {
                 onChange={(event) => {
                     set("diedOnField")(event.target.checked);
                 }}
+                error={errors.diedOnField}
             />
 
             <Textarea
@@ -111,7 +110,8 @@ export const Endgame: FC = () => {
                 label="Comments"
                 size="lg"
                 my={4}
+                error={errors.comments}
             />
-        </Stack>
+        </StackValidationChecker>
     );
 };

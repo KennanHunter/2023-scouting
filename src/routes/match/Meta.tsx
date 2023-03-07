@@ -3,14 +3,18 @@ import { FC } from "react";
 import { scouterOptions } from "../../data/scouters";
 import { useActiveMatch } from "../../stores/match/activeMatch";
 import { MatchLevel } from "../../stores/match/matchTypes";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 
 export const Meta: FC = () => {
     const set = useActiveMatch((state) => state.set);
     const { scouter, matchLevel, matchNumber, teamNumber, teamNoShow } =
         useActiveMatch((state) => state);
 
+    const errors = useActiveMatchErrors();
+
     return (
-        <Stack>
+        <StackValidationChecker>
             <Title align="center">Match Information</Title>
 
             <Select
@@ -37,11 +41,7 @@ export const Meta: FC = () => {
             <NumberInput
                 value={matchNumber}
                 onChange={(value) => set("matchNumber")(value ?? 0)}
-                error={
-                    matchNumber <= 0
-                        ? "You must set a match number!"
-                        : undefined
-                }
+                error={errors.matchNumber}
                 placeholder="Match Number"
                 label="Match Number"
                 size="lg"
@@ -51,9 +51,7 @@ export const Meta: FC = () => {
             <NumberInput
                 value={teamNumber}
                 onChange={(value) => set("teamNumber")(value ?? 0)}
-                error={
-                    teamNumber <= 0 ? "You must set a team number!" : undefined
-                }
+                error={errors.teamNumber}
                 placeholder="Team Number"
                 label="Team Number"
                 size="lg"
@@ -69,6 +67,6 @@ export const Meta: FC = () => {
                     set("teamNoShow")(event.target.checked);
                 }}
             />
-        </Stack>
+        </StackValidationChecker>
     );
 };

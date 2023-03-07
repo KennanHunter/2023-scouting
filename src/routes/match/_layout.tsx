@@ -6,6 +6,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { TabButtons } from "../../components/TabButtons";
 import { routeConfig } from "../../router";
 import { useActiveMatch } from "../../stores/match/activeMatch";
+import { useValidationState } from "../../stores/validation/validationStore";
 
 export const MatchLayout: FC = () => {
     const { pathname } = useLocation();
@@ -39,6 +40,8 @@ export const MatchLayout: FC = () => {
         return returnValue;
     })();
 
+    const childValidated = useValidationState().valid;
+
     return (
         <div>
             <Stepper active={active - 1} size="sm" iconSize={32} mb={8}>
@@ -53,7 +56,7 @@ export const MatchLayout: FC = () => {
 
             <Divider my="sm" />
 
-            <TabButtons previousPath={previousPath} nextPath={nextPath} enablePrevious={true} enableNext={true}>
+            <TabButtons previousPath={previousPath} nextPath={nextPath} enableNext={childValidated}>
                 <Tooltip label={"Clear all data and Quit"}>
                     <Button
                         leftIcon={<IconTrash />}

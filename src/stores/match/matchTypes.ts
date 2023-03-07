@@ -27,16 +27,16 @@ export const MatchState = () =>
         autonomousDockedToChargeStation: z.boolean(),
         autonomousChargeStationEngaged: z.boolean(),
 
-        teleopGroundPickups: z.number().positive(),
-        teleopSubstation1Pickups: z.number().positive(),
-        teleopSubstation2LowPickups: z.number().positive(),
-        teleopSubstation2HighPickups: z.number().positive(),
+        teleopGroundPickups: z.number().min(0),
+        teleopSubstation1Pickups: z.number().min(0),
+        teleopSubstation2LowPickups: z.number().min(0),
+        teleopSubstation2HighPickups: z.number().min(0),
         teleopGridData: GridData(),
 
         endgameParking: ParkState(),
         endgameTippedChargeStation: z.boolean(),
-        endgameRobotsDocked: z.number(),
-        endgameLinksCompleted: z.number(),
+        endgameRobotsDocked: z.number().min(0),
+        endgameLinksCompleted: z.number().min(0),
 
         diedOnField: z.boolean(),
         comments: z.string(),

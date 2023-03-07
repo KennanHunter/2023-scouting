@@ -5,6 +5,7 @@ import { GridInput } from "../../components/GridInput";
 import { useActiveMatch } from "../../stores/match/activeMatch";
 import { MatchState } from "../../stores/match/matchTypes";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
 
 export const Auto: FC = () => {
     const set = useActiveMatch((state) => state.set);
@@ -19,7 +20,7 @@ export const Auto: FC = () => {
     const errors = useActiveMatchErrors();
 
     return (
-        <Stack>
+        <StackValidationChecker>
             <Title align="center">Auto</Title>
 
             <Text size="lg">Starting Position</Text>
@@ -40,16 +41,7 @@ export const Auto: FC = () => {
                 onChange={(event) => {
                     set("autonomousLeftCommunityZone")(event.target.checked);
                 }}
-                error={(() => {
-                    const safeParseResult =
-                        MatchState().shape.autonomousLeftCommunityZone.safeParse(
-                            autonomousLeftCommunityZone
-                        );
-
-                    if (safeParseResult.success) return undefined;
-
-                    return safeParseResult.error.message;
-                })()}
+                error={errors.autonomousLeftCommunityZone}
             />
             <Text size="lg">Grid</Text>
             <GridInput
@@ -67,9 +59,7 @@ export const Auto: FC = () => {
                         event.target.checked
                     );
                 }}
-                error={
-                    
-                }
+                error={errors.autonomousDockedToChargeStation}
             />
             <Checkbox
                 label="Charging Station Engaged"
@@ -79,10 +69,8 @@ export const Auto: FC = () => {
                 onChange={(event) => {
                     set("autonomousChargeStationEngaged")(event.target.checked);
                 }}
-                error={
-                    
-                }
+                error={errors.autonomousChargeStationEngaged}
             />
-        </Stack>
+        </StackValidationChecker>
     );
 };
