@@ -9,28 +9,26 @@ export const ScanQR: FC = () => {
     const handleScan = (result: any) => {
         if (result) {
             //setData(result.data);
-            
+
             showNotification({
                 title: "Scan Complete!",
                 message: `Imported ${2} ${"Match"} Entries`,
                 color: "green",
             });
-            console.log(result)
+            console.log(result);
         }
     };
 
-    const handleError = (error : any) => {
+    const handleError = (error: any) => {
         console.log(error);
     };
 
     return (
         <Box>
-            <Title align="center" mb={16}>QR Code Scanner</Title>
-            <QrReader
-                delay={delay}
-                onError={handleError}
-                onScan={handleScan}
-            />
+            <Title align="center" mb={16}>
+                QR Code Scanner
+            </Title>
+            <QrReader delay={delay} onError={handleError} onScan={handleScan} />
         </Box>
     );
 };

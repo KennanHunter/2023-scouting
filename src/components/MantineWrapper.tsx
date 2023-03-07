@@ -24,7 +24,7 @@ export const MantineWrapper: FC<PropsWithChildren<{}>> = ({ children }) => {
             toggleColorScheme={toggleColorScheme}
         >
             <MantineProvider
-                theme={{ 
+                theme={{
                     colorScheme,
                     breakpoints: {
                         xs: 500,

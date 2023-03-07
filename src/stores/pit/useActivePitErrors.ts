@@ -8,10 +8,7 @@ export const useActivePitErrors = (): z.inferFlattenedErrors<
 >["fieldErrors"] => {
     const state = useActivePit((state) => state);
 
-    const safeParseResult = useMemo(
-        () => PitState().safeParse(state),
-        [state]
-    );
+    const safeParseResult = useMemo(() => PitState().safeParse(state), [state]);
 
     if (safeParseResult.success)
         return Object.fromEntries(

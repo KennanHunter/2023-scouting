@@ -4,7 +4,7 @@ import {
     Flex,
     Paper,
     Title,
-    useMantineColorScheme
+    useMantineColorScheme,
 } from "@mantine/core";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
 import { FC } from "react";

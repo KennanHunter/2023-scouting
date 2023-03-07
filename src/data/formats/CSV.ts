@@ -10,18 +10,19 @@ export const CSV: Exporter<string> = {
             const table = Object.values(db).map((row) =>
                 Object.entries(row)
                     .map(([key, val]): string => {
-                        if (typeof val === "boolean") return JSON.stringify(val);
+                        if (typeof val === "boolean")
+                            return JSON.stringify(val);
                         if (typeof val === "string") return val;
                         if (typeof val === "number") return JSON.stringify(val);
                         if (typeof val === "object") {
                         }
-    
+
                         return "";
                     })
                     .map((value) => escapeString(value))
                     .join(",")
             );
-    
+
             return table.join("\n");
         },
         blobify: (db: MatchState[]) =>
@@ -36,18 +37,19 @@ export const CSV: Exporter<string> = {
             const table = Object.values(db).map((row) =>
                 Object.entries(row)
                     .map(([key, val]): string => {
-                        if (typeof val === "boolean") return JSON.stringify(val);
+                        if (typeof val === "boolean")
+                            return JSON.stringify(val);
                         if (typeof val === "string") return val;
                         if (typeof val === "number") return JSON.stringify(val);
                         if (typeof val === "object") {
                         }
-    
+
                         return "";
                     })
                     .map((value) => escapeString(value))
                     .join(",")
             );
-    
+
             return table.join("\n");
         },
         blobify: (db: PitState[]) =>
@@ -55,5 +57,5 @@ export const CSV: Exporter<string> = {
 
         parse: () => [],
         deblobify: () => [],
-    }
+    },
 };

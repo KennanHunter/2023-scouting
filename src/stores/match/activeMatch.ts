@@ -12,7 +12,7 @@ type ActiveMatchActions = {
     ) => (value: MatchState[T]) => void;
 };
 
-const defaultActiveMatchState: MatchState= {
+const defaultActiveMatchState: MatchState = {
     scouter: "",
     matchLevel: MatchLevel().Enum.Qualifications,
     matchNumber: 0,

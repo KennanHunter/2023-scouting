@@ -1,4 +1,11 @@
-import { Checkbox, NumberInput, Stack, Title, Text, Divider } from "@mantine/core";
+import {
+    Checkbox,
+    NumberInput,
+    Stack,
+    Title,
+    Text,
+    Divider,
+} from "@mantine/core";
 import { FC } from "react";
 import { useActivePit } from "../../stores/pit/activePit";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
@@ -65,7 +72,7 @@ export const Meta: FC = () => {
                 error={errors.autonomousGridPlaceBottom}
             />
 
-            <Divider my="xs" variant="dashed"/>
+            <Divider my="xs" variant="dashed" />
 
             <NumberInput
                 value={autonomousNumberOfPrograms}

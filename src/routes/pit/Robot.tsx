@@ -1,4 +1,12 @@
-import { Checkbox, NumberInput, Stack, Text, Title, Divider, Select } from "@mantine/core";
+import {
+    Checkbox,
+    NumberInput,
+    Stack,
+    Text,
+    Title,
+    Divider,
+    Select,
+} from "@mantine/core";
 import { FC } from "react";
 import { useActivePit } from "../../stores/pit/activePit";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
@@ -70,7 +78,6 @@ export const Robot: FC = () => {
                 my={4}
             />
 
-
             <Select
                 label={"What type of drivetrain do you have?"}
                 size="lg"
@@ -106,7 +113,7 @@ export const Robot: FC = () => {
                 error={errors.robotCanManipulateCube}
             />
 
-            <Divider my="xs" variant="dashed"/>
+            <Divider my="xs" variant="dashed" />
 
             <Text size="lg" mt={8}>
                 Where do you get game pieces?
@@ -142,7 +149,7 @@ export const Robot: FC = () => {
                 error={errors.robotCanPickupFloor}
             />
 
-            <Divider my="xs" variant="dashed"/>
+            <Divider my="xs" variant="dashed" />
 
             <Text size="lg" mt={8}>
                 Can you dock in:
@@ -168,7 +175,7 @@ export const Robot: FC = () => {
                 error={errors.robotCanDockTeleop}
             />
 
-            <Divider my="xs" variant="dashed"/>
+            <Divider my="xs" variant="dashed" />
 
             <Text size="lg" mt={8}>
                 Can you engage in:

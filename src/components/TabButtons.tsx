@@ -25,7 +25,11 @@ export const TabButtons: FC<PropsWithChildren<TabButtonsParams>> = ({
             )}
             {children}
             {nextPath ? (
-                <Link to={enableNext ? (nextPath ?? "") : "."} relative={enableNext ? undefined : "path"} style={{ all: "unset" }}>
+                <Link
+                    to={enableNext ? nextPath ?? "" : "."}
+                    relative={enableNext ? undefined : "path"}
+                    style={{ all: "unset" }}
+                >
                     <Button mx={4} disabled={!enableNext}>
                         Next
                     </Button>

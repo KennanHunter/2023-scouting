@@ -56,7 +56,11 @@ export const MatchLayout: FC = () => {
 
             <Divider my="sm" />
 
-            <TabButtons previousPath={previousPath} nextPath={nextPath} enableNext={childValidated}>
+            <TabButtons
+                previousPath={previousPath}
+                nextPath={nextPath}
+                enableNext={childValidated}
+            >
                 <Tooltip label={"Clear all data and Quit"}>
                     <Button
                         leftIcon={<IconTrash />}

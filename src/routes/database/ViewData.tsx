@@ -26,7 +26,7 @@ export const ViewData: FC = () => {
     const pitDB = usePitDB((state) => state.db);
     const clearPitDB = usePitDB((state) => state.clear);
 
-    const [ selectedFormat, setSelectedFormat ] = useState<string>("CSV");
+    const [selectedFormat, setSelectedFormat] = useState<string>("CSV");
 
     const downloadBlob = (fileBlob: Blob) => {
         const element = document.createElement("a");
@@ -39,19 +39,23 @@ export const ViewData: FC = () => {
         element.click();
 
         element.remove();
-    }
+    };
 
     const uploadBlob = (): Blob => {
         return new Blob([]);
-    }
+    };
 
-    const downloadMatchFile = (exporter: Exporter<string | Uint8Array>) => downloadBlob(exporter.match.blobify(matchDB));
+    const downloadMatchFile = (exporter: Exporter<string | Uint8Array>) =>
+        downloadBlob(exporter.match.blobify(matchDB));
 
-    const uploadMatchFile = (exporter: Exporter<string | Uint8Array>) => exporter.match.deblobify(uploadBlob());
+    const uploadMatchFile = (exporter: Exporter<string | Uint8Array>) =>
+        exporter.match.deblobify(uploadBlob());
 
-    const downloadPitFile = (exporter: Exporter<string | Uint8Array>) => downloadBlob(exporter.pit.blobify(pitDB));
+    const downloadPitFile = (exporter: Exporter<string | Uint8Array>) =>
+        downloadBlob(exporter.pit.blobify(pitDB));
 
-    const uploadPitFile = (exporter: Exporter<string | Uint8Array>) => exporter.pit.deblobify(uploadBlob());;
+    const uploadPitFile = (exporter: Exporter<string | Uint8Array>) =>
+        exporter.pit.deblobify(uploadBlob());
 
     return (
         <Stack
@@ -65,7 +69,10 @@ export const ViewData: FC = () => {
                     Home
                 </Button>
             </Link>
-            <Link to={"/database/create/qr"} style={{ all: "unset", flexGrow: 1 }}>
+            <Link
+                to={"/database/create/qr"}
+                style={{ all: "unset", flexGrow: 1 }}
+            >
                 <Button fullWidth my={4}>
                     View QR Codes
                 </Button>
@@ -82,7 +89,7 @@ export const ViewData: FC = () => {
             <Divider my="sm" />
 
             <Title align="center">Match Data</Title>
-            
+
             {matchDB.length ? (
                 <>
                     <FileInput
@@ -100,14 +107,18 @@ export const ViewData: FC = () => {
                         </Button>
                         <Button
                             m={4}
-                            onClick={() => downloadMatchFile(exporters[selectedFormat])}
+                            onClick={() =>
+                                downloadMatchFile(exporters[selectedFormat])
+                            }
                             style={{ flexGrow: 1 }}
                         >
                             Download
                         </Button>
                         <Button
                             m={4}
-                            onClick={() => downloadMatchFile(exporters[selectedFormat])}
+                            onClick={() =>
+                                downloadMatchFile(exporters[selectedFormat])
+                            }
                             style={{ flexGrow: 1 }}
                         >
                             Upload
@@ -163,14 +174,18 @@ export const ViewData: FC = () => {
                         </Button>
                         <Button
                             m={4}
-                            onClick={() => downloadPitFile(exporters[selectedFormat])}
+                            onClick={() =>
+                                downloadPitFile(exporters[selectedFormat])
+                            }
                             style={{ flexGrow: 1 }}
                         >
                             Download
                         </Button>
                         <Button
                             m={4}
-                            onClick={() => downloadPitFile(exporters[selectedFormat])}
+                            onClick={() =>
+                                downloadPitFile(exporters[selectedFormat])
+                            }
                             style={{ flexGrow: 1 }}
                         >
                             Upload

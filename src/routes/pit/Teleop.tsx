@@ -54,7 +54,7 @@ export const Meta: FC = () => {
                 }}
                 error={errors.teleopGridPlaceBottom}
             />
-            <Divider my="xs" variant="dashed"/>
+            <Divider my="xs" variant="dashed" />
 
             <Checkbox
                 label="Do you play defense?"
