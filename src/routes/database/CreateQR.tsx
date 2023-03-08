@@ -4,7 +4,6 @@ import { FC, useCallback, useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import { JSONGzip } from "../../data/formats/JSONGzip";
 import { useMatchDB } from "../../stores/match/matchDB";
-import { MatchState } from "../../stores/match/matchTypes";
 import { usePitDB } from "../../stores/pit/pitDB";
 import { PitState } from "../../stores/pit/pitTypes";
 import { Link } from "react-router-dom";
@@ -13,6 +12,7 @@ export const CreateQR: FC = () => {
     const pitDB = usePitDB((state) => state.db);
     const matchDB = useMatchDB((state) => state.db);
 
+    const totalNumOfQRCode = pitNumOfQRCode + matchNumOfQRCode;
     const [activePage, setPage] = useState<number | undefined>();
     const [usingMatchDB, setUsingMatchDB] = useState<boolean>(true);
 
