@@ -1,11 +1,11 @@
-import { Box, Button, Center, Divider, Pagination, Stack, Text, Title } from "@mantine/core";
+import { Box, Button, Center, Divider, Pagination, Stack, Tabs, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { FC, useCallback, useEffect, useState } from "react";
 import QRCode from "react-qr-code";
-import { JSONGzip } from "../../data/formats/JSONGzip";
-import { useMatchDB } from "../../stores/match/matchDB";
-import { usePitDB } from "../../stores/pit/pitDB";
-import { PitState } from "../../stores/pit/pitTypes";
+import { JSONGzip } from "../../../data/formats/JSONGzip";
+import { useMatchDB } from "../../../stores/match/matchDB";
+import { usePitDB } from "../../../stores/pit/pitDB";
+import { PitState } from "../../../stores/pit/pitTypes";
 import { Link } from "react-router-dom";
 
 export const CreateQR: FC = () => {
@@ -23,6 +23,7 @@ export const CreateQR: FC = () => {
                 title: `Scan ${usingMatchDB ? "Match" : "Pit"} QR Codes`,
                 centered: true,
                 onClose: () => setPage(undefined),
+                size: "min(100vw, 50vh)",
                 children: (
                     <Stack align="center">
                         <Title mb={16}>Page {activePage}</Title>
@@ -31,7 +32,10 @@ export const CreateQR: FC = () => {
                             style={{
                                 borderWidth: 16,
                                 borderStyle: "solid",
-                                borderColor: "white"
+                                borderColor: "white",
+                                height: "min(100vw, 50vh)",
+                                width: "min(100vw, 50vh)",
+                                backgroundColor: "white"
                             }}
                             level="H"
                             value={(() => {
@@ -42,8 +46,7 @@ export const CreateQR: FC = () => {
 
                                 const startIndex = (activePage - 1) * entriesPerQRCode;
                                 const endIndex = startIndex + entriesPerQRCode;
-
-                                //return new TextDecoder().decode(new Uint8Array([...Array(255).keys()]));
+                                
                                 if (usingMatchDB) {
                                     return new TextDecoder().decode(JSONGzip.match.stringify(matchDB.slice(startIndex, endIndex)));
                                 } else {
@@ -64,45 +67,36 @@ export const CreateQR: FC = () => {
     }, [activePage]);
 
     return (
-        <Stack>
-            <Link to={"/database/viewdata"} style={{ all: "unset", flexGrow: 1 }}>
-                <Button fullWidth my={4}>
-                    Back to Data View
-                </Button>
-            </Link>
-            <Title align="center" mb={16}>
-                QR Code Creator
-            </Title>
-
-            <Divider my="sm" />
-
+        <>
             {(matchDB.length != 0) ?  (
                 <Button
+                    value="create-match-qr"
                     onClick={() => {
                         setUsingMatchDB(true);
                         setPage(1);
                     }}
+                    variant="subtle"
                 >
-                    Export Matches
+                    View Match QR Codes
                 </Button>
             ) : (
                 <Text size="lg" align="center">No match data to export</Text>
             ) }
 
-            <Divider my="sm" />
-
             {(pitDB.length != 0) ?  (
                 <Button
+                    value="create-pit-qr"
                     onClick={() => {
                         setUsingMatchDB(false);
                         setPage(1);
                     }}
+                    variant="subtle"
                 >
-                    Export Pits
+                    View Pit QR Codes
                 </Button>
             ) : (
                 <Text size="lg" align="center">No pit data to export</Text>
             ) }
-        </Stack>
+        </>
     );
 };

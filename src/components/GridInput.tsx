@@ -78,6 +78,8 @@ export const GridInput: FC<GridInputParams> = ({ data, readonly, onChange }) => 
     };
 
     const addItem = (column: number, level: number) => {
+        if (readonly) return;
+
         changeItem(column, level, 1);
 
         data.history.push({
@@ -89,7 +91,7 @@ export const GridInput: FC<GridInputParams> = ({ data, readonly, onChange }) => 
     };
 
     const undo = () => {
-        if (data.history.length == 0) return;
+        if (data.history.length == 0 || readonly) return;
 
         changeItem(
             data.history[data.history.length - 1].column,

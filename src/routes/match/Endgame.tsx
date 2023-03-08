@@ -17,7 +17,7 @@ export const Endgame: FC = () => {
     const set = useActiveMatch((state) => state.set);
     const {
         endgameParking,
-        endgameCoopertitionBonus: endgameTippedChargeStation,
+        endgameCoopertitionBonus,
         endgameRobotsDocked,
         endgameLinksCompleted,
         defenseRating,
@@ -88,7 +88,7 @@ export const Endgame: FC = () => {
                 label="Coopertition Bonus"
                 size="lg"
                 my={8}
-                checked={endgameTippedChargeStation}
+                checked={endgameCoopertitionBonus}
                 onChange={(event) => {
                     set("endgameCoopertitionBonus")(event.target.checked);
                 }}
