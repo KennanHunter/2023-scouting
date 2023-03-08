@@ -5,6 +5,7 @@ import { JSONGzip } from "./JSONGzip";
 import { MadyCSV } from "./MadyCSV";
 
 export type Exporter<TExportType extends string | Uint8Array> = {
+    exportType: TExportType extends string ? "string" : "binary";
     match: {
         stringify: (db: MatchState[]) => TExportType;
         blobify: (db: MatchState[]) => Blob;
