@@ -4,6 +4,7 @@ import { Exporter } from "./types";
 import { escapeString } from "./utilities";
 
 export const CSV: Exporter<string> = {
+    exportType: "string",
     match: {
         stringify: (db: MatchState[]) => {
             const table = Object.values(db).map((row) =>

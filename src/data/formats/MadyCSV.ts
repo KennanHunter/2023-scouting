@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { GridColumn, GridData, initGridData } from "../../components/GridInput";
 import {
     AutoParkState,
     DefenseRating,
@@ -6,46 +8,49 @@ import {
 } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
 import { gridUtilities } from "../../util/gridUtilities";
-import { escapeString, wrapString } from "./utilities";
 import { Exporter } from "./types";
+import { escapeString, wrapString } from "./utilities";
+
+// @cspell:disable
+const headersArray = [
+    "EventKey",
+    "MatchLevel",
+    "MatchNumber",
+    "Team",
+    "ScoutName",
+    "NoShow",
+    "LeftCommunity",
+    "A-TopCones",
+    "A-TopCubes",
+    "A-MiddleCones",
+    "A-MiddleCubes",
+    "A-BottomCones",
+    "A-BottomCubes",
+    "ChargingStation",
+    "T-TopCones",
+    "T-TopCubes",
+    "T-MiddleCones",
+    "T-MiddleCubes",
+    "T-BottomCones",
+    "T-BottomCubes",
+    "PickupLocations",
+    "DiedonField",
+    "RunnerRobot",
+    "DefenseRating",
+    "ChargingStation",
+    "RobotsDocked",
+    "Comments",
+    "LinksCompleted",
+    "CoopertitionBonus",
+    "ScoutedTime",
+] as const;
 
 export const MadyCSV: Exporter<string> = {
+    exportType: "string",
     match: {
         stringify: (db: MatchState[]) => {
             // a hacky csv generator to conform to Mady's data structure
-            // @cspell:disable
-            const header: string = [
-                "EventKey",
-                "MatchLevel",
-                "MatchNumber",
-                "Team",
-                "ScoutName",
-                "NoShow",
-                "LeftCommunity",
-                "A-TopCones",
-                "A-TopCubes",
-                "A-MiddleCones",
-                "A-MiddleCubes",
-                "A-BottomCones",
-                "A-BottomCubes",
-                "ChargingStation",
-                "T-TopCones",
-                "T-TopCubes",
-                "T-MiddleCones",
-                "T-MiddleCubes",
-                "T-BottomCones",
-                "T-BottomCubes",
-                "PickupLocations",
-                "DiedonField",
-                "RunnerRobot",
-                "DefenseRating",
-                "ChargingStation",
-                "RobotsDocked",
-                "Comments",
-                "LinksCompleted",
-                "CoopertitionBonus",
-                "ScoutedTime",
-            ]
+            const header: string = headersArray
                 .map(escapeString)
                 .map(wrapString)
                 .join(",");
@@ -110,7 +115,65 @@ export const MadyCSV: Exporter<string> = {
         blobify: (db: MatchState[]) =>
             new Blob([MadyCSV.match.stringify(db)], { type: "text/csv" }),
 
-        parse: () => [],
+        parse: (stringBlob) => {
+            const lines = stringBlob.split("\n");
+
+            const extractFromQuotations = (s: string): string[] =>
+                (s.split(/(?<=(?<!\\)"),/gmu).splice(1, -1) as string[]) || [];
+
+            const header = extractFromQuotations(
+                lines[0]
+            ) as (typeof headersArray)[number][];
+
+            const records = lines.slice(1).map((val, index) =>
+                extractFromQuotations(val).reduce(
+                    (prev, cur, index, arr) => ({
+                        ...prev,
+                        [header[index]]: cur,
+                    }),
+                    {} as Record<(typeof headersArray)[number], string>
+                )
+            );
+            const debooleanify = (val: string): boolean =>
+                z.boolean().parse(JSON.parse(val));
+
+            return records.map(
+                (record): Partial<MatchState> => ({
+                    scouter: record["ScoutName"],
+                    matchLevel: record["MatchLevel"] as any,
+                    matchNumber: Number(record["MatchNumber"]),
+                    teamNumber: Number(record["Team"]),
+
+                    teamNoShow: debooleanify(record["NoShow"]),
+
+                    // autonomousStartingLocation:,
+                    autonomousLeftCommunityZone: debooleanify(
+                        record["LeftCommunity"]
+                    ),
+                    autonomousGridData: initGridData(),
+                    // autonomousParking:,
+
+                    // teleopGroundPickups:,
+                    // teleopSubstation1Pickups: ,
+                    // teleopSubstation2LowPickups: ,
+                    // teleopSubstation2HighPickups:,
+                    // teleopRunnerRobot: ,
+                    // teleopGridData:,
+
+                    // endgameParking:,
+                    // endgameCoopertitionBonus:,
+                    // endgameRobotsDocked: ,
+                    // endgameLinksCompleted:,
+
+                    // defenseRating: ,
+                    // diedOnField: ,
+                    // comments: ,
+
+                    // time: ,
+                })
+            ) as any;
+        },
+
         deblobify: async (blob: Blob) => MadyCSV.match.parse(await blob.text()),
     },
     pit: {

@@ -1,14 +1,16 @@
 {
     "cSpell.words": [
         "blobify",
+        "Coopertition",
         "deblobify",
+        "debooleanify",
         "Mady",
         "Mantine",
+        "pako",
         "scavange",
         "tabler",
         "teleop",
         "viewdata",
-        "zustand",
-        "pako"
+        "zustand"
     ]
 }

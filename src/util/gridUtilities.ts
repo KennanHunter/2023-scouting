@@ -65,3 +65,26 @@ export const gridUtilities = ({ gridColumns: grid }: GridData) => {
         coneColumnsTotals,
     };
 };
+
+const inflateSimpleGridColumn = (
+    column: GridColumnSimple,
+    item: "cube" | "cone"
+) =>
+    ({
+        level1: column.level1,
+        level2: column.level2,
+        [item === "cone" ? "hybridCone" : "hybridCube"]: column.hybrid,
+        [item !== "cone" ? "hybridCone" : "hybridCube"]: 0,
+    } as GridColumn);
+
+const populateGridData = (
+    gridData: GridData,
+    utilities: ReturnType<typeof gridUtilities>
+): GridData => ({
+    gridColumns: [
+        inflateSimpleGridColumn(utilities.coneColumnsTotals, "cone"),
+        inflateSimpleGridColumn(utilities.cubeColumnsTotals, "cube"),
+        ...gridData.gridColumns.slice(2),
+    ] as any,
+    history: gridData.history,
+});
