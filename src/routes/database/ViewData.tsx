@@ -18,6 +18,8 @@ import { Exporter, exporters } from "../../data/formats/types";
 import { PitState } from "../../stores/pit/pitTypes";
 import { MatchState } from "../../stores/match/matchTypes";
 import { showNotification } from "@mantine/notifications";
+import { FieldData, FieldInput, FieldPoint } from "../../components/FieldInput";
+import { GridData, GridInput } from "../../components/GridInput";
 
 export const ViewData: FC = () => {
     const matchDB = useMatchDB((state) => state.db);
@@ -229,11 +231,28 @@ export const ViewData: FC = () => {
                                 {matchDB.map((match, index) => (
                                     <tr key={`match#${index}`}>
                                         {Object.values(match).map(
-                                            (value, index) => (
-                                                <td key={index}>
-                                                    {JSON.stringify(value)}
-                                                </td>
-                                            )
+                                            (value, index) => {
+                                                if (FieldPoint().safeParse(value).success) {
+                                                    return (
+                                                        <td key={index}>
+                                                            <FieldInput onChange={() => {}} data={[ FieldPoint().parse(value) ]} readonly />
+                                                        </td>
+                                                    )
+                                                }
+                                                if (GridData().safeParse(value).success) {
+                                                    return (
+                                                        <td key={index}>
+                                                            <GridInput onChange={() => {}} data={GridData().parse(value)} readonly />
+                                                        </td>
+                                                    )
+                                                }
+
+                                                return (
+                                                    <td key={index}>
+                                                        {JSON.stringify(value)}
+                                                    </td>
+                                                );
+                                            }
                                         )}
                                     </tr>
                                 ))}

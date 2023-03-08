@@ -18,11 +18,13 @@ type FieldInputParams = {
     onChange: (data: FieldData) => void;
     singlePoint?: boolean;
     data: FieldData;
+    readonly?: boolean;
 };
 
 export const FieldInput: FC<FieldInputParams> = ({
     data,
     singlePoint,
+    readonly,
     onChange,
 }) => {
     return (
@@ -35,6 +37,8 @@ export const FieldInput: FC<FieldInputParams> = ({
             }}
             my={8}
             onClick={(event: MouseEvent<HTMLDivElement>) => {
+                if (readonly) return;
+
                 const eventTarget = event.target as HTMLDivElement;
 
                 const percentX =

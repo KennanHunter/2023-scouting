@@ -39,6 +39,7 @@ export type GridData = z.infer<ReturnType<typeof GridData>>;
 type GridInputParams = {
     onChange: (data: GridData) => void;
     data: GridData;
+    readonly?: boolean;
 };
 
 export const initGridData = (): GridData => {
@@ -58,7 +59,7 @@ export const initGridData = (): GridData => {
     };
 };
 
-export const GridInput: FC<GridInputParams> = ({ data, onChange }) => {
+export const GridInput: FC<GridInputParams> = ({ data, readonly, onChange }) => {
     const changeItem = (column: number, level: number, by: number) => {
         switch (level) {
             case 0:
@@ -102,7 +103,7 @@ export const GridInput: FC<GridInputParams> = ({ data, onChange }) => {
     };
 
     return (
-        <Box my={8}>
+        <Box my={8} miw={300}>
             <Grid justify="center" gutter={4} grow my={8}>
                 {data.gridColumns.map((column: GridColumn, index: number) => (
                     <Grid.Col span="auto" key={`gridcolumn#${index}`}>
@@ -177,9 +178,10 @@ export const GridInput: FC<GridInputParams> = ({ data, onChange }) => {
                     </Grid.Col>
                 ))}
             </Grid>
-            <Button variant="filled" size="sm" compact fullWidth onClick={undo}>
+            {(!readonly) ? <Button variant="filled" size="sm" compact fullWidth onClick={undo}>
                 Undo
-            </Button>
+            </Button> : (null)}
+            
         </Box>
     );
 };
