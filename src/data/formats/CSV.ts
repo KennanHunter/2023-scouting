@@ -5,6 +5,7 @@ import { escapeString } from "./utilities";
 
 export const CSV: Exporter<string> = {
     exportType: "string",
+    mimeType: "text/csv",
     match: {
         stringify: (db: MatchState[]) => {
             const table = Object.values(db).map((row) =>
@@ -26,7 +27,7 @@ export const CSV: Exporter<string> = {
             return table.join("\n");
         },
         blobify: (db: MatchState[]) =>
-            new Blob([CSV.match.stringify(db)], { type: "text/csv" }),
+            new Blob([CSV.match.stringify(db)], { type: CSV.mimeType }),
 
         parse: () => [],
         deblobify: async () => [],
@@ -52,7 +53,7 @@ export const CSV: Exporter<string> = {
             return table.join("\n");
         },
         blobify: (db: PitState[]) =>
-            new Blob([CSV.pit.stringify(db)], { type: "text/csv" }),
+            new Blob([CSV.pit.stringify(db)], { type: CSV.mimeType }),
 
         parse: () => [],
         deblobify: async () => [],
