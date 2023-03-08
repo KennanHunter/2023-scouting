@@ -23,15 +23,8 @@ export const JSONGzip: Exporter<Uint8Array> = {
                 .array()
                 .safeParse(rawQRCodeInput);
 
-            if (!QRCodeParseResult.success) {
-                showNotification({
-                    message: "Parsing of match state unsuccessful",
-                });
-                throw new Error(
-                    "Parsing of match state unsuccessful\n" +
-                        QRCodeParseResult.error.flatten()
-                );
-            }
+            if (!QRCodeParseResult.success) 
+                return undefined;
 
             return QRCodeParseResult.data;
         },
@@ -55,15 +48,8 @@ export const JSONGzip: Exporter<Uint8Array> = {
                 .array()
                 .safeParse(rawQRCodeInput);
 
-            if (!QRCodeParseResult.success) {
-                showNotification({
-                    message: "Parsing of pit state unsuccessful",
-                });
-                throw new Error(
-                    "Parsing of pit state unsuccessful\n" +
-                        QRCodeParseResult.error.flatten()
-                );
-            }
+            if (!QRCodeParseResult.success) 
+                return undefined;
 
             return QRCodeParseResult.data;
         },

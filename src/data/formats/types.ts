@@ -9,15 +9,15 @@ export type Exporter<TExportType extends string | Uint8Array> = {
         stringify: (db: MatchState[]) => TExportType;
         blobify: (db: MatchState[]) => Blob;
 
-        parse: (data: TExportType) => MatchState[];
-        deblobify: (blob: Blob) => MatchState[];
+        parse: (data: TExportType) => MatchState[] | undefined;
+        deblobify: (blob: Blob) => MatchState[] | undefined;
     };
     pit: {
         stringify: (db: PitState[]) => TExportType;
         blobify: (db: PitState[]) => Blob;
 
-        parse: (data: TExportType) => PitState[];
-        deblobify: (blob: Blob) => PitState[];
+        parse: (data: TExportType) => PitState[] | undefined;
+        deblobify: (blob: Blob) => PitState[] | undefined;
     };
 };
 

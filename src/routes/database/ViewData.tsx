@@ -77,6 +77,14 @@ export const ViewData: FC = () => {
                     View QR Codes
                 </Button>
             </Link>
+            <Link
+                to={"/database/scan/qr"}
+                style={{ all: "unset", flexGrow: 1 }}
+            >
+                <Button fullWidth my={4}>
+                    Scan QR Codes
+                </Button>
+            </Link>
             <Select
                 label={"Format"}
                 searchable
