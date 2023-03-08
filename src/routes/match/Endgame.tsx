@@ -2,13 +2,14 @@ import {
     Checkbox,
     NumberInput,
     Radio,
+    Select,
     Stack,
     Textarea,
     Title,
 } from "@mantine/core";
 import { FC } from "react";
 import { useActiveMatch } from "../../stores/match/activeMatch";
-import { ParkState } from "../../stores/match/matchTypes";
+import { DefenseRating, EndgameParkState } from "../../stores/match/matchTypes";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 
@@ -16,9 +17,10 @@ export const Endgame: FC = () => {
     const set = useActiveMatch((state) => state.set);
     const {
         endgameParking,
-        endgameTippedChargeStation,
+        endgameCoopertitionBonus: endgameTippedChargeStation,
         endgameRobotsDocked,
         endgameLinksCompleted,
+        defenseRating,
         diedOnField,
         comments,
     } = useActiveMatch((state) => state);
@@ -32,30 +34,30 @@ export const Endgame: FC = () => {
             <Radio.Group
                 label="Parking"
                 my={4}
-                onChange={(value) => set("endgameParking")(value as ParkState)}
+                onChange={(value) => set("endgameParking")(value as EndgameParkState)}
                 value={endgameParking}
                 error={errors.endgameParking}
             >
                 <Radio
-                    value={ParkState().enum.DockEngage}
+                    value={EndgameParkState().enum.DockEngage}
                     label="Docked + Engaged"
                     size="lg"
                     m={4}
                 />
                 <Radio
-                    value={ParkState().enum.Dock}
+                    value={EndgameParkState().enum.Dock}
                     label="Docked Only"
                     size="lg"
                     m={4}
                 />
                 <Radio
-                    value={ParkState().enum.Park}
+                    value={EndgameParkState().enum.Park}
                     label="Parked"
                     size="lg"
                     m={4}
                 />
                 <Radio
-                    value={ParkState().enum.None}
+                    value={EndgameParkState().enum.None}
                     label="None"
                     size="lg"
                     m={4}
@@ -83,14 +85,25 @@ export const Endgame: FC = () => {
             />
 
             <Checkbox
-                label="Tipped Charge Station"
+                label="Coopertition Bonus"
                 size="lg"
                 my={8}
                 checked={endgameTippedChargeStation}
                 onChange={(event) => {
-                    set("endgameTippedChargeStation")(event.target.checked);
+                    set("endgameCoopertitionBonus")(event.target.checked);
                 }}
-                error={errors.endgameTippedChargeStation}
+                error={errors.endgameCoopertitionBonus}
+            />
+
+            <Select
+                label={"Defense Rating"}
+                size="lg"
+                searchable
+                data={DefenseRating().options}
+                value={defenseRating}
+                onChange={set("defenseRating")}
+                my={4}
+                error={errors.defenseRating}
             />
 
             <Checkbox

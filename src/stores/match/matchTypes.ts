@@ -2,8 +2,14 @@ import { z } from "zod";
 import { FieldPoint } from "../../components/FieldInput";
 import { GridData } from "../../components/GridInput";
 
-export const ParkState = () => z.enum(["DockEngage", "Dock", "Park", "None"]);
-export type ParkState = z.infer<ReturnType<typeof ParkState>>;
+export const AutoParkState = () => z.enum(["None", "DockEngage", "Dock"]);
+export type AutoParkState = z.infer<ReturnType<typeof AutoParkState>>;
+
+export const EndgameParkState = () => z.enum(["None", "DockEngage", "Dock", "Park"]);
+export type EndgameParkState = z.infer<ReturnType<typeof EndgameParkState>>;
+
+export const DefenseRating = () => z.enum(["Not Played", "Average", "Effective", "Very Effective"]);
+export type DefenseRating = z.infer<ReturnType<typeof DefenseRating>>;
 
 export const MatchLevel = () =>
     z.enum(["Qualifications", "Quarterfinals", "Semifinals", "Finals"]);
@@ -26,20 +32,21 @@ export const MatchState = () =>
         autonomousStartingLocation: FieldPoint(),
         autonomousLeftCommunityZone: z.boolean(),
         autonomousGridData: GridData(),
-        autonomousDockedToChargeStation: z.boolean(),
-        autonomousChargeStationEngaged: z.boolean(),
+        autonomousParking: AutoParkState(),
 
         teleopGroundPickups: z.number().min(0),
         teleopSubstation1Pickups: z.number().min(0),
         teleopSubstation2LowPickups: z.number().min(0),
         teleopSubstation2HighPickups: z.number().min(0),
+        teleopRunnerRobot: z.boolean(),
         teleopGridData: GridData(),
 
-        endgameParking: ParkState(),
-        endgameTippedChargeStation: z.boolean(),
+        endgameParking: EndgameParkState(),
+        endgameCoopertitionBonus: z.boolean(),
         endgameRobotsDocked: z.number().min(0).max(3),
         endgameLinksCompleted: z.number().min(0).max(9),
 
+        defenseRating: DefenseRating(),
         diedOnField: z.boolean(),
         comments: z.string(),
 

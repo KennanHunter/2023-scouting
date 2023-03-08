@@ -1,17 +1,16 @@
-import { Checkbox, Stack, Text, Title } from "@mantine/core";
+import { Checkbox, Radio, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { FieldInput } from "../../components/FieldInput";
 import { GridInput } from "../../components/GridInput";
 import { useActiveMatch } from "../../stores/match/activeMatch";
-import { MatchState } from "../../stores/match/matchTypes";
+import { AutoParkState, MatchState } from "../../stores/match/matchTypes";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
 
 export const Auto: FC = () => {
     const set = useActiveMatch((state) => state.set);
     const {
-        autonomousChargeStationEngaged,
-        autonomousDockedToChargeStation,
+        autonomousParking,
         autonomousGridData,
         autonomousLeftCommunityZone,
         autonomousStartingLocation,
@@ -49,28 +48,33 @@ export const Auto: FC = () => {
                 data={autonomousGridData}
             />
 
-            <Checkbox
-                label="Docked to Charge Station"
-                size="lg"
-                my={8}
-                checked={autonomousDockedToChargeStation}
-                onChange={(event) => {
-                    set("autonomousDockedToChargeStation")(
-                        event.target.checked
-                    );
-                }}
-                error={errors.autonomousDockedToChargeStation}
-            />
-            <Checkbox
-                label="Charging Station Engaged"
-                size="lg"
-                my={8}
-                checked={autonomousChargeStationEngaged}
-                onChange={(event) => {
-                    set("autonomousChargeStationEngaged")(event.target.checked);
-                }}
-                error={errors.autonomousChargeStationEngaged}
-            />
+            
+            <Radio.Group
+                label="Parking"
+                my={4}
+                onChange={(value) => set("autonomousParking")(value as AutoParkState)}
+                value={autonomousParking}
+                error={errors.autonomousParking}
+            >
+                <Radio
+                    value={AutoParkState().enum.DockEngage}
+                    label="Docked + Engaged"
+                    size="lg"
+                    m={4}
+                />
+                <Radio
+                    value={AutoParkState().enum.Dock}
+                    label="Docked Only"
+                    size="lg"
+                    m={4}
+                />
+                <Radio
+                    value={AutoParkState().enum.None}
+                    label="None"
+                    size="lg"
+                    m={4}
+                />
+            </Radio.Group>
         </StackValidationChecker>
     );
 };

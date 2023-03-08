@@ -25,7 +25,7 @@ export const Meta: FC = () => {
                 value={scouter}
                 onChange={set("scouter")}
                 my={4}
-                error={scouter ? undefined : "You must select your name"}
+                error={errors.scouter}
             />
 
             <Select
@@ -36,6 +36,7 @@ export const Meta: FC = () => {
                 value={matchLevel}
                 onChange={set("matchLevel")}
                 my={4}
+                error={errors.matchLevel}
             />
 
             <NumberInput
@@ -66,6 +67,7 @@ export const Meta: FC = () => {
                 onChange={(event) => {
                     set("teamNoShow")(event.target.checked);
                 }}
+                error={errors.teamNoShow}
             />
         </StackValidationChecker>
     );

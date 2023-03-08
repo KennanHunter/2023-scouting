@@ -1,4 +1,4 @@
-import { NumberInput, Stack, Text, Title } from "@mantine/core";
+import { Checkbox, NumberInput, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { GridInput } from "../../components/GridInput";
 import { useActiveMatch } from "../../stores/match/activeMatch";
@@ -13,6 +13,7 @@ export const Teleop: FC = () => {
         teleopSubstation2LowPickups,
         teleopSubstation2HighPickups,
         teleopGridData,
+        teleopRunnerRobot
     } = useActiveMatch((state) => state);
 
     const errors = useActiveMatchErrors();
@@ -65,6 +66,17 @@ export const Teleop: FC = () => {
                 label="Substation 2 High Pickups"
                 size="lg"
                 my={4}
+            />
+
+            <Checkbox
+                label="Scavenger/Runner Robot"
+                size="lg"
+                my={8}
+                checked={teleopRunnerRobot}
+                onChange={(event) => {
+                    set("teleopRunnerRobot")(event.target.checked);
+                }}
+                error={errors.teleopRunnerRobot}
             />
 
             <Text size="lg">Grid</Text>

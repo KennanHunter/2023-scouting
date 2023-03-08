@@ -1,4 +1,4 @@
-import { MatchState } from "../../stores/match/matchTypes";
+import { AutoParkState, DefenseRating, EndgameParkState, MatchState } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
 import { gridUtilities } from "../../util/gridUtilities";
 import { escapeString, wrapString } from "./utilities";
@@ -66,23 +66,27 @@ export const MadyCSV: Exporter<string> = {
                         autonomousGrid.cubeColumnsTotals.level1,
                         autonomousGrid.coneColumnsTotals.hybrid,
                         autonomousGrid.cubeColumnsTotals.hybrid,
-                        row.autonomousChargeStationEngaged,
+                        AutoParkState().options.indexOf(row.autonomousParking),
                         teleopGrid.coneColumnsTotals.level2,
                         teleopGrid.cubeColumnsTotals.level2,
                         teleopGrid.coneColumnsTotals.level1,
                         teleopGrid.cubeColumnsTotals.level1,
                         teleopGrid.coneColumnsTotals.hybrid,
                         teleopGrid.cubeColumnsTotals.hybrid,
-                        "", // TODO: implement PickupLocations
+                        [
+                            ((row.teleopGroundPickups != 0) ? "0": ""),
+                            ((row.teleopSubstation2HighPickups != 0) ? "1": ""), 
+                            (((row.teleopSubstation1Pickups + row.teleopSubstation2LowPickups) != 0) ? "2": "")
+                        ].join(" "),
                         row.diedOnField,
-                        "false", // TODO: Runner robot
-                        "0", // TODO: Defense rating
-                        row.endgameTippedChargeStation,
+                        row.teleopRunnerRobot,
+                        DefenseRating().options.indexOf(row.defenseRating),
+                        EndgameParkState().options.indexOf(row.endgameParking),
                         row.endgameRobotsDocked,
                         row.comments,
                         row.endgameLinksCompleted,
-                        "false", // TODO: Cooperation bonus
-                        row.time ? row.time.toString() : new Date().toString(),
+                        row.endgameCoopertitionBonus,
+                        row.time ? new Date(row.time).toString() : new Date().toString(),
                     ]
                         .map(String)
                         .map(escapeString)
@@ -140,7 +144,7 @@ export const MadyCSV: Exporter<string> = {
                         "", // TODO: Implement GridLocation for teleop
                         row.teleopPlaysDefense,
                         row.teleopRunnerRobot,
-                        row.time ? row.time.toString() : new Date().toString(),
+                        row.time ? new Date(row.time).toString() : new Date().toString(),
                     ]
                         .map(String)
                         .map(escapeString)
