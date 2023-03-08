@@ -77,7 +77,7 @@ const inflateSimpleGridColumn = (
         [item !== "cone" ? "hybridCone" : "hybridCube"]: 0,
     } as GridColumn);
 
-const populateGridData = (
+export const populateGridData = (
     gridData: GridData,
     utilities: ReturnType<typeof gridUtilities>
 ): GridData => ({

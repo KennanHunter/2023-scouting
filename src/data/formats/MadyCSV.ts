@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { GridColumn, GridData, initGridData } from "../../components/GridInput";
+import { initGridData } from "../../components/GridInput";
 import {
     AutoParkState,
     DefenseRating,
@@ -7,7 +7,7 @@ import {
     MatchState,
 } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
-import { gridUtilities } from "../../util/gridUtilities";
+import { gridUtilities, populateGridData } from "../../util/gridUtilities";
 import { Exporter } from "./types";
 import { escapeString, wrapString } from "./utilities";
 
@@ -47,6 +47,7 @@ const headersArray = [
 
 export const MadyCSV: Exporter<string> = {
     exportType: "string",
+    mimeType: "text/csv",
     match: {
         stringify: (db: MatchState[]) => {
             // a hacky csv generator to conform to Mady's data structure
@@ -134,8 +135,10 @@ export const MadyCSV: Exporter<string> = {
                     {} as Record<(typeof headersArray)[number], string>
                 )
             );
-            const debooleanify = (val: string): boolean =>
+            const booleanify = (val: string): boolean =>
                 z.boolean().parse(JSON.parse(val));
+            const numberify = (val: string): number =>
+                z.number().parse(JSON.parse(val));
 
             return records.map(
                 (record): Partial<MatchState> => ({
@@ -144,13 +147,24 @@ export const MadyCSV: Exporter<string> = {
                     matchNumber: Number(record["MatchNumber"]),
                     teamNumber: Number(record["Team"]),
 
-                    teamNoShow: debooleanify(record["NoShow"]),
+                    teamNoShow: booleanify(record["NoShow"]),
 
                     // autonomousStartingLocation:,
-                    autonomousLeftCommunityZone: debooleanify(
+                    autonomousLeftCommunityZone: booleanify(
                         record["LeftCommunity"]
                     ),
-                    autonomousGridData: initGridData(),
+                    autonomousGridData: populateGridData(initGridData(), {
+                        cubeColumnsTotals: {
+                            level2: numberify(record["A-TopCubes"]),
+                            level1: numberify(record["A-MiddleCubes"]),
+                            hybrid: numberify(record["A-BottomCubes"]),
+                        },
+                        coneColumnsTotals: {
+                            level2: numberify(record["A-TopCones"]),
+                            level1: numberify(record["A-MiddleCones"]),
+                            hybrid: numberify(record["A-BottomCones"]),
+                        },
+                    }),
                     // autonomousParking:,
 
                     // teleopGroundPickups:,

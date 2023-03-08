@@ -6,7 +6,7 @@ import { MadyCSV } from "./MadyCSV";
 
 export type Exporter<TExportType extends string | Uint8Array> = {
     exportType: TExportType extends string ? "string" : "binary";
-    mimeType: string;
+    mimeType: `${string}/${string}`;
     match: {
         stringify: (db: MatchState[]) => TExportType;
         blobify: (db: MatchState[]) => Blob;
