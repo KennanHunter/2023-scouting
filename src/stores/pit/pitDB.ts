@@ -12,7 +12,7 @@ export const usePitDB = create<{
             db: [],
             push: (newPit) =>
                 set((get) => ({
-                    db: [...get.db, { ...newPit, time: new Date() }],
+                    db: [...get.db, { ...newPit, time: Date.now() }],
                 })),
             clear: () => set({ db: [] }),
         }),

@@ -140,7 +140,7 @@ export const MadyCSV: Exporter<string> = {
                         "", // TODO: Implement GridLocation for teleop
                         row.teleopPlaysDefense,
                         row.teleopRunnerRobot,
-                        row.time.toString(),
+                        row.time ? row.time.toString() : new Date().toString(),
                     ]
                         .map(String)
                         .map(escapeString)

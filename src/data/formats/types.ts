@@ -24,5 +24,5 @@ export type Exporter<TExportType extends string | Uint8Array> = {
 export const exporters: Record<string, Exporter<any>> = {
     CSV: CSV,
     "Mady CSV": MadyCSV,
-    "Gzipped JSON": JSONGzip,
+    "7-Bit Gzipped JSON": JSONGzip,
 };

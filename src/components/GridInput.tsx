@@ -5,10 +5,10 @@ import z from "zod";
 
 export const GridColumn = () =>
     z.object({
-        level2: z.number().positive(),
-        level1: z.number().positive(),
-        hybridCone: z.number().positive(),
-        hybridCube: z.number().positive(),
+        level2: z.number().min(0),
+        level1: z.number().min(0),
+        hybridCone: z.number().min(0),
+        hybridCube: z.number().min(0),
     });
 export type GridColumn = z.infer<ReturnType<typeof GridColumn>>;
 

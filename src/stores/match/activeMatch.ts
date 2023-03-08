@@ -32,13 +32,15 @@ const defaultActiveMatchState: MatchState = {
     teleopSubstation2HighPickups: 0,
     teleopGridData: initGridData(),
 
-    endgameParking: ParkState().enum.None,
+    endgameParking: "None",
     endgameTippedChargeStation: false,
     endgameRobotsDocked: 0,
     endgameLinksCompleted: 0,
 
     diedOnField: false,
     comments: "",
+
+    time: undefined
 };
 
 export const useActiveMatch = create<MatchState & ActiveMatchActions>()(

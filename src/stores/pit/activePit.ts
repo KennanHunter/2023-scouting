@@ -50,6 +50,8 @@ export const defaultActivePitState: PitState = {
     teleopRunnerRobot: false,
 
     comments: "",
+
+    time: undefined
 } as any;
 
 export const useActivePit = create<PitState & ActivePitActions>()(

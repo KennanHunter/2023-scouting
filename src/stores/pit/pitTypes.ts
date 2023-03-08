@@ -52,6 +52,6 @@ export const PitState = () =>
 
         comments: z.string(),
 
-        time: z.date(),
+        time: z.number().optional(),
     });
 export type PitState = z.infer<ReturnType<typeof PitState>>;

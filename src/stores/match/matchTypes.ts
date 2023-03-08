@@ -43,6 +43,6 @@ export const MatchState = () =>
         diedOnField: z.boolean(),
         comments: z.string(),
 
-        time: z.date().optional(),
+        time: z.number().optional(),
     });
 export type MatchState = z.infer<ReturnType<typeof MatchState>>;

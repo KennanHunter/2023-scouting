@@ -1,6 +1,6 @@
-import { Box, Title } from "@mantine/core";
+import { Box, Button, Center, Stack, Title } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 // @ts-ignore don't ask
 import QrReader from "react-web-qr-reader"; // note: the types for this library are entirely wrong for some reason, ignore the "any" type
@@ -9,6 +9,9 @@ import { useMatchDB } from "../../stores/match/matchDB";
 import { MatchState } from "../../stores/match/matchTypes";
 import { usePitDB } from "../../stores/pit/pitDB";
 import { PitState } from "../../stores/pit/pitTypes";
+import { Link } from "react-router-dom";
+
+import pako from "pako";
 
 export const ScanQR: FC = () => {
     const pushToMatchDB = useMatchDB((state) => state.push);
@@ -16,10 +19,15 @@ export const ScanQR: FC = () => {
 
     const delay = 500;
 
+    const [ lastData, setLastData ] = useState(new Uint8Array(0));
+
     const handleScan = (qrScannerResult: any) => {
-        if (qrScannerResult) {
-            const parsedMatchesFromQR = JSONGzip.match.parse(qrScannerResult.binaryData as Uint8Array);
-            const parsedPitsFromQR = JSONGzip.pit.parse(qrScannerResult.binaryData as Uint8Array);
+        if (qrScannerResult && (qrScannerResult.binaryData.length != lastData.length || lastData.filter((value, index) => qrScannerResult.binaryData[index] != value).length == 0)) {
+
+            setLastData(qrScannerResult.binaryData);
+
+            const parsedMatchesFromQR = JSONGzip.match.parse(new Uint8Array(qrScannerResult.binaryData));
+            const parsedPitsFromQR = JSONGzip.pit.parse(new Uint8Array(qrScannerResult.binaryData));
 
             if (!parsedMatchesFromQR && !parsedPitsFromQR) {
                 showNotification({
@@ -80,11 +88,16 @@ export const ScanQR: FC = () => {
     };
 
     return (
-        <Box>
+        <Stack>
+            <Link to={"/database/viewdata"} style={{ all: "unset", flexGrow: 1 }}>
+                <Button fullWidth my={4}>
+                    Back to Data View
+                </Button>
+            </Link>
             <Title align="center" mb={16}>
                 QR Code Scanner
             </Title>
-            <QrReader delay={delay} onError={handleError} onScan={handleScan} />
-        </Box>
+            <QrReader delay={delay} onError={handleError} onScan={handleScan}/>
+        </Stack>
     );
 };
