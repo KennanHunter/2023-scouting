@@ -134,14 +134,35 @@ export const MadyCSV: Exporter<string> = {
                         row.teamNumber,
                         row.robotHeight,
                         row.robotLength,
-                        "", // TODO: Implement WhereDoYouGetYourGamePieces
-                        "", // TODO: Implement canDockIn
-                        "", // TODO: Implement canEngageIn
-                        "", // TODO: Implement WhatGamePiecesCanYouPlace?
+                        [
+                            (row.robotCanPickupRamp ? "0": ""), 
+                            (row.robotCanPickupFloor ? "2": ""),
+                            (row.robotCanPickupShelf ? "1": "")
+                        ].join(" "),
+                        [
+                            (row.robotCanDockAuto ? "0": ""), 
+                            (row.robotCanDockTeleop ? "1": "")
+                        ].join(" "),
+                        [
+                            (row.robotCanEngageAuto ? "0": ""), 
+                            (row.robotCanEngageTeleop ? "1": "")
+                        ].join(" "),
+                        [
+                            (row.robotCanManipulateCone ? "0": ""), 
+                            (row.robotCanManipulateCube ? "1": "")
+                        ].join(" "),
                         row.autonomousCanExitCommunity,
-                        "", // TODO: Implement GridLocation for auto
+                        [
+                            (row.autonomousGridPlaceTop ? "0": ""),
+                            (row.autonomousGridPlaceMiddle ? "1": ""), 
+                            (row.autonomousGridPlaceBottom ? "2": "")
+                        ].join(" "),
                         row.autonomousNumberOfPrograms,
-                        "", // TODO: Implement GridLocation for teleop
+                        [
+                            (row.teleopGridPlaceTop ? "0": ""),
+                            (row.teleopGridPlaceMiddle ? "1": ""), 
+                            (row.teleopGridPlaceBottom ? "2": "")
+                        ].join(" "),
                         row.teleopPlaysDefense,
                         row.teleopRunnerRobot,
                         row.time ? new Date(row.time).toString() : new Date().toString(),
