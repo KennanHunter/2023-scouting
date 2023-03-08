@@ -1,8 +1,8 @@
 import { MatchState } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
 import { CSV } from "./CSV";
-import { MadyCSV } from "./MadyCSV";
 import { JSONGzip } from "./JSONGzip";
+import { MadyCSV } from "./MadyCSV";
 
 export type Exporter<TExportType extends string | Uint8Array> = {
     match: {
@@ -10,14 +10,14 @@ export type Exporter<TExportType extends string | Uint8Array> = {
         blobify: (db: MatchState[]) => Blob;
 
         parse: (data: TExportType) => MatchState[] | undefined;
-        deblobify: (blob: Blob) => MatchState[] | undefined;
+        deblobify: (blob: Blob) => Promise<MatchState[] | undefined>;
     };
     pit: {
         stringify: (db: PitState[]) => TExportType;
         blobify: (db: PitState[]) => Blob;
 
         parse: (data: TExportType) => PitState[] | undefined;
-        deblobify: (blob: Blob) => PitState[] | undefined;
+        deblobify: (blob: Blob) => Promise<PitState[] | undefined>;
     };
 };
 

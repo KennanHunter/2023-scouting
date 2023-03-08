@@ -1,7 +1,7 @@
 import { MatchState } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
-import { escapeString } from "./utilities";
 import { Exporter } from "./types";
+import { escapeString } from "./utilities";
 
 export const CSV: Exporter<string> = {
     match: {
@@ -28,7 +28,7 @@ export const CSV: Exporter<string> = {
             new Blob([CSV.match.stringify(db)], { type: "text/csv" }),
 
         parse: () => [],
-        deblobify: () => [],
+        deblobify: async () => [],
     },
     pit: {
         stringify: (db: PitState[]) => {
@@ -54,6 +54,6 @@ export const CSV: Exporter<string> = {
             new Blob([CSV.pit.stringify(db)], { type: "text/csv" }),
 
         parse: () => [],
-        deblobify: () => [],
+        deblobify: async () => [],
     },
 };

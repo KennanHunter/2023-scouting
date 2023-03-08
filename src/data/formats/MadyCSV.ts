@@ -1,4 +1,9 @@
-import { AutoParkState, DefenseRating, EndgameParkState, MatchState } from "../../stores/match/matchTypes";
+import {
+    AutoParkState,
+    DefenseRating,
+    EndgameParkState,
+    MatchState,
+} from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
 import { gridUtilities } from "../../util/gridUtilities";
 import { escapeString, wrapString } from "./utilities";
@@ -75,9 +80,13 @@ export const MadyCSV: Exporter<string> = {
                         teleopGrid.coneColumnsTotals.hybrid,
                         teleopGrid.cubeColumnsTotals.hybrid,
                         [
-                            ((row.teleopGroundPickups != 0) ? "0": ""),
-                            ((row.teleopSubstation2HighPickups != 0) ? "1": ""), 
-                            (((row.teleopSubstation1Pickups + row.teleopSubstation2LowPickups) != 0) ? "2": "")
+                            row.teleopGroundPickups != 0 ? "0" : "",
+                            row.teleopSubstation2HighPickups != 0 ? "1" : "",
+                            row.teleopSubstation1Pickups +
+                                row.teleopSubstation2LowPickups !=
+                            0
+                                ? "2"
+                                : "",
                         ].join(" "),
                         row.diedOnField,
                         row.teleopRunnerRobot,
@@ -87,7 +96,9 @@ export const MadyCSV: Exporter<string> = {
                         row.comments,
                         row.endgameLinksCompleted,
                         row.endgameCoopertitionBonus,
-                        row.time ? new Date(row.time).toString() : new Date().toString(),
+                        row.time
+                            ? new Date(row.time).toString()
+                            : new Date().toString(),
                     ]
                         .map(String)
                         .map(escapeString)
@@ -100,7 +111,7 @@ export const MadyCSV: Exporter<string> = {
             new Blob([MadyCSV.match.stringify(db)], { type: "text/csv" }),
 
         parse: () => [],
-        deblobify: () => [],
+        deblobify: async (blob: Blob) => MadyCSV.match.parse(await blob.text()),
     },
     pit: {
         stringify: (db: PitState[]) => {
@@ -137,37 +148,39 @@ export const MadyCSV: Exporter<string> = {
                         row.robotHeight,
                         row.robotLength,
                         [
-                            (row.robotCanPickupRamp ? "0": ""), 
-                            (row.robotCanPickupFloor ? "2": ""),
-                            (row.robotCanPickupShelf ? "1": "")
+                            row.robotCanPickupRamp ? "0" : "",
+                            row.robotCanPickupFloor ? "2" : "",
+                            row.robotCanPickupShelf ? "1" : "",
                         ].join(" "),
                         [
-                            (row.robotCanDockAuto ? "0": ""), 
-                            (row.robotCanDockTeleop ? "1": "")
+                            row.robotCanDockAuto ? "0" : "",
+                            row.robotCanDockTeleop ? "1" : "",
                         ].join(" "),
                         [
-                            (row.robotCanEngageAuto ? "0": ""), 
-                            (row.robotCanEngageTeleop ? "1": "")
+                            row.robotCanEngageAuto ? "0" : "",
+                            row.robotCanEngageTeleop ? "1" : "",
                         ].join(" "),
                         [
-                            (row.robotCanManipulateCone ? "0": ""), 
-                            (row.robotCanManipulateCube ? "1": "")
+                            row.robotCanManipulateCone ? "0" : "",
+                            row.robotCanManipulateCube ? "1" : "",
                         ].join(" "),
                         row.autonomousCanExitCommunity,
                         [
-                            (row.autonomousGridPlaceTop ? "0": ""),
-                            (row.autonomousGridPlaceMiddle ? "1": ""), 
-                            (row.autonomousGridPlaceBottom ? "2": "")
+                            row.autonomousGridPlaceTop ? "0" : "",
+                            row.autonomousGridPlaceMiddle ? "1" : "",
+                            row.autonomousGridPlaceBottom ? "2" : "",
                         ].join(" "),
                         row.autonomousNumberOfPrograms,
                         [
-                            (row.teleopGridPlaceTop ? "0": ""),
-                            (row.teleopGridPlaceMiddle ? "1": ""), 
-                            (row.teleopGridPlaceBottom ? "2": "")
+                            row.teleopGridPlaceTop ? "0" : "",
+                            row.teleopGridPlaceMiddle ? "1" : "",
+                            row.teleopGridPlaceBottom ? "2" : "",
                         ].join(" "),
                         row.teleopPlaysDefense,
                         row.teleopRunnerRobot,
-                        row.time ? new Date(row.time).toString() : new Date().toString(),
+                        row.time
+                            ? new Date(row.time).toString()
+                            : new Date().toString(),
                     ]
                         .map(String)
                         .map(escapeString)
@@ -180,6 +193,6 @@ export const MadyCSV: Exporter<string> = {
             new Blob([MadyCSV.pit.stringify(db)], { type: "text/csv" }),
 
         parse: () => [],
-        deblobify: (blob: Blob) => [],
+        deblobify: async (blob: Blob) => [],
     },
 };
