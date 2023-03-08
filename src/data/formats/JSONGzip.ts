@@ -54,7 +54,7 @@ const byteUnpacker = (data: Uint8Array): Uint8Array => {
 
 export const JSONGzip: Exporter<Uint8Array> = {
     exportType: "binary",
-    mimeType: "application/gzip.7be",
+    mimeType: "application/7bgz",
     match: {
         stringify: (db: MatchState[]) => {
             return bytePacker(

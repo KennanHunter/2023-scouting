@@ -14,8 +14,8 @@ import { Link } from "react-router-dom";
 import pako from "pako";
 
 export const ScanQR: FC = () => {
-    const pushToMatchDB = useMatchDB((state) => state.push);
-    const pushToPitDB = usePitDB((state) => state.push);
+    const insertNewMatchDB = useMatchDB((state) => state.insertNew);
+    const insertNewPitDB = usePitDB((state) => state.insertNew);
 
     const delay = 500;
 
@@ -38,13 +38,13 @@ export const ScanQR: FC = () => {
             }
 
             if (parsedMatchesFromQR) {
-                const filteredParsedMatches: MatchState[] = parsedMatchesFromQR.filter((parsedMatch) =>
-                    useMatchDB.getState().db.filter((matchDBMatch) => matchDBMatch.time == parsedMatch.time).length == 0
-                );
+                const numberItemsBefore = useMatchDB.getState().db.length;
 
-                filteredParsedMatches.forEach((match) => pushToMatchDB(match));
+                insertNewMatchDB(parsedMatchesFromQR);
 
-                if (filteredParsedMatches.length == 0) {
+                const numberItems = useMatchDB.getState().db.length - numberItemsBefore;
+
+                if (numberItems == 0) {
                     showNotification({
                         title: "Scan Complete!",
                         message: `No New Match Entries Found`,
@@ -53,20 +53,20 @@ export const ScanQR: FC = () => {
                 } else {
                     showNotification({
                         title: "Scan Complete!",
-                        message: `Imported ${filteredParsedMatches.length} Match Entries`,
+                        message: `Imported ${numberItems} Match Entries`,
                         color: "green",
                     });
                 }
             }
 
             if (parsedPitsFromQR) {
-                const filteredParsedPits: PitState[] = parsedPitsFromQR.filter((parsedPit) =>
-                    usePitDB.getState().db.filter((pitDBMatch) => pitDBMatch.time == parsedPit.time).length == 0
-                );
+                const numberItemsBefore = usePitDB.getState().db.length;
+                
+                insertNewPitDB(parsedPitsFromQR);
 
-                filteredParsedPits.forEach((pit) => pushToPitDB(pit));
+                const numberItems = usePitDB.getState().db.length - numberItemsBefore;
 
-                if (filteredParsedPits.length == 0) {
+                if (numberItems == 0) {
                     showNotification({
                         title: "Scan Complete!",
                         message: `No New Pit Entries Found`,
@@ -75,7 +75,7 @@ export const ScanQR: FC = () => {
                 } else {
                     showNotification({
                         title: "Scan Complete!",
-                        message: `Imported ${filteredParsedPits.length} Pit Entries`,
+                        message: `Imported ${numberItems} Pit Entries`,
                         color: "green",
                     });
                 }

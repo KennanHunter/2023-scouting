@@ -12,19 +12,21 @@ import {
 } from "@mantine/core";
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
-import { CSV } from "../../data/formats/CSV";
-import { MadyCSV } from "../../data/formats/MadyCSV";
-import { JSONGzip } from "../../data/formats/JSONGzip";
 import { useMatchDB } from "../../stores/match/matchDB";
 import { usePitDB } from "../../stores/pit/pitDB";
 import { Exporter, exporters } from "../../data/formats/types";
+import { PitState } from "../../stores/pit/pitTypes";
+import { MatchState } from "../../stores/match/matchTypes";
+import { showNotification } from "@mantine/notifications";
 
 export const ViewData: FC = () => {
     const matchDB = useMatchDB((state) => state.db);
     const clearMatchDB = useMatchDB((state) => state.clear);
+    const insertNewMatchDB = useMatchDB((state) => state.insertNew);
 
     const pitDB = usePitDB((state) => state.db);
     const clearPitDB = usePitDB((state) => state.clear);
+    const insertNewPitDB = usePitDB((state) => state.insertNew);
 
     const [selectedFormat, setSelectedFormat] = useState<string>("CSV");
 
@@ -43,24 +45,43 @@ export const ViewData: FC = () => {
         element.remove();
     };
 
-    const uploadBlob = (): Blob => {
-        if (!selectedFile)
-            return new Blob([]);
+    const uploadBlob = (callback: (data: string | ArrayBuffer) => void) => {
+        if (!selectedFile) {
+            showNotification({
+                title: "Upload Error!",
+                message: `Please select a file to upload`,
+                color: "red",
+            });
 
-        console.log(selectedFile)
+            return;
+        }
 
         const reader = new FileReader()
 
         reader.onload = (e: ProgressEvent<FileReader>) => {
-            // e.target points to the reader
-            console.log(`The content of ${selectedFile.name} is ${e.target?.result}`)
+            if (e.target && e.target.result) {
+                callback(e.target.result);
+            } else {
+                showNotification({
+                    title: "Upload Error!",
+                    message: `Failed to upload "${selectedFile.name}"`,
+                    color: "red",
+                });
+            }
         }
 
-        reader.onerror = (e) => {
-            console.error(`Error occured while reading ${selectedFile.name}`, e.target?.error)
+        reader.onerror = (e: ProgressEvent<FileReader>) => {
+            showNotification({
+                title: "Upload Error!",
+                message: `Failed to upload "${selectedFile.name}"`,
+                color: "red",
+            });
         }
 
-        reader.readAsText(selectedFile)
+        if (exporters[selectedFormat].exportType == "string")
+            reader.readAsText(selectedFile)
+        else 
+            reader.readAsArrayBuffer(selectedFile);
         
         return new Blob([]);
     };
@@ -68,14 +89,55 @@ export const ViewData: FC = () => {
     const downloadMatchFile = (exporter: Exporter<string | Uint8Array>) =>
         downloadBlob(exporter.match.blobify(matchDB));
 
-    const uploadMatchFile = (exporter: Exporter<string | Uint8Array>) =>
-        exporter.match.deblobify(uploadBlob());
+    const uploadMatchFile = (exporter: Exporter<string | Uint8Array>) => 
+        uploadBlob((data) => {
+            console.log(`The content of ${selectedFile?.name} is ${data}, arraybuffer ${(data instanceof ArrayBuffer)}`);
+
+            const matchData: MatchState[] | undefined = (data instanceof ArrayBuffer) ? exporter.match.parse(new Uint8Array(data)) : exporter.match.parse(data);
+            
+            if (!matchData) {
+                showNotification({
+                    title: "Upload Error!",
+                    message: `Failed to parse "${selectedFile?.name}" as a ${selectedFormat}`,
+                    color: "red",
+                });
+                return;
+            }
+
+            insertNewMatchDB(matchData);
+
+            showNotification({
+                title: "Upload Successful!",
+                message: `Successfully uploaded "${selectedFile?.name}"`,
+                color: "green",
+            });
+        })
+    
 
     const downloadPitFile = (exporter: Exporter<string | Uint8Array>) =>
         downloadBlob(exporter.pit.blobify(pitDB));
 
-    const uploadPitFile = (exporter: Exporter<string | Uint8Array>) =>
-        exporter.pit.deblobify(uploadBlob());
+    const uploadPitFile = (exporter: Exporter<string | Uint8Array>) => 
+        uploadBlob((data) => {
+            const pitData: PitState[] | undefined = (data instanceof ArrayBuffer) ? exporter.pit.parse(new Uint8Array(data)) : exporter.pit.parse(data);
+            
+            if (!pitData) {
+                showNotification({
+                    title: "Upload Error!",
+                    message: `Failed to parse "${selectedFile?.name}" as a ${selectedFormat}`,
+                    color: "red",
+                });
+                return;
+            }
+
+            insertNewPitDB(pitData);
+
+            showNotification({
+                title: "Upload Successful!",
+                message: `Successfully uploaded "${selectedFile?.name}"`,
+                color: "green",
+            });
+        })
 
     return (
         <Stack
@@ -118,6 +180,7 @@ export const ViewData: FC = () => {
                 placeholder="Select a File"
                 label="Upload File"
                 onChange={(payload) => setSelectedFile(payload)}
+                accept={exporters[selectedFormat].mimeType}
             />
 
             <Divider my="sm" />
@@ -162,7 +225,7 @@ export const ViewData: FC = () => {
                                     ))}
                                 </tr>
                             </thead>
-                            <tbody>pit
+                            <tbody>
                                 {matchDB.map((match, index) => (
                                     <tr key={`match#${index}`}>
                                         {Object.values(match).map(
@@ -221,7 +284,7 @@ export const ViewData: FC = () => {
                         <Button
                             m={4}
                             onClick={() =>
-                                uploadMatchFile(exporters[selectedFormat])
+                                uploadPitFile(exporters[selectedFormat])
                             }
                             style={{ flexGrow: 1 }}
                         >
