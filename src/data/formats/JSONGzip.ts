@@ -1,3 +1,4 @@
+import { showNotification } from "@mantine/notifications";
 import pako from "pako";
 import { MatchState } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
@@ -13,7 +14,27 @@ export const JSONGzip: Exporter<Uint8Array> = {
                 type: "application/gzip",
             }),
 
-        parse: () => [],
+        parse: (rawInput: Uint8Array) => {
+            const rawQRCodeInput = JSON.parse(
+                new TextDecoder().decode(pako.inflate(rawInput))
+            );
+
+            const QRCodeParseResult = MatchState()
+                .array()
+                .safeParse(rawQRCodeInput);
+
+            if (!QRCodeParseResult.success) {
+                showNotification({
+                    message: "Parsing of match state unsuccessful",
+                });
+                throw new Error(
+                    "Parsing of match state unsuccessful\n" +
+                        QRCodeParseResult.error.flatten()
+                );
+            }
+
+            return QRCodeParseResult.data;
+        },
         deblobify: (blob: Blob) => [],
     },
     pit: {
@@ -25,7 +46,27 @@ export const JSONGzip: Exporter<Uint8Array> = {
                 type: "application/gzip",
             }),
 
-        parse: () => [],
+        parse: (rawInput: Uint8Array) => {
+            const rawQRCodeInput = JSON.parse(
+                new TextDecoder().decode(pako.inflate(rawInput))
+            );
+
+            const QRCodeParseResult = PitState()
+                .array()
+                .safeParse(rawQRCodeInput);
+
+            if (!QRCodeParseResult.success) {
+                showNotification({
+                    message: "Parsing of pit state unsuccessful",
+                });
+                throw new Error(
+                    "Parsing of pit state unsuccessful\n" +
+                        QRCodeParseResult.error.flatten()
+                );
+            }
+
+            return QRCodeParseResult.data;
+        },
         deblobify: (blob: Blob) => [],
     },
 };

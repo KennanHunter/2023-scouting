@@ -1,6 +1,8 @@
-import { Box, Flex, Title, Text } from "@mantine/core";
+import { Box, Title } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { FC, useState } from "react";
+import { FC } from "react";
+
+// @ts-ignore don't ask
 import QrReader from "react-web-qr-reader"; // note: the types for this library are entirely wrong for some reason, ignore the "any" type
 
 export const ScanQR: FC = () => {
