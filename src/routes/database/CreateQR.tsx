@@ -12,7 +12,6 @@ export const CreateQR: FC = () => {
     const pitDB = usePitDB((state) => state.db);
     const matchDB = useMatchDB((state) => state.db);
 
-    const totalNumOfQRCode = pitNumOfQRCode + matchNumOfQRCode;
     const [activePage, setPage] = useState<number | undefined>();
     const [usingMatchDB, setUsingMatchDB] = useState<boolean>(true);
 
