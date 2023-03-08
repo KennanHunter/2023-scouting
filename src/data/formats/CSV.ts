@@ -6,7 +6,6 @@ import { Exporter } from "./types";
 export const CSV: Exporter<string> = {
     match: {
         stringify: (db: MatchState[]) => {
-            // a hacky csv generator to conform to Mady's data structure
             const table = Object.values(db).map((row) =>
                 Object.entries(row)
                     .map(([key, val]): string => {
@@ -33,7 +32,6 @@ export const CSV: Exporter<string> = {
     },
     pit: {
         stringify: (db: PitState[]) => {
-            // a hacky csv generator to conform to Mady's data structure
             const table = Object.values(db).map((row) =>
                 Object.entries(row)
                     .map(([key, val]): string => {

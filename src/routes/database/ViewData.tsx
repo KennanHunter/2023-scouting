@@ -28,6 +28,8 @@ export const ViewData: FC = () => {
 
     const [selectedFormat, setSelectedFormat] = useState<string>("CSV");
 
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
     const downloadBlob = (fileBlob: Blob) => {
         const element = document.createElement("a");
 
@@ -42,6 +44,24 @@ export const ViewData: FC = () => {
     };
 
     const uploadBlob = (): Blob => {
+        if (!selectedFile)
+            return new Blob([]);
+
+        console.log(selectedFile)
+
+        const reader = new FileReader()
+
+        reader.onload = (e: ProgressEvent<FileReader>) => {
+            // e.target points to the reader
+            console.log(`The content of ${selectedFile.name} is ${e.target?.result}`)
+        }
+
+        reader.onerror = (e) => {
+            console.error(`Error occured while reading ${selectedFile.name}`, e.target?.error)
+        }
+
+        reader.readAsText(selectedFile)
+        
         return new Blob([]);
     };
 
@@ -93,6 +113,12 @@ export const ViewData: FC = () => {
                 onChange={(value) => setSelectedFormat(value ?? "CSV")}
                 m={4}
             />
+            <FileInput
+                m={4}
+                placeholder="Select a File"
+                label="Upload File"
+                onChange={(payload) => setSelectedFile(payload)}
+            />
 
             <Divider my="sm" />
 
@@ -100,11 +126,6 @@ export const ViewData: FC = () => {
 
             {matchDB.length ? (
                 <>
-                    <FileInput
-                        m={4}
-                        placeholder="Select a File"
-                        label="Upload File"
-                    />
                     <Flex gap={"sm"} w={"100%"}>
                         <Button
                             m={4}
@@ -125,7 +146,7 @@ export const ViewData: FC = () => {
                         <Button
                             m={4}
                             onClick={() =>
-                                downloadMatchFile(exporters[selectedFormat])
+                                uploadMatchFile(exporters[selectedFormat])
                             }
                             style={{ flexGrow: 1 }}
                         >
@@ -141,7 +162,7 @@ export const ViewData: FC = () => {
                                     ))}
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody>pit
                                 {matchDB.map((match, index) => (
                                     <tr key={`match#${index}`}>
                                         {Object.values(match).map(
@@ -158,7 +179,20 @@ export const ViewData: FC = () => {
                     </ScrollArea>
                 </>
             ) : (
-                <Text size="lg">No match data to display</Text>
+                <>
+                    <Flex gap={"sm"} w={"100%"}>
+                        <Button
+                            m={4}
+                            onClick={() =>
+                                uploadMatchFile(exporters[selectedFormat])
+                            }
+                            style={{ flexGrow: 1 }}
+                        >
+                            Upload
+                        </Button>
+                    </Flex>
+                    <Text size="lg">No match data to display</Text>
+                </>
             )}
 
             <Divider my="sm" />
@@ -167,11 +201,6 @@ export const ViewData: FC = () => {
 
             {pitDB.length ? (
                 <>
-                    <FileInput
-                        m={4}
-                        placeholder="Select a File"
-                        label="Upload File"
-                    />
                     <Flex gap={"sm"} w={"100%"}>
                         <Button
                             m={4}
@@ -192,7 +221,7 @@ export const ViewData: FC = () => {
                         <Button
                             m={4}
                             onClick={() =>
-                                downloadPitFile(exporters[selectedFormat])
+                                uploadMatchFile(exporters[selectedFormat])
                             }
                             style={{ flexGrow: 1 }}
                         >
@@ -225,7 +254,20 @@ export const ViewData: FC = () => {
                     </ScrollArea>
                 </>
             ) : (
-                <Text size="lg">No pit data to display</Text>
+                <>
+                    <Flex gap={"sm"} w={"100%"}>
+                        <Button
+                            m={4}
+                            onClick={() =>
+                                uploadPitFile(exporters[selectedFormat])
+                            }
+                            style={{ flexGrow: 1 }}
+                        >
+                            Upload
+                        </Button>
+                    </Flex>
+                    <Text size="lg">No pit data to display</Text>
+                </>
             )}
         </Stack>
     );

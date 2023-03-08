@@ -7,6 +7,7 @@ import { Exporter } from "./types";
 export const MadyCSV: Exporter<string> = {
     match: {
         stringify: (db: MatchState[]) => {
+            // a hacky csv generator to conform to Mady's data structure
             // @cspell:disable
             const header: string = [
                 "EventKey",
@@ -103,6 +104,7 @@ export const MadyCSV: Exporter<string> = {
     },
     pit: {
         stringify: (db: PitState[]) => {
+            // a hacky csv generator to conform to Mady's data structure
             // @cspell:disable
             const header: string = [
                 "TeamNumber",
