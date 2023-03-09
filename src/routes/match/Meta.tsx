@@ -64,9 +64,7 @@ export const Meta: FC = () => {
                 size="lg"
                 my={8}
                 checked={teamNoShow}
-                onChange={(event) => {
-                    set("teamNoShow")(event.target.checked);
-                }}
+                onChange={(event) => set("teamNoShow")(event.target.checked)}
                 error={errors.teamNoShow}
             />
         </StackValidationChecker>

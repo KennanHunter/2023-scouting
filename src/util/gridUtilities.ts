@@ -17,7 +17,9 @@ type GridColumnSimple = Pick<GridColumn, "level1" | "level2"> & {
     hybrid: number;
 };
 
-export const gridUtilities = ({ gridColumns: grid }: GridData) => {
+export const gridUtilities = (data: GridData) => {
+    const grid = data.gridColumns;
+
     const coneColumnsTotals = grid.reduce<GridColumnSimple>(
         (prev, cur, index) => {
             const isConeColumn = index % 3 !== 1;
@@ -61,6 +63,7 @@ export const gridUtilities = ({ gridColumns: grid }: GridData) => {
     );
 
     return {
+        data,
         cubeColumnsTotals,
         coneColumnsTotals,
     };
@@ -79,7 +82,10 @@ const inflateSimpleGridColumn = (
 
 export const populateGridData = (
     gridData: GridData,
-    utilities: ReturnType<typeof gridUtilities>
+    utilities: Pick<
+        ReturnType<typeof gridUtilities>,
+        "cubeColumnsTotals" | "coneColumnsTotals"
+    >
 ): GridData => ({
     gridColumns: [
         inflateSimpleGridColumn(utilities.coneColumnsTotals, "cone"),

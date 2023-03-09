@@ -4,7 +4,8 @@ import {
     AutoParkState,
     DefenseRating,
     EndgameParkState,
-    MatchState
+    MatchLevel,
+    MatchState,
 } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
 import { gridUtilities, populateGridData } from "../../util/gridUtilities";
@@ -63,16 +64,16 @@ export const MadyCSV: Exporter<string> = {
                     const autonomousGrid = gridUtilities(
                         row.autonomousGridData
                     );
-                    const teleopGrid = gridUtilities(row.teleopGridData as any);
+                    const teleopGrid = gridUtilities(row.teleopGridData);
 
                     return [
                         "", // EventKey
-                        row.matchLevel, // MatchLevel
+                        MatchLevel().options.indexOf(row.matchLevel), // MatchLevel
                         row.matchNumber, // MatchNumber
-                        row.teamNumber, // Team
+                        "Red," + "1," + row.teamNumber + ",Unknown", // Team
                         row.scouter, // ScoutName
                         row.teamNoShow, //NoShow
-                        row.autonomousLeftCommunityZone, // LeftCommunity
+                        JSON.stringify(row.autonomousLeftCommunityZone), // LeftCommunity
                         autonomousGrid.coneColumnsTotals.level2, // A-TopCones
                         autonomousGrid.cubeColumnsTotals.level2, // A-TopCubes
                         autonomousGrid.coneColumnsTotals.level1, // A-MiddleCones

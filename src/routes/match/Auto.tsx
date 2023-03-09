@@ -37,9 +37,9 @@ export const Auto: FC = () => {
                 size="lg"
                 my={8}
                 checked={autonomousLeftCommunityZone}
-                onChange={(event) => {
-                    set("autonomousLeftCommunityZone")(event.target.checked);
-                }}
+                onChange={(event) =>
+                    set("autonomousLeftCommunityZone")(event.target.checked)
+                }
                 error={errors.autonomousLeftCommunityZone}
             />
             <Text size="lg">Grid</Text>
@@ -48,11 +48,12 @@ export const Auto: FC = () => {
                 data={autonomousGridData}
             />
 
-            
             <Radio.Group
                 label="Parking"
                 my={4}
-                onChange={(value) => set("autonomousParking")(value as AutoParkState)}
+                onChange={(value) =>
+                    set("autonomousParking")(value as AutoParkState)
+                }
                 value={autonomousParking}
                 error={errors.autonomousParking}
             >
