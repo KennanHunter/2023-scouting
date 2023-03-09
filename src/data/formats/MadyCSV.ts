@@ -4,7 +4,7 @@ import {
     AutoParkState,
     DefenseRating,
     EndgameParkState,
-    MatchState,
+    MatchState
 } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
 import { gridUtilities, populateGridData } from "../../util/gridUtilities";
@@ -66,25 +66,26 @@ export const MadyCSV: Exporter<string> = {
                     const teleopGrid = gridUtilities(row.teleopGridData as any);
 
                     return [
-                        "",
-                        row.matchLevel,
-                        row.scouter,
-                        row.teamNoShow,
-                        row.teamNumber,
-                        row.autonomousLeftCommunityZone,
-                        autonomousGrid.coneColumnsTotals.level2,
-                        autonomousGrid.cubeColumnsTotals.level2,
-                        autonomousGrid.coneColumnsTotals.level1,
-                        autonomousGrid.cubeColumnsTotals.level1,
-                        autonomousGrid.coneColumnsTotals.hybrid,
-                        autonomousGrid.cubeColumnsTotals.hybrid,
-                        AutoParkState().options.indexOf(row.autonomousParking),
-                        teleopGrid.coneColumnsTotals.level2,
-                        teleopGrid.cubeColumnsTotals.level2,
-                        teleopGrid.coneColumnsTotals.level1,
-                        teleopGrid.cubeColumnsTotals.level1,
-                        teleopGrid.coneColumnsTotals.hybrid,
-                        teleopGrid.cubeColumnsTotals.hybrid,
+                        "", // EventKey
+                        row.matchLevel, // MatchLevel
+                        row.matchNumber, // MatchNumber
+                        row.teamNumber, // Team
+                        row.scouter, // ScoutName
+                        row.teamNoShow, //NoShow
+                        row.autonomousLeftCommunityZone, // LeftCommunity
+                        autonomousGrid.coneColumnsTotals.level2, // A-TopCones
+                        autonomousGrid.cubeColumnsTotals.level2, // A-TopCubes
+                        autonomousGrid.coneColumnsTotals.level1, // A-MiddleCones
+                        autonomousGrid.cubeColumnsTotals.level1, // A-MiddleCubes
+                        autonomousGrid.coneColumnsTotals.hybrid, // A-BottomCones
+                        autonomousGrid.cubeColumnsTotals.hybrid, // A-BottomCubes
+                        AutoParkState().options.indexOf(row.autonomousParking), // ChargingStation
+                        teleopGrid.coneColumnsTotals.level2, // T-TopCones
+                        teleopGrid.cubeColumnsTotals.level2, // T-TopCubes
+                        teleopGrid.coneColumnsTotals.level1, // T-MiddleCones
+                        teleopGrid.cubeColumnsTotals.level1, // T-MiddleCubes
+                        teleopGrid.coneColumnsTotals.hybrid, // T-BottomCones
+                        teleopGrid.cubeColumnsTotals.hybrid, // T-BottomCubes
                         [
                             row.teleopGroundPickups != 0 ? "0" : "",
                             row.teleopSubstation2HighPickups != 0 ? "1" : "",
@@ -93,18 +94,18 @@ export const MadyCSV: Exporter<string> = {
                             0
                                 ? "2"
                                 : "",
-                        ].join(" "),
-                        row.diedOnField,
-                        row.teleopRunnerRobot,
-                        DefenseRating().options.indexOf(row.defenseRating),
-                        EndgameParkState().options.indexOf(row.endgameParking),
-                        row.endgameRobotsDocked,
-                        row.comments,
-                        row.endgameLinksCompleted,
-                        row.endgameCoopertitionBonus,
+                        ].join(" "), // PickupLocations
+                        row.diedOnField, // DiedonField
+                        row.teleopRunnerRobot, // RunnerRobot
+                        DefenseRating().options.indexOf(row.defenseRating), // DefenseRating
+                        EndgameParkState().options.indexOf(row.endgameParking), // ChargingStation
+                        row.endgameRobotsDocked, // RobotsDocked
+                        row.comments, // Comments
+                        row.endgameLinksCompleted, // LinksCompleted
+                        row.endgameCoopertitionBonus, // CoopertitionBonus
                         row.time
                             ? new Date(row.time).toString()
-                            : new Date().toString(),
+                            : new Date().toString(), // ScoutedTime
                     ]
                         .map(String)
                         .map(escapeString)
@@ -135,24 +136,41 @@ export const MadyCSV: Exporter<string> = {
                     {} as Record<(typeof headersArray)[number], string>
                 )
             );
+
             const booleanify = (val: string): boolean =>
                 z.boolean().parse(JSON.parse(val));
             const numberify = (val: string): number =>
                 z.number().parse(JSON.parse(val));
 
             return records.map(
-                (record): Partial<MatchState> => ({
-                    scouter: record["ScoutName"],
-                    matchLevel: record["MatchLevel"] as any,
-                    matchNumber: Number(record["MatchNumber"]),
-                    teamNumber: Number(record["Team"]),
-
-                    teamNoShow: booleanify(record["NoShow"]),
-
-                    // autonomousStartingLocation:,
-                    autonomousLeftCommunityZone: booleanify(
-                        record["LeftCommunity"]
-                    ),
+                (record): MatchState => ({
+                    ...((): Pick<
+                        MatchState,
+                        | "teleopGroundPickups"
+                        | "teleopSubstation1Pickups"
+                        | "teleopSubstation2HighPickups"
+                        | "teleopSubstation2LowPickups"
+                    > => {
+                        const pickupString = record["PickupLocations"];
+                        return {
+                            teleopGroundPickups: pickupString.includes("0")
+                                ? 1
+                                : 0,
+                            teleopSubstation2HighPickups: pickupString.includes(
+                                "1"
+                            )
+                                ? 1
+                                : 0,
+                            teleopSubstation1Pickups: pickupString.includes("2")
+                                ? 1
+                                : 0,
+                            teleopSubstation2LowPickups: pickupString.includes(
+                                "2"
+                            )
+                                ? 1
+                                : 0,
+                        };
+                    })(),
                     autonomousGridData: populateGridData(initGridData(), {
                         cubeColumnsTotals: {
                             level2: numberify(record["A-TopCubes"]),
@@ -165,27 +183,53 @@ export const MadyCSV: Exporter<string> = {
                             hybrid: numberify(record["A-BottomCones"]),
                         },
                     }),
-                    // autonomousParking:,
-
-                    // teleopGroundPickups:,
-                    // teleopSubstation1Pickups: ,
-                    // teleopSubstation2LowPickups: ,
-                    // teleopSubstation2HighPickups:,
-                    // teleopRunnerRobot: ,
-                    // teleopGridData:,
-
-                    // endgameParking:,
-                    // endgameCoopertitionBonus:,
-                    // endgameRobotsDocked: ,
-                    // endgameLinksCompleted:,
-
-                    // defenseRating: ,
-                    // diedOnField: ,
-                    // comments: ,
-
-                    // time: ,
+                    autonomousLeftCommunityZone: booleanify(
+                        record["LeftCommunity"]
+                    ),
+                    autonomousParking: ((): "None" | "DockEngage" | "Dock" => {
+                        const chargingStation = record["ChargingStation"];
+                        if (chargingStation === "DockEngage")
+                            return "DockEngage";
+                        if (chargingStation === "Dock") return "Dock";
+                        return "None";
+                    })(),
+                    autonomousStartingLocation: { x: 0.5, y: 0.5 },
+                    comments: record["Comments"],
+                    defenseRating:
+                        DefenseRating().options[
+                            numberify(record["DefenseRating"])
+                        ],
+                    diedOnField: booleanify(record["DiedonField"]),
+                    endgameCoopertitionBonus: booleanify(
+                        record["CoopertitionBonus"]
+                    ),
+                    endgameLinksCompleted: numberify(record["LinksCompleted"]),
+                    endgameParking:
+                        EndgameParkState().options[
+                            numberify(record["RobotsDocked"])
+                        ],
+                    endgameRobotsDocked: numberify(record["RobotsDocked"]),
+                    matchLevel: record["MatchLevel"] as any,
+                    matchNumber: Number(record["MatchNumber"]),
+                    scouter: record["ScoutName"],
+                    teamNoShow: booleanify(record["NoShow"]),
+                    teamNumber: Number(record["Team"]),
+                    teleopGridData: populateGridData(initGridData(), {
+                        cubeColumnsTotals: {
+                            level2: numberify(record["T-TopCubes"]),
+                            level1: numberify(record["T-MiddleCubes"]),
+                            hybrid: numberify(record["T-BottomCubes"]),
+                        },
+                        coneColumnsTotals: {
+                            level2: numberify(record["T-TopCones"]),
+                            level1: numberify(record["T-MiddleCones"]),
+                            hybrid: numberify(record["T-BottomCones"]),
+                        },
+                    }),
+                    teleopRunnerRobot: booleanify(record["RunnerRobot"]),
+                    time: new Date(record["ScoutedTime"]).valueOf(),
                 })
-            ) as any;
+            );
         },
 
         deblobify: async (blob: Blob) => MadyCSV.match.parse(await blob.text()),
