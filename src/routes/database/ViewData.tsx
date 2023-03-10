@@ -7,7 +7,7 @@ import {
     Stack,
     Table,
     Tabs,
-    Text,
+    Text
 } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { showNotification } from "@mantine/notifications";
@@ -32,7 +32,7 @@ export const ViewData: FC = () => {
     const clearPitDB = usePitDB((state) => state.clear);
     const insertNewPitDB = usePitDB((state) => state.insertNew);
 
-    const [selectedFormat, setSelectedFormat] = useState<string>("CSV");
+    const [selectedFormat, setSelectedFormat] = useState<string>("Mady CSV");
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 

@@ -8,7 +8,7 @@ export default defineConfig({
         react(),
         VitePWA({
             registerType: "autoUpdate",
-            includeAssets: ["favicon.ico"],
+            includeAssets: ["favicon.ico", "field.png"],
             manifest: {
                 short_name: "3494 Scouting",
                 name: "3494 Scouting Application",
