@@ -7,6 +7,7 @@ import { AutoParkState, MatchState } from "../../stores/match/matchTypes";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useTeamDB } from "../../stores/thebluealliance/teamDB";
+import { SimpleGridInput } from "../../components/SimpleGridInput";
 
 export const Auto: FC = () => {
     const set = useActiveMatch((state) => state.set);
@@ -49,7 +50,7 @@ export const Auto: FC = () => {
                 error={errors.autonomousLeftCommunityZone}
             />
             <Text size="lg">Grid</Text>
-            <GridInput
+            <SimpleGridInput
                 onChange={(data) => set("autonomousGridData")(data)}
                 data={autonomousGridData}
             />

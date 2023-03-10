@@ -5,6 +5,7 @@ import { useActiveMatch } from "../../stores/match/activeMatch";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 import { useTeamDB } from "../../stores/thebluealliance/teamDB";
+import { SimpleGridInput } from "../../components/SimpleGridInput";
 
 export const Teleop: FC = () => {
     const set = useActiveMatch((state) => state.set);
@@ -86,7 +87,7 @@ export const Teleop: FC = () => {
             />
 
             <Text size="lg">Grid</Text>
-            <GridInput
+            <SimpleGridInput
                 onChange={(data) => set("teleopGridData")(data)}
                 data={teleopGridData}
             />
