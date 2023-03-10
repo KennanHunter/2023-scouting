@@ -1,21 +1,24 @@
-import { Checkbox, NumberInput, Select, Stack, Title } from "@mantine/core";
+import { Checkbox, NumberInput, Select, Stack, Title, Text } from "@mantine/core";
 import { FC } from "react";
 import { scouterOptions } from "../../data/scouters";
 import { useActiveMatch } from "../../stores/match/activeMatch";
 import { MatchLevel } from "../../stores/match/matchTypes";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
+import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 
 export const Meta: FC = () => {
     const set = useActiveMatch((state) => state.set);
-    const { scouter, matchLevel, matchNumber, teamNumber, teamNoShow } =
+    const { scouter, matchLevel, matchNumber, teamNoShow } =
         useActiveMatch((state) => state);
 
     const errors = useActiveMatchErrors();
 
+    const teamNumber = useTeamDB((state) => state.getTeamNumber)(matchNumber);
+
     return (
         <StackValidationChecker>
-            <Title align="center">Match Information</Title>
+            <Title align="center">Match Information {teamNumber ? (`for Team ${teamNumber}`): ""}</Title>
 
             <Select
                 label={"Scouter"}
@@ -41,7 +44,10 @@ export const Meta: FC = () => {
 
             <NumberInput
                 value={matchNumber}
-                onChange={(value) => set("matchNumber")(value ?? 0)}
+                onChange={(value) => {
+                    set("matchNumber")(value ?? 0);
+                    set("teamNumber")(teamNumber ?? 0);
+                }}
                 error={errors.matchNumber}
                 placeholder="Match Number"
                 label="Match Number"
@@ -51,12 +57,11 @@ export const Meta: FC = () => {
 
             <NumberInput
                 value={teamNumber}
-                onChange={(value) => set("teamNumber")(value ?? 0)}
-                error={errors.teamNumber}
-                placeholder="Team Number"
-                label="Team Number"
+                placeholder="No Team Selected"
+                label="Your Team to Scout"
                 size="lg"
                 my={4}
+                readOnly
             />
 
             <Checkbox

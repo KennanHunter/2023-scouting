@@ -6,10 +6,12 @@ import { useActiveMatch } from "../../stores/match/activeMatch";
 import { AutoParkState, MatchState } from "../../stores/match/matchTypes";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 
 export const Auto: FC = () => {
     const set = useActiveMatch((state) => state.set);
     const {
+        matchNumber,
         autonomousParking,
         autonomousGridData,
         autonomousLeftCommunityZone,
@@ -17,10 +19,12 @@ export const Auto: FC = () => {
     } = useActiveMatch((state) => state);
 
     const errors = useActiveMatchErrors();
+    
+    const teamNumber = useTeamDB((state) => state.getTeamNumber)(matchNumber);
 
     return (
         <StackValidationChecker>
-            <Title align="center">Auto</Title>
+            <Title align="center">Auto {teamNumber ? (`for Team ${teamNumber}`): ""}</Title>
 
             <Text size="lg">Starting Position</Text>
             <FieldInput

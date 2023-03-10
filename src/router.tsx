@@ -17,6 +17,7 @@ import { Save as PitSave } from "./routes/pit/Save";
 import { Meta as PitTeleop } from "./routes/pit/Teleop";
 import { PitLayout } from "./routes/pit/_layout";
 import { ScanQR } from "./routes/database/qr/ScanQR";
+import { TBAImport } from "./routes/database/TBAImport";
 
 export const routeConfig = [
     {
@@ -57,7 +58,10 @@ export const routeConfig = [
     {
         path: "/database/",
         element: <DatabaseLayout />,
-        children: [{ path: "viewdata", element: <ViewData /> }],
+        children: [
+            { path: "viewdata", element: <ViewData /> },
+            { path: "tba", element: <TBAImport /> }
+        ],
     },
 ] satisfies RouteObject[];
 

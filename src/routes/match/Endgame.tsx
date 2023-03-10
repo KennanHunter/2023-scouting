@@ -12,10 +12,12 @@ import { useActiveMatch } from "../../stores/match/activeMatch";
 import { DefenseRating, EndgameParkState } from "../../stores/match/matchTypes";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
+import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 
 export const Endgame: FC = () => {
     const set = useActiveMatch((state) => state.set);
     const {
+        matchNumber,
         endgameParking,
         endgameCoopertitionBonus,
         endgameRobotsDocked,
@@ -27,9 +29,11 @@ export const Endgame: FC = () => {
 
     const errors = useActiveMatchErrors();
 
+    const teamNumber = useTeamDB((state) => state.getTeamNumber)(matchNumber);
+
     return (
         <StackValidationChecker>
-            <Title align="center">Endgame</Title>
+            <Title align="center">Endgame {teamNumber ? (`for Team ${teamNumber}`): ""}</Title>
 
             <Radio.Group
                 label="Parking"

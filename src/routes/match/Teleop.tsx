@@ -4,10 +4,12 @@ import { GridInput } from "../../components/GridInput";
 import { useActiveMatch } from "../../stores/match/activeMatch";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
+import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 
 export const Teleop: FC = () => {
     const set = useActiveMatch((state) => state.set);
     const {
+        matchNumber,
         teleopGroundPickups,
         teleopSubstation1Pickups,
         teleopSubstation2LowPickups,
@@ -18,9 +20,11 @@ export const Teleop: FC = () => {
 
     const errors = useActiveMatchErrors();
 
+    const teamNumber = useTeamDB((state) => state.getTeamNumber)(matchNumber);
+
     return (
         <StackValidationChecker>
-            <Title align="center">Teleop</Title>
+            <Title align="center">Teleop {teamNumber ? (`for Team ${teamNumber}`): ""}</Title>
 
             <NumberInput
                 value={teleopGroundPickups}

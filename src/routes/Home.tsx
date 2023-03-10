@@ -27,6 +27,16 @@ export const Home: FC = () => {
                 </Button>
             </Link>
             <Link
+                to={"/database/tba"}
+                style={{
+                    all: "inherit",
+                }}
+            >
+                <Button fullWidth p={"xs"} my={"sm"}>
+                    Import TBA data
+                </Button>
+            </Link>
+            <Link
                 to={"/database/viewdata"}
                 style={{
                     all: "inherit",
