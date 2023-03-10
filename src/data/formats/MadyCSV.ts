@@ -1,3 +1,15 @@
+/**
+ * God is dead. God remains dead. And we have killed him.
+ * How shall we comfort ourselves, the murderers of all
+ * murderers? What was holiest and mightiest of all that
+ * the world has yet owned has bled to death under our
+ * knives: who will wipe this blood off us? What water is
+ * there for us to clean ourselves? What festivals of atonement,
+ * what sacred games shall we have to invent? Is not the
+ * greatness of this deed too great for us? Must we ourselves
+ * not become gods simply to appear worthy of it?
+ */
+
 import { z } from "zod";
 import { initGridData } from "../../components/GridInput";
 import {
@@ -5,10 +17,11 @@ import {
     DefenseRating,
     EndgameParkState,
     MatchLevel,
-    MatchState,
+    MatchState
 } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
 import { gridUtilities, populateGridData } from "../../util/gridUtilities";
+import { scouterOptions } from "../scouters";
 import { Exporter } from "./types";
 import { escapeString, wrapString } from "./utilities";
 
@@ -45,6 +58,7 @@ const headersArray = [
     "CoopertitionBonus",
     "ScoutedTime",
 ] as const;
+// @cspell:enable
 
 export const MadyCSV: Exporter<string> = {
     exportType: "string",
@@ -56,7 +70,6 @@ export const MadyCSV: Exporter<string> = {
                 .map(escapeString)
                 .map(wrapString)
                 .join(",");
-            // @cspell:enable
 
             return [
                 header,
@@ -71,7 +84,7 @@ export const MadyCSV: Exporter<string> = {
                         MatchLevel().options.indexOf(row.matchLevel), // MatchLevel
                         row.matchNumber, // MatchNumber
                         "Red," + "1," + row.teamNumber + ",Unknown", // Team
-                        row.scouter, // ScoutName
+                        scouterOptions.indexOf(row.scouter), // ScoutName
                         row.teamNoShow, //NoShow
                         JSON.stringify(row.autonomousLeftCommunityZone), // LeftCommunity
                         autonomousGrid.coneColumnsTotals.level2, // A-TopCones
@@ -95,7 +108,9 @@ export const MadyCSV: Exporter<string> = {
                             0
                                 ? "2"
                                 : "",
-                        ].join(" "), // PickupLocations
+                        ]
+                            .join(" ")
+                            .trim(), // PickupLocations
                         row.diedOnField, // DiedonField
                         row.teleopRunnerRobot, // RunnerRobot
                         DefenseRating().options.indexOf(row.defenseRating), // DefenseRating
@@ -266,43 +281,45 @@ export const MadyCSV: Exporter<string> = {
                 header,
                 ...db.map((row: PitState): string => {
                     return [
-                        row.teamNumber,
-                        row.robotHeight,
-                        row.robotLength,
+                        row.teamNumber, // TeamNumber
+                        row.robotHeight, // Height
+                        row.robotLength, // Length
+                        row.robotWidth, // Width
+                        row.robotWeight, // Weight
                         [
                             row.robotCanPickupRamp ? "0" : "",
                             row.robotCanPickupFloor ? "2" : "",
                             row.robotCanPickupShelf ? "1" : "",
-                        ].join(" "),
+                        ].join(" "), // Where do you get game pieces
                         [
                             row.robotCanDockAuto ? "0" : "",
                             row.robotCanDockTeleop ? "1" : "",
-                        ].join(" "),
+                        ].join(" "), // Can dock in
                         [
                             row.robotCanEngageAuto ? "0" : "",
                             row.robotCanEngageTeleop ? "1" : "",
-                        ].join(" "),
+                        ].join(" "), // Can engage in
                         [
                             row.robotCanManipulateCone ? "0" : "",
                             row.robotCanManipulateCube ? "1" : "",
-                        ].join(" "),
-                        row.autonomousCanExitCommunity,
+                        ].join(" "), // What game pieces can you place
+                        row.autonomousCanExitCommunity, // Exit community
                         [
                             row.autonomousGridPlaceTop ? "0" : "",
                             row.autonomousGridPlaceMiddle ? "1" : "",
                             row.autonomousGridPlaceBottom ? "2" : "",
-                        ].join(" "),
-                        row.autonomousNumberOfPrograms,
+                        ].join(" "), // Grid locations
+                        row.autonomousNumberOfPrograms, // Auto Programs
                         [
                             row.teleopGridPlaceTop ? "0" : "",
                             row.teleopGridPlaceMiddle ? "1" : "",
                             row.teleopGridPlaceBottom ? "2" : "",
-                        ].join(" "),
-                        row.teleopPlaysDefense,
-                        row.teleopRunnerRobot,
+                        ].join(" "), // Grid locations
+                        row.teleopPlaysDefense, // Plays defense
+                        row.teleopRunnerRobot, // Scavenger/Runner bot
                         row.time
                             ? new Date(row.time).toString()
-                            : new Date().toString(),
+                            : new Date().toString(), // Scouted Time
                     ]
                         .map(String)
                         .map(escapeString)

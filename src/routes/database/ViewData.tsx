@@ -1,8 +1,5 @@
 import {
-    Box,
     Button,
-    Checkbox,
-    Divider,
     FileInput,
     Flex,
     ScrollArea,
@@ -11,19 +8,16 @@ import {
     Table,
     Tabs,
     Text,
-    Title,
 } from "@mantine/core";
+import { openModal } from "@mantine/modals";
+import { showNotification } from "@mantine/notifications";
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
-import { useMatchDB } from "../../stores/match/matchDB";
-import { usePitDB } from "../../stores/pit/pitDB";
 import { Exporter, exporters } from "../../data/formats/types";
-import { PitState } from "../../stores/pit/pitTypes";
+import { useMatchDB } from "../../stores/match/matchDB";
 import { MatchState } from "../../stores/match/matchTypes";
-import { showNotification } from "@mantine/notifications";
-import { FieldData, FieldInput, FieldPoint } from "../../components/FieldInput";
-import { GridData, GridInput } from "../../components/GridInput";
-import { openModal } from "@mantine/modals";
+import { usePitDB } from "../../stores/pit/pitDB";
+import { PitState } from "../../stores/pit/pitTypes";
 import { MatchDataView } from "./MatchDataView";
 import { PitDataView } from "./PitDataView";
 import { CreateQR } from "./qr/CreateQR";
@@ -66,7 +60,7 @@ export const ViewData: FC = () => {
             return;
         }
 
-        const reader = new FileReader()
+        const reader = new FileReader();
 
         reader.onload = (e: ProgressEvent<FileReader>) => {
             if (e.target && e.target.result) {
@@ -78,7 +72,7 @@ export const ViewData: FC = () => {
                     color: "red",
                 });
             }
-        }
+        };
 
         reader.onerror = (e: ProgressEvent<FileReader>) => {
             showNotification({
@@ -86,12 +80,11 @@ export const ViewData: FC = () => {
                 message: `Failed to upload "${selectedFile.name}"`,
                 color: "red",
             });
-        }
+        };
 
         if (exporters[selectedFormat].exportType == "string")
-            reader.readAsText(selectedFile)
-        else
-            reader.readAsArrayBuffer(selectedFile);
+            reader.readAsText(selectedFile);
+        else reader.readAsArrayBuffer(selectedFile);
 
         return new Blob([]);
     };
@@ -101,9 +94,16 @@ export const ViewData: FC = () => {
 
     const uploadMatchFile = (exporter: Exporter<string | Uint8Array>) =>
         uploadBlob((data) => {
-            console.log(`The content of ${selectedFile?.name} is ${data}, arraybuffer ${(data instanceof ArrayBuffer)}`);
+            console.log(
+                `The content of ${selectedFile?.name} is ${data}, arraybuffer ${
+                    data instanceof ArrayBuffer
+                }`
+            );
 
-            const matchData: MatchState[] | undefined = (data instanceof ArrayBuffer) ? exporter.match.parse(new Uint8Array(data)) : exporter.match.parse(data);
+            const matchData: MatchState[] | undefined =
+                data instanceof ArrayBuffer
+                    ? exporter.match.parse(new Uint8Array(data))
+                    : exporter.match.parse(data);
 
             if (!matchData) {
                 showNotification({
@@ -121,15 +121,17 @@ export const ViewData: FC = () => {
                 message: `Successfully uploaded "${selectedFile?.name}"`,
                 color: "green",
             });
-        })
-
+        });
 
     const downloadPitFile = (exporter: Exporter<string | Uint8Array>) =>
         downloadBlob(exporter.pit.blobify(pitDB));
 
     const uploadPitFile = (exporter: Exporter<string | Uint8Array>) =>
         uploadBlob((data) => {
-            const pitData: PitState[] | undefined = (data instanceof ArrayBuffer) ? exporter.pit.parse(new Uint8Array(data)) : exporter.pit.parse(data);
+            const pitData: PitState[] | undefined =
+                data instanceof ArrayBuffer
+                    ? exporter.pit.parse(new Uint8Array(data))
+                    : exporter.pit.parse(data);
 
             if (!pitData) {
                 showNotification({
@@ -153,18 +155,14 @@ export const ViewData: FC = () => {
         openModal({
             title: `Create QR Codes`,
             centered: true,
-            children: (
-                <CreateQR />
-            ),
+            children: <CreateQR />,
         });
 
     const openQRScanner = () =>
         openModal({
             title: `Scan QR Codes`,
             centered: true,
-            children: (
-                <ScanQR />
-            ),
+            children: <ScanQR />,
         });
 
     const viewMatch = (data: MatchState) =>
@@ -248,16 +246,20 @@ export const ViewData: FC = () => {
                                 <Button
                                     m={4}
                                     onClick={() =>
-                                        downloadMatchFile(exporters[selectedFormat])
+                                        downloadMatchFile(
+                                            exporters[selectedFormat]
+                                        )
                                     }
                                     style={{ flexGrow: 1 }}
                                 >
-                                    Download
+                                    Download as {selectedFormat}
                                 </Button>
                                 <Button
                                     m={4}
                                     onClick={() =>
-                                        uploadMatchFile(exporters[selectedFormat])
+                                        uploadMatchFile(
+                                            exporters[selectedFormat]
+                                        )
                                     }
                                     style={{ flexGrow: 1 }}
                                 >
@@ -265,7 +267,12 @@ export const ViewData: FC = () => {
                                 </Button>
                             </Flex>
                             <ScrollArea>
-                                <Table striped withBorder withColumnBorders my={4}>
+                                <Table
+                                    striped
+                                    withBorder
+                                    withColumnBorders
+                                    my={4}
+                                >
                                     <thead>
                                         <tr>
                                             <th>Team</th>
@@ -278,10 +285,17 @@ export const ViewData: FC = () => {
                                         {matchDB.map((match, index) => (
                                             <tr key={`match#${index}`}>
                                                 <td>{match.teamNumber}</td>
-                                                <td>{match.matchLevel} {match.matchNumber}</td>
+                                                <td>
+                                                    {match.matchLevel}{" "}
+                                                    {match.matchNumber}
+                                                </td>
                                                 <td>{match.scouter}</td>
                                                 <td>
-                                                    <Button onClick={() => viewMatch(match)}>
+                                                    <Button
+                                                        onClick={() =>
+                                                            viewMatch(match)
+                                                        }
+                                                    >
                                                         View
                                                     </Button>
                                                 </td>
@@ -297,7 +311,9 @@ export const ViewData: FC = () => {
                                 <Button
                                     m={4}
                                     onClick={() =>
-                                        uploadMatchFile(exporters[selectedFormat])
+                                        uploadMatchFile(
+                                            exporters[selectedFormat]
+                                        )
                                     }
                                     style={{ flexGrow: 1 }}
                                 >
@@ -323,11 +339,13 @@ export const ViewData: FC = () => {
                                 <Button
                                     m={4}
                                     onClick={() =>
-                                        downloadPitFile(exporters[selectedFormat])
+                                        downloadPitFile(
+                                            exporters[selectedFormat]
+                                        )
                                     }
                                     style={{ flexGrow: 1 }}
                                 >
-                                    Download
+                                    Download as {selectedFormat}
                                 </Button>
                                 <Button
                                     m={4}
@@ -340,7 +358,12 @@ export const ViewData: FC = () => {
                                 </Button>
                             </Flex>
                             <ScrollArea>
-                                <Table striped withBorder withColumnBorders my={4}>
+                                <Table
+                                    striped
+                                    withBorder
+                                    withColumnBorders
+                                    my={4}
+                                >
                                     <thead>
                                         <tr>
                                             <th>Team</th>
@@ -354,7 +377,11 @@ export const ViewData: FC = () => {
                                                 <td>{pit.teamNumber}</td>
                                                 <td>{pit.scouter}</td>
                                                 <td>
-                                                    <Button onClick={() => viewPit(pit)}>
+                                                    <Button
+                                                        onClick={() =>
+                                                            viewPit(pit)
+                                                        }
+                                                    >
                                                         View
                                                     </Button>
                                                 </td>
