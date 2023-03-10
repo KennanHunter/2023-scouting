@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
 import { FC } from "react";
-import { Link, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import { useIsMobile } from "./util/useIsMobile";
 
@@ -46,13 +46,16 @@ const App: FC = () => {
                     justify={"space-between"}
                     px={"md"}
                 >
-                    {/* <Link to={"/"} 
+                    <a
+                        href="/"
                         style={{
                             all: "inherit",
-                        }}> */}
-                    <Title>
-                        {isMobile ? "3494 Scouting" : "3494 Scouting App"}
-                    </Title>
+                        }}
+                    >
+                        <Title>
+                            {isMobile ? "3494 Scouting" : "3494 Scouting App"}
+                        </Title>
+                    </a>
                     {/* </Link> */}
                     <ActionIcon
                         variant="outline"
