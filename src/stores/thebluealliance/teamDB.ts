@@ -25,7 +25,7 @@ export const useTeamDB = create<{
                     teamPosition: newTeamPosition,
                 })),
             getTeamNumber: (matchNumber: number) => {
-                return get().db.findLast(
+                return get().db.find(
                     (match) => match.matchNumber == matchNumber
                 )?.[get().teamPosition];
             },
