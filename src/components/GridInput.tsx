@@ -59,7 +59,11 @@ export const initGridData = (): GridData => {
     };
 };
 
-export const GridInput: FC<GridInputParams> = ({ data, readonly, onChange }) => {
+export const GridInput: FC<GridInputParams> = ({
+    data,
+    readonly,
+    onChange,
+}) => {
     const changeItem = (column: number, level: number, by: number) => {
         switch (level) {
             case 0:
@@ -118,6 +122,7 @@ export const GridInput: FC<GridInputParams> = ({ data, readonly, onChange }) => 
                             sx={{
                                 width: "100%",
                             }}
+                            py={20}
                             my={4}
                             onClick={() => addItem(index, 3)}
                         >
@@ -137,6 +142,7 @@ export const GridInput: FC<GridInputParams> = ({ data, readonly, onChange }) => 
                             sx={{
                                 width: "100%",
                             }}
+                            py={20}
                             my={4}
                             onClick={() => addItem(index, 2)}
                         >
@@ -156,6 +162,7 @@ export const GridInput: FC<GridInputParams> = ({ data, readonly, onChange }) => 
                                 borderBottomLeftRadius: "0",
                                 borderBottomRightRadius: "0",
                             }}
+                            py={20}
                             mt={4}
                             onClick={() => addItem(index, 1)}
                         >
@@ -171,6 +178,7 @@ export const GridInput: FC<GridInputParams> = ({ data, readonly, onChange }) => 
                                 borderTopLeftRadius: "0",
                                 borderTopRightRadius: "0",
                             }}
+                            py={20}
                             mb={4}
                             onClick={() => addItem(index, 0)}
                         >
@@ -180,10 +188,17 @@ export const GridInput: FC<GridInputParams> = ({ data, readonly, onChange }) => 
                     </Grid.Col>
                 ))}
             </Grid>
-            {(!readonly) ? <Button variant="filled" size="sm" compact fullWidth onClick={undo}>
-                Undo
-            </Button> : (null)}
-            
+            {!readonly ? (
+                <Button
+                    variant="filled"
+                    size="sm"
+                    compact
+                    fullWidth
+                    onClick={undo}
+                >
+                    Undo
+                </Button>
+            ) : null}
         </Box>
     );
 };
