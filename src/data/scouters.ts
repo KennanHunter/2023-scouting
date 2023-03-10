@@ -7,6 +7,7 @@ export const scouterOptions = [
     "Blake Hatcher",
     "Cameron Proffitt",
     "Carson Eckert",
+    "David Chaves",
     "Dianna Lynch",
     "Donna Smelser",
     "Doug Cannizzaro",
