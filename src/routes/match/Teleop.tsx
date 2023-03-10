@@ -13,7 +13,7 @@ export const Teleop: FC = () => {
         teleopSubstation2LowPickups,
         teleopSubstation2HighPickups,
         teleopGridData,
-        teleopRunnerRobot
+        teleopRunnerRobot,
     } = useActiveMatch((state) => state);
 
     const errors = useActiveMatchErrors();

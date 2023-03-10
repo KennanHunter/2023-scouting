@@ -38,9 +38,13 @@ export const MantineWrapper: FC<PropsWithChildren<{}>> = ({ children }) => {
                 withNormalizeCSS
             >
                 <NotificationsProvider>
-                    <ModalsProvider modalProps={{
-                        size: 'xl'
-                    }}>{children}</ModalsProvider>
+                    <ModalsProvider
+                        modalProps={{
+                            size: "xl",
+                        }}
+                    >
+                        {children}
+                    </ModalsProvider>
                 </NotificationsProvider>
             </MantineProvider>
         </ColorSchemeProvider>

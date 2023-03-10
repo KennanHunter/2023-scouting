@@ -17,7 +17,7 @@ import {
     DefenseRating,
     EndgameParkState,
     MatchLevel,
-    MatchState
+    MatchState,
 } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
 import { gridUtilities, populateGridData } from "../../util/gridUtilities";

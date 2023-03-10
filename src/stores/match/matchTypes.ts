@@ -5,10 +5,12 @@ import { GridData } from "../../components/GridInput";
 export const AutoParkState = () => z.enum(["None", "DockEngage", "Dock"]);
 export type AutoParkState = z.infer<ReturnType<typeof AutoParkState>>;
 
-export const EndgameParkState = () => z.enum(["None", "DockEngage", "Dock", "Park"]);
+export const EndgameParkState = () =>
+    z.enum(["None", "DockEngage", "Dock", "Park"]);
 export type EndgameParkState = z.infer<ReturnType<typeof EndgameParkState>>;
 
-export const DefenseRating = () => z.enum(["Not Played", "Average", "Effective", "Very Effective"]);
+export const DefenseRating = () =>
+    z.enum(["Not Played", "Average", "Effective", "Very Effective"]);
 export type DefenseRating = z.infer<ReturnType<typeof DefenseRating>>;
 
 export const MatchLevel = () =>

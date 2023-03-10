@@ -57,9 +57,7 @@ export const routeConfig = [
     {
         path: "/database/",
         element: <DatabaseLayout />,
-        children: [
-            { path: "viewdata", element: <ViewData /> }
-        ],
+        children: [{ path: "viewdata", element: <ViewData /> }],
     },
 ] satisfies RouteObject[];
 

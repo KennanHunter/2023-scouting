@@ -51,7 +51,7 @@ export const defaultActivePitState: PitState = {
 
     comments: "",
 
-    time: undefined
+    time: undefined,
 } as any;
 
 export const useActivePit = create<PitState & ActivePitActions>()(

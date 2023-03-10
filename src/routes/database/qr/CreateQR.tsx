@@ -1,4 +1,14 @@
-import { Box, Button, Center, Divider, Pagination, Stack, Tabs, Text, Title } from "@mantine/core";
+import {
+    Box,
+    Button,
+    Center,
+    Divider,
+    Pagination,
+    Stack,
+    Tabs,
+    Text,
+    Title,
+} from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { FC, useCallback, useEffect, useState } from "react";
 import QRCode from "react-qr-code";
@@ -35,7 +45,7 @@ export const CreateQR: FC = () => {
                                 borderColor: "white",
                                 height: "min(100vw, 50vh)",
                                 width: "min(100vw, 50vh)",
-                                backgroundColor: "white"
+                                backgroundColor: "white",
                             }}
                             level="H"
                             value={(() => {
@@ -44,18 +54,33 @@ export const CreateQR: FC = () => {
                                         "Active page not initialized in qr code call"
                                     );
 
-                                const startIndex = (activePage - 1) * entriesPerQRCode;
+                                const startIndex =
+                                    (activePage - 1) * entriesPerQRCode;
                                 const endIndex = startIndex + entriesPerQRCode;
-                                
+
                                 if (usingMatchDB) {
-                                    return new TextDecoder().decode(JSONGzip.match.stringify(matchDB.slice(startIndex, endIndex)));
+                                    return new TextDecoder().decode(
+                                        JSONGzip.match.stringify(
+                                            matchDB.slice(startIndex, endIndex)
+                                        )
+                                    );
                                 } else {
-                                    return new TextDecoder().decode(JSONGzip.pit.stringify(pitDB.slice(startIndex, endIndex)));
+                                    return new TextDecoder().decode(
+                                        JSONGzip.pit.stringify(
+                                            pitDB.slice(startIndex, endIndex)
+                                        )
+                                    );
                                 }
                             })()}
                         />
 
-                        <Pagination mt={16} total={Math.ceil((usingMatchDB ? matchDB : pitDB).length / entriesPerQRCode)} />
+                        <Pagination
+                            mt={16}
+                            total={Math.ceil(
+                                (usingMatchDB ? matchDB : pitDB).length /
+                                    entriesPerQRCode
+                            )}
+                        />
                     </Stack>
                 ),
             }),
@@ -68,7 +93,7 @@ export const CreateQR: FC = () => {
 
     return (
         <>
-            {(matchDB.length != 0) ?  (
+            {matchDB.length != 0 ? (
                 <Button
                     value="create-match-qr"
                     onClick={() => {
@@ -80,10 +105,12 @@ export const CreateQR: FC = () => {
                     View Match QR Codes
                 </Button>
             ) : (
-                <Text size="lg" align="center">No match data to export</Text>
-            ) }
+                <Text size="lg" align="center">
+                    No match data to export
+                </Text>
+            )}
 
-            {(pitDB.length != 0) ?  (
+            {pitDB.length != 0 ? (
                 <Button
                     value="create-pit-qr"
                     onClick={() => {
@@ -95,8 +122,10 @@ export const CreateQR: FC = () => {
                     View Pit QR Codes
                 </Button>
             ) : (
-                <Text size="lg" align="center">No pit data to export</Text>
-            ) }
+                <Text size="lg" align="center">
+                    No pit data to export
+                </Text>
+            )}
         </>
     );
 };

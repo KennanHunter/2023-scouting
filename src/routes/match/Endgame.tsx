@@ -34,7 +34,9 @@ export const Endgame: FC = () => {
             <Radio.Group
                 label="Parking"
                 my={4}
-                onChange={(value) => set("endgameParking")(value as EndgameParkState)}
+                onChange={(value) =>
+                    set("endgameParking")(value as EndgameParkState)
+                }
                 value={endgameParking}
                 error={errors.endgameParking}
             >

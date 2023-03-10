@@ -16,15 +16,24 @@ export const ScanQR: FC = () => {
 
     const delay = 500;
 
-    const [ lastData, setLastData ] = useState(new Uint8Array(0));
+    const [lastData, setLastData] = useState(new Uint8Array(0));
 
     const handleScan = (qrScannerResult: any) => {
-        if (qrScannerResult && (qrScannerResult.binaryData.length != lastData.length || lastData.filter((value, index) => qrScannerResult.binaryData[index] != value).length == 0)) {
-
+        if (
+            qrScannerResult &&
+            (qrScannerResult.binaryData.length != lastData.length ||
+                lastData.filter(
+                    (value, index) => qrScannerResult.binaryData[index] != value
+                ).length == 0)
+        ) {
             setLastData(qrScannerResult.binaryData);
 
-            const parsedMatchesFromQR = JSONGzip.match.parse(new Uint8Array(qrScannerResult.binaryData));
-            const parsedPitsFromQR = JSONGzip.pit.parse(new Uint8Array(qrScannerResult.binaryData));
+            const parsedMatchesFromQR = JSONGzip.match.parse(
+                new Uint8Array(qrScannerResult.binaryData)
+            );
+            const parsedPitsFromQR = JSONGzip.pit.parse(
+                new Uint8Array(qrScannerResult.binaryData)
+            );
 
             if (!parsedMatchesFromQR && !parsedPitsFromQR) {
                 showNotification({
@@ -39,7 +48,8 @@ export const ScanQR: FC = () => {
 
                 insertNewMatchDB(parsedMatchesFromQR);
 
-                const numberItems = useMatchDB.getState().db.length - numberItemsBefore;
+                const numberItems =
+                    useMatchDB.getState().db.length - numberItemsBefore;
 
                 if (numberItems == 0) {
                     showNotification({
@@ -58,10 +68,11 @@ export const ScanQR: FC = () => {
 
             if (parsedPitsFromQR) {
                 const numberItemsBefore = usePitDB.getState().db.length;
-                
+
                 insertNewPitDB(parsedPitsFromQR);
 
-                const numberItems = usePitDB.getState().db.length - numberItemsBefore;
+                const numberItems =
+                    usePitDB.getState().db.length - numberItemsBefore;
 
                 if (numberItems == 0) {
                     showNotification({
@@ -84,13 +95,16 @@ export const ScanQR: FC = () => {
         console.log(error);
     };
 
-
     const scanQRModal = () =>
         openModal({
             title: `Scan QR Code`,
             centered: true,
             children: (
-                <QrReader delay={delay} onError={handleError} onScan={handleScan}/>
+                <QrReader
+                    delay={delay}
+                    onError={handleError}
+                    onScan={handleScan}
+                />
             ),
         });
 

@@ -15,15 +15,19 @@ export const usePitDB = create<{
                 set((get) => ({
                     db: [...get.db, { ...newPit, time: Date.now() }],
                 })),
-            insertNew: (newPits) => 
+            insertNew: (newPits) =>
                 set((get) => {
-                    const filteredPits: PitState[] = newPits.filter((parsedPit) =>
-                        get.db.filter((pitDBMatch) => pitDBMatch.time == parsedPit.time).length == 0
+                    const filteredPits: PitState[] = newPits.filter(
+                        (parsedPit) =>
+                            get.db.filter(
+                                (pitDBMatch) =>
+                                    pitDBMatch.time == parsedPit.time
+                            ).length == 0
                     );
 
-                    return ({
+                    return {
                         db: [...get.db, ...filteredPits],
-                    })
+                    };
                 }),
             clear: () => set({ db: [] }),
         }),

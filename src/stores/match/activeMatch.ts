@@ -1,7 +1,13 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { initGridData } from "../../components/GridInput";
-import { MatchLevel, MatchState, AutoParkState, EndgameParkState, DefenseRating } from "./matchTypes";
+import {
+    MatchLevel,
+    MatchState,
+    AutoParkState,
+    EndgameParkState,
+    DefenseRating,
+} from "./matchTypes";
 
 type ActiveMatchActions = {
     save: () => MatchState;
@@ -41,7 +47,7 @@ const defaultActiveMatchState: MatchState = {
     diedOnField: false,
     comments: "",
 
-    time: undefined
+    time: undefined,
 };
 
 export const useActiveMatch = create<MatchState & ActiveMatchActions>()(

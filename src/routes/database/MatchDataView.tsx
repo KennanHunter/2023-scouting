@@ -1,7 +1,23 @@
-import { Button, Checkbox, Group, NumberInput, Radio, Select, Tabs, Text, Textarea, Title } from "@mantine/core";
+import {
+    Button,
+    Checkbox,
+    Group,
+    NumberInput,
+    Radio,
+    Select,
+    Tabs,
+    Text,
+    Textarea,
+    Title,
+} from "@mantine/core";
 import { FC, PropsWithChildren, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { AutoParkState, DefenseRating, EndgameParkState, MatchState } from "../../stores/match/matchTypes";
+import {
+    AutoParkState,
+    DefenseRating,
+    EndgameParkState,
+    MatchState,
+} from "../../stores/match/matchTypes";
 import { FieldInput } from "../../components/FieldInput";
 import { GridInput } from "../../components/GridInput";
 
@@ -18,12 +34,10 @@ export const MatchDataView: FC<PropsWithChildren<MatchDataViewParams>> = ({
             <Tabs.Panel value="auto" pt="xs">
                 <Text size="lg">Starting Position</Text>
                 <FieldInput
-                    onChange={(data) => { }}
+                    onChange={(data) => {}}
                     singlePoint
                     readonly
-                    data={
-                        [match.autonomousStartingLocation]
-                    }
+                    data={[match.autonomousStartingLocation]}
                 />
                 <Checkbox
                     label="Left Community Zone"
@@ -33,11 +47,10 @@ export const MatchDataView: FC<PropsWithChildren<MatchDataViewParams>> = ({
                 />
                 <Text size="lg">Grid</Text>
                 <GridInput
-                    onChange={(data) => { }}
+                    onChange={(data) => {}}
                     data={match.autonomousGridData}
                     readonly
                 />
-
 
                 <Radio.Group
                     label="Parking"
@@ -107,7 +120,7 @@ export const MatchDataView: FC<PropsWithChildren<MatchDataViewParams>> = ({
 
                 <Text size="lg">Grid</Text>
                 <GridInput
-                    onChange={(data) => { }}
+                    onChange={(data) => {}}
                     data={match.teleopGridData}
                     readonly
                 />
