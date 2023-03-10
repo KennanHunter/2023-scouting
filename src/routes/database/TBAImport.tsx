@@ -83,7 +83,18 @@ export const TBAImport: FC = () => {
                     MatchesSchema().safeParse(responseJson);
 
                 if (!safelyParsedJson.success) {
-                    setFetchError("Event Data Corrupt, Please Ask Kennan");
+                    switch (response.status) {
+                        case 401:
+                            setFetchError("Authorization Error, Please Ask Kennan");
+                            break;
+                        case 404:
+                            setFetchError("Event Not Found, Please Check your Event Key");
+                            break;
+                        default:
+                            setFetchError("Event Data Corrupt, Please Ask Kennan");
+                            break;
+                    }
+
                     setFetchSucceeded(false);
 
                     return;
