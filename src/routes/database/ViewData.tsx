@@ -7,7 +7,7 @@ import {
     Stack,
     Table,
     Tabs,
-    Text
+    Text,
 } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { showNotification } from "@mantine/notifications";

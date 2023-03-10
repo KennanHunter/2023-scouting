@@ -1,4 +1,11 @@
-import { Checkbox, NumberInput, Select, Stack, Title, Text } from "@mantine/core";
+import {
+    Checkbox,
+    NumberInput,
+    Select,
+    Stack,
+    Title,
+    Text,
+} from "@mantine/core";
 import { FC } from "react";
 import { scouterOptions } from "../../data/scouters";
 import { useActiveMatch } from "../../stores/match/activeMatch";
@@ -9,8 +16,9 @@ import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 
 export const Meta: FC = () => {
     const set = useActiveMatch((state) => state.set);
-    const { scouter, matchLevel, matchNumber, teamNoShow } =
-        useActiveMatch((state) => state);
+    const { scouter, matchLevel, matchNumber, teamNoShow } = useActiveMatch(
+        (state) => state
+    );
 
     const errors = useActiveMatchErrors();
 
@@ -18,7 +26,9 @@ export const Meta: FC = () => {
 
     return (
         <StackValidationChecker>
-            <Title align="center">Match Information {teamNumber ? (`for Team ${teamNumber}`): ""}</Title>
+            <Title align="center">
+                Match Information {teamNumber ? `for Team ${teamNumber}` : ""}
+            </Title>
 
             <Select
                 label={"Scouter"}

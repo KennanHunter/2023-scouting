@@ -1,11 +1,11 @@
 import { z } from "zod";
 import { MatchLevel } from "../match/matchTypes";
 
-export const MatchTeam = () => 
-    z.number();
+export const MatchTeam = () => z.number();
 export type MatchTeam = z.infer<ReturnType<typeof MatchTeam>>;
 
-export const TeamPosition = () => z.enum(["Red 1", "Red 2", "Red 3", "Blue 1", "Blue 2", "Blue 3"]);
+export const TeamPosition = () =>
+    z.enum(["Red 1", "Red 2", "Red 3", "Blue 1", "Blue 2", "Blue 3"]);
 export type TeamPosition = z.infer<ReturnType<typeof TeamPosition>>;
 
 export const MatchTeams = () =>

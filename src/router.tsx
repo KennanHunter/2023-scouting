@@ -60,7 +60,7 @@ export const routeConfig = [
         element: <DatabaseLayout />,
         children: [
             { path: "viewdata", element: <ViewData /> },
-            { path: "tba", element: <TBAImport /> }
+            { path: "tba", element: <TBAImport /> },
         ],
     },
 ] satisfies RouteObject[];

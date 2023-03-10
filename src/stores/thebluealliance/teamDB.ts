@@ -16,16 +16,18 @@ export const useTeamDB = create<{
             teamPosition: "Red 1",
             push: (newMatchTeams) =>
                 set((get) => ({
-                    db: [...get.db, ...newMatchTeams ],
-                    teamPosition: get.teamPosition
+                    db: [...get.db, ...newMatchTeams],
+                    teamPosition: get.teamPosition,
                 })),
-            setTeamPosition: (newTeamPosition: TeamPosition) => 
+            setTeamPosition: (newTeamPosition: TeamPosition) =>
                 set((get) => ({
                     db: get.db,
-                    teamPosition: newTeamPosition
+                    teamPosition: newTeamPosition,
                 })),
             getTeamNumber: (matchNumber: number) => {
-                return get().db.findLast((match) => match.matchNumber == matchNumber)?.[get().teamPosition]
+                return get().db.findLast(
+                    (match) => match.matchNumber == matchNumber
+                )?.[get().teamPosition];
             },
             clear: () => set({ db: [], teamPosition: "Red 1" }),
         }),

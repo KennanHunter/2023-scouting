@@ -33,7 +33,9 @@ export const Endgame: FC = () => {
 
     return (
         <StackValidationChecker>
-            <Title align="center">Endgame {teamNumber ? (`for Team ${teamNumber}`): ""}</Title>
+            <Title align="center">
+                Endgame {teamNumber ? `for Team ${teamNumber}` : ""}
+            </Title>
 
             <Radio.Group
                 label="Parking"

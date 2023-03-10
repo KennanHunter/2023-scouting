@@ -50,9 +50,9 @@ const App: FC = () => {
                         style={{
                             all: "inherit",
                         }}> */}
-                        <Title>
-                            {isMobile ? "3494 Scouting" : "3494 Scouting App"}
-                        </Title>
+                    <Title>
+                        {isMobile ? "3494 Scouting" : "3494 Scouting App"}
+                    </Title>
                     {/* </Link> */}
                     <ActionIcon
                         variant="outline"

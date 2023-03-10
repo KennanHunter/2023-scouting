@@ -19,12 +19,14 @@ export const Auto: FC = () => {
     } = useActiveMatch((state) => state);
 
     const errors = useActiveMatchErrors();
-    
+
     const teamNumber = useTeamDB((state) => state.getTeamNumber)(matchNumber);
 
     return (
         <StackValidationChecker>
-            <Title align="center">Auto {teamNumber ? (`for Team ${teamNumber}`): ""}</Title>
+            <Title align="center">
+                Auto {teamNumber ? `for Team ${teamNumber}` : ""}
+            </Title>
 
             <Text size="lg">Starting Position</Text>
             <FieldInput

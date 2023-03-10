@@ -24,7 +24,9 @@ export const Teleop: FC = () => {
 
     return (
         <StackValidationChecker>
-            <Title align="center">Teleop {teamNumber ? (`for Team ${teamNumber}`): ""}</Title>
+            <Title align="center">
+                Teleop {teamNumber ? `for Team ${teamNumber}` : ""}
+            </Title>
 
             <NumberInput
                 value={teleopGroundPickups}
