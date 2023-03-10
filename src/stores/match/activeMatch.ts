@@ -1,12 +1,13 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { initGridData } from "../../components/GridInput";
+import { useTeamDB } from "../thebluealliance/teamDB";
 import {
+    AutoParkState,
+    DefenseRating,
+    EndgameParkState,
     MatchLevel,
     MatchState,
-    AutoParkState,
-    EndgameParkState,
-    DefenseRating,
 } from "./matchTypes";
 
 type ActiveMatchActions = {
@@ -18,7 +19,9 @@ type ActiveMatchActions = {
     ) => (value: MatchState[T]) => void;
 };
 
-const defaultActiveMatchState: MatchState = {
+const defaultActiveMatchState: () => MatchState = (
+    props?: Partial<MatchState>
+) => ({
     scouter: "",
     matchLevel: MatchLevel().Enum.Qualifications,
     matchNumber: 0,
@@ -47,23 +50,29 @@ const defaultActiveMatchState: MatchState = {
     diedOnField: false,
     comments: "",
 
-    time: undefined,
-};
+    ...props,
+});
 
 export const useActiveMatch = create<MatchState & ActiveMatchActions>()(
     persist(
         (set, get) => ({
-            ...defaultActiveMatchState,
+            ...defaultActiveMatchState(),
 
             save: () => {
+                const { teamPosition } = useTeamDB.getState();
+
                 const state = Object.entries(get()).filter(
                     ([key, value]) => typeof value !== "function"
                 );
 
-                return Object.fromEntries(state) as MatchState;
+                return {
+                    ...(Object.fromEntries(state) as MatchState),
+                    date: new Date().toString(),
+                    side: teamPosition,
+                } as MatchState;
             },
 
-            clear: () => set(defaultActiveMatchState),
+            clear: () => set(defaultActiveMatchState()),
 
             set: (setKey) => (value) => set({ [setKey]: value }),
         }),

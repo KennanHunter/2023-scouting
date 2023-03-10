@@ -79,11 +79,22 @@ export const MadyCSV: Exporter<string> = {
                     );
                     const teleopGrid = gridUtilities(row.teleopGridData);
 
+                    if (!row.side) throw new Error("Fuck");
+
                     return [
-                        "", // EventKey
+                        row.eventCode ?? "", // EventKey
                         MatchLevel().options.indexOf(row.matchLevel), // MatchLevel
                         row.matchNumber, // MatchNumber
-                        "Red," + "1," + row.teamNumber + ",Unknown", // Team
+                        (() => {
+                            const [side, id]: [
+                                "Red" | "Blue",
+                                "1" | "2" | "3"
+                            ] = row.side.split(" ") as any;
+
+                            return [side, id, row.teamNumber, "Unknown"].join(
+                                ","
+                            );
+                        })(),
                         scouterOptions.indexOf(row.scouter), // ScoutName
                         row.teamNoShow, //NoShow
                         JSON.stringify(row.autonomousLeftCommunityZone), // LeftCommunity

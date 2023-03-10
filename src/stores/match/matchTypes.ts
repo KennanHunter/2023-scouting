@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { FieldPoint } from "../../components/FieldInput";
 import { GridData } from "../../components/GridInput";
+import { TeamPosition } from "../thebluealliance/teamTypes";
 
 export const AutoParkState = () => z.enum(["None", "DockEngage", "Dock"]);
 export type AutoParkState = z.infer<ReturnType<typeof AutoParkState>>;
@@ -19,6 +20,8 @@ export type MatchLevel = z.infer<ReturnType<typeof MatchLevel>>;
 
 export const MatchState = () =>
     z.object({
+        eventCode: z.string().optional(),
+        side: TeamPosition().optional(),
         scouter: z
             .string()
             .refine((val) => val !== "", "Please select your name"),
@@ -54,4 +57,5 @@ export const MatchState = () =>
 
         time: z.number().optional(),
     });
+
 export type MatchState = z.infer<ReturnType<typeof MatchState>>;

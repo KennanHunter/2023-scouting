@@ -13,15 +13,13 @@ export const useTeamDB = create<{
     persist(
         (set, get) => ({
             db: [],
-            teamPosition: "Red 1",
+            teamPosition: TeamPosition().Enum["Red 1"],
             push: (newMatchTeams) =>
                 set((get) => ({
                     db: [...get.db, ...newMatchTeams],
-                    teamPosition: get.teamPosition,
                 })),
             setTeamPosition: (newTeamPosition: TeamPosition) =>
                 set((get) => ({
-                    db: get.db,
                     teamPosition: newTeamPosition,
                 })),
             getTeamNumber: (matchNumber: number) => {
@@ -29,7 +27,8 @@ export const useTeamDB = create<{
                     (match) => match.matchNumber == matchNumber
                 )?.[get().teamPosition];
             },
-            clear: () => set({ db: [], teamPosition: "Red 1" }),
+            clear: () =>
+                set({ db: [], teamPosition: TeamPosition().Enum["Red 1"] }),
         }),
         { name: "teams-db" }
     )
