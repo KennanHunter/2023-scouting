@@ -1,17 +1,16 @@
 import {
     Checkbox,
+    Divider,
     NumberInput,
-    Stack,
+    Select,
     Text,
     Title,
-    Divider,
-    Select,
 } from "@mantine/core";
 import { FC } from "react";
-import { useActivePit } from "../../stores/pit/activePit";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
-import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
+import { useActivePit } from "../../stores/pit/activePit";
 import { DrivetrainType } from "../../stores/pit/pitTypes";
+import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
 
 export const Robot: FC = () => {
     const set = useActivePit((state) => state.set);

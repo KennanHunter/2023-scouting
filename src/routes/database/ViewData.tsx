@@ -286,8 +286,9 @@ export const ViewData: FC = () => {
                                             <tr key={`match#${index}`}>
                                                 <td>{match.teamNumber}</td>
                                                 <td>
-                                                    {match.matchLevel}{" "}
-                                                    {match.matchNumber}
+                                                    {match.matchLevel +
+                                                        " " +
+                                                        match.matchNumber}
                                                 </td>
                                                 <td>{match.scouter}</td>
                                                 <td>

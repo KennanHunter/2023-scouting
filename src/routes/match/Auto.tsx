@@ -1,13 +1,12 @@
-import { Checkbox, Radio, Stack, Text, Title } from "@mantine/core";
+import { Checkbox, Radio, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { FieldInput } from "../../components/FieldInput";
-import { GridInput } from "../../components/GridInput";
-import { useActiveMatch } from "../../stores/match/activeMatch";
-import { AutoParkState, MatchState } from "../../stores/match/matchTypes";
-import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
-import { StackValidationChecker } from "../../components/StackValidationChecker";
-import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 import { SimpleGridInput } from "../../components/SimpleGridInput";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { useActiveMatch } from "../../stores/match/activeMatch";
+import { AutoParkState } from "../../stores/match/matchTypes";
+import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
+import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 
 export const Auto: FC = () => {
     const set = useActiveMatch((state) => state.set);

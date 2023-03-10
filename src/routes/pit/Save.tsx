@@ -1,8 +1,8 @@
 import { Button, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { usePitDB } from "../../stores/pit/pitDB";
 import { useActivePit } from "../../stores/pit/activePit";
+import { usePitDB } from "../../stores/pit/pitDB";
 
 export const Save: FC = () => {
     const pushToDB = usePitDB((state) => state.push);

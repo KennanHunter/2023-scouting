@@ -1,17 +1,13 @@
 import {
-    Button,
     Checkbox,
     Divider,
-    Group,
     NumberInput,
     Select,
     Tabs,
     Text,
     Textarea,
-    Title,
 } from "@mantine/core";
-import { FC, PropsWithChildren, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { FC } from "react";
 import { DrivetrainType, PitState } from "../../stores/pit/pitTypes";
 
 type PitDataViewParams = {

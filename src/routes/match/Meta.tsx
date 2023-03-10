@@ -1,16 +1,9 @@
-import {
-    Checkbox,
-    NumberInput,
-    Select,
-    Stack,
-    Title,
-    Text,
-} from "@mantine/core";
+import { Checkbox, NumberInput, Select, Title } from "@mantine/core";
 import { FC } from "react";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { scouterOptions } from "../../data/scouters";
 import { useActiveMatch } from "../../stores/match/activeMatch";
 import { MatchLevel } from "../../stores/match/matchTypes";
-import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 

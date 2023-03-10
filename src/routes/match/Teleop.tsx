@@ -1,11 +1,10 @@
-import { Checkbox, NumberInput, Stack, Text, Title } from "@mantine/core";
+import { Checkbox, NumberInput, Text, Title } from "@mantine/core";
 import { FC } from "react";
-import { GridInput } from "../../components/GridInput";
-import { useActiveMatch } from "../../stores/match/activeMatch";
+import { SimpleGridInput } from "../../components/SimpleGridInput";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { useActiveMatch } from "../../stores/match/activeMatch";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 import { useTeamDB } from "../../stores/thebluealliance/teamDB";
-import { SimpleGridInput } from "../../components/SimpleGridInput";
 
 export const Teleop: FC = () => {
     const set = useActiveMatch((state) => state.set);

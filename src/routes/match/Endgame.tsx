@@ -2,15 +2,13 @@ import {
     Checkbox,
     NumberInput,
     Radio,
-    Select,
-    Stack,
-    Textarea,
-    Title,
+    Select, Textarea,
+    Title
 } from "@mantine/core";
 import { FC } from "react";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useActiveMatch } from "../../stores/match/activeMatch";
 import { DefenseRating, EndgameParkState } from "../../stores/match/matchTypes";
-import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
 import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 

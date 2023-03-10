@@ -1,14 +1,7 @@
-import {
-    Checkbox,
-    NumberInput,
-    Stack,
-    Title,
-    Text,
-    Divider,
-} from "@mantine/core";
+import { Checkbox, Divider, NumberInput, Text, Title } from "@mantine/core";
 import { FC } from "react";
-import { useActivePit } from "../../stores/pit/activePit";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { useActivePit } from "../../stores/pit/activePit";
 import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
 
 export const Meta: FC = () => {

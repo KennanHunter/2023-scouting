@@ -1,8 +1,8 @@
-import { NumberInput, Select, Stack, Title } from "@mantine/core";
+import { NumberInput, Select, Title } from "@mantine/core";
 import { FC } from "react";
+import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { scouterOptions } from "../../data/scouters";
 import { useActivePit } from "../../stores/pit/activePit";
-import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
 
 export const Meta: FC = () => {
