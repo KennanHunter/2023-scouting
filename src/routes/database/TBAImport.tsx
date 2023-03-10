@@ -97,6 +97,8 @@ export const TBAImport: FC = () => {
 
                     setFetchSucceeded(false);
 
+                    setIsLoadingMatches(false);
+
                     return;
                 }
 
