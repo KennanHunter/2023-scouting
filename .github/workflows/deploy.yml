@@ -19,6 +19,10 @@ jobs:
     build:
         name: Build
         runs-on: ubuntu-latest
+        environment:
+            name: github-pages
+            VITE_TBA_API_KEY: ${{ secrets.VITE_TBA_API_KEY }}
+
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
@@ -29,8 +33,6 @@ jobs:
             - run: yarn install --frozen-lockfile
 
             - run: yarn build
-              env:
-                  VITE_TBA_API_KEY: ${{ secrets.VITE_TBA_API_KEY }}
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1
