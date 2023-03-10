@@ -167,7 +167,7 @@ export const ViewData: FC = () => {
 
     const viewMatch = (data: MatchState) =>
         openModal({
-            title: `Team ${data.teamNumber} ${data.matchLevel} ${data.matchNumber}`,
+            title: `Team ${data.teamNumber} ${data.matchLevel} ${data.matchNumber} ${data.side}`,
             centered: true,
             children: (
                 <Tabs defaultValue="auto">

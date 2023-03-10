@@ -25,10 +25,7 @@ type MatchDataViewParams = {
     match: MatchState;
 };
 
-export const MatchDataView: FC<PropsWithChildren<MatchDataViewParams>> = ({
-    match,
-    children,
-}) => {
+export const MatchDataView: FC<MatchDataViewParams> = ({ match }) => {
     return (
         <>
             <Tabs.Panel value="auto" pt="xs">

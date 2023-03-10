@@ -18,10 +18,7 @@ type PitDataViewParams = {
     pit: PitState;
 };
 
-export const PitDataView: FC<PropsWithChildren<PitDataViewParams>> = ({
-    pit,
-    children,
-}) => {
+export const PitDataView: FC<PitDataViewParams> = ({ pit }) => {
     return (
         <>
             <Tabs.Panel value="robot" pt="xs">

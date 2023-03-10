@@ -1,4 +1,11 @@
-import { ActionIcon, Box, Button, Grid, NumberInput, Text } from "@mantine/core";
+import {
+    ActionIcon,
+    Box,
+    Button,
+    Grid,
+    NumberInput,
+    Text,
+} from "@mantine/core";
 import { IconSquare, IconTrafficCone } from "@tabler/icons-react";
 import { FC } from "react";
 import z from "zod";
@@ -33,8 +40,8 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                 break;
         }
 
-        onChange(data)
-    }
+        onChange(data);
+    };
 
     return (
         <Box my={8} miw={300}>
@@ -83,7 +90,6 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                     />
                 </Grid.Col>
             </Grid>
-
 
             <Grid justify="center" gutter={4} grow my={8}>
                 <Grid.Col span={2}>
