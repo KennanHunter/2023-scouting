@@ -3,14 +3,16 @@ import { Children, FC, PropsWithChildren, ReactElement, useMemo } from "react";
 import { useValidationState } from "../stores/validation/validationStore";
 
 export const StackValidationChecker: FC<PropsWithChildren> = ({ children }) => {
-    let allChildrenValid = useMemo(
+    const childArray = Children.toArray(children) as ReactElement[];
+
+    const allChildrenValid = useMemo(
         () =>
-            (Children.toArray(children) as ReactElement[]).reduce(
+            childArray.reduce(
                 (allValid, child) =>
                     allValid && typeof child.props.error === "undefined",
                 true
             ),
-        Children.toArray(children)
+        [childArray]
     );
 
     useValidationState((state) => state.set)(allChildrenValid);

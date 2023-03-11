@@ -28,7 +28,7 @@ export const Auto: FC = () => {
                 Auto {teamNumber ? `for Team ${teamNumber}` : ""}
             </Title>
 
-            <Text size="lg">Starting Position</Text>
+            {/* <Text size="lg">Starting Position</Text>
             <FieldInput
                 onChange={(data) => set("autonomousStartingLocation")(data[0])}
                 singlePoint
@@ -37,7 +37,8 @@ export const Auto: FC = () => {
                         ? [autonomousStartingLocation]
                         : [{ x: 0.5, y: 0.5 }]
                 }
-            />
+            /> */}
+
             <Checkbox
                 label="Left Community Zone"
                 size="lg"
@@ -48,7 +49,6 @@ export const Auto: FC = () => {
                 }
                 error={errors.autonomousLeftCommunityZone}
             />
-            <Text size="lg">Grid</Text>
             <SimpleGridInput
                 onChange={(data) => set("autonomousGridData")(data)}
                 data={autonomousGridData}

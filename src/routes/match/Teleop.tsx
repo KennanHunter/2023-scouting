@@ -1,4 +1,4 @@
-import { Checkbox, NumberInput, Text, Title } from "@mantine/core";
+import { Checkbox, Divider, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { SimpleGridInput } from "../../components/SimpleGridInput";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
@@ -28,9 +28,13 @@ export const Teleop: FC = () => {
                 Teleop {teamNumber ? `for Team ${teamNumber}` : ""}
             </Title>
 
-            <NumberInput
-                value={teleopGroundPickups}
-                onChange={(value) => set("teleopGroundPickups")(value ?? 0)}
+            <Checkbox
+                checked={!!teleopGroundPickups}
+                onChange={(event) =>
+                    set("teleopGroundPickups")(
+                        event.currentTarget.checked ? 1 : 0 ?? 0
+                    )
+                }
                 error={errors.teleopGroundPickups}
                 placeholder="Ground Pickups"
                 label="Ground Pickups"
@@ -38,10 +42,12 @@ export const Teleop: FC = () => {
                 my={4}
             />
 
-            <NumberInput
-                value={teleopSubstation1Pickups}
-                onChange={(value) =>
-                    set("teleopSubstation1Pickups")(value ?? 0)
+            <Checkbox
+                checked={!!teleopSubstation1Pickups}
+                onChange={(event) =>
+                    set("teleopSubstation1Pickups")(
+                        event.currentTarget.checked ? 1 : 0 ?? 0
+                    )
                 }
                 error={errors.teleopSubstation1Pickups}
                 placeholder="Substation 1 Pickups"
@@ -50,7 +56,7 @@ export const Teleop: FC = () => {
                 my={4}
             />
 
-            <NumberInput
+            {/* <NumberInput
                 value={teleopSubstation2LowPickups}
                 onChange={(value) =>
                     set("teleopSubstation2LowPickups")(value ?? 0)
@@ -60,12 +66,14 @@ export const Teleop: FC = () => {
                 label="Substation 2 Low Pickups"
                 size="lg"
                 my={4}
-            />
+            /> */}
 
-            <NumberInput
-                value={teleopSubstation2HighPickups}
-                onChange={(value) =>
-                    set("teleopSubstation2HighPickups")(value ?? 0)
+            <Checkbox
+                checked={!!teleopSubstation2HighPickups}
+                onChange={(event) =>
+                    set("teleopSubstation2HighPickups")(
+                        event.currentTarget.checked ? 1 : 0 ?? 0
+                    )
                 }
                 error={errors.teleopSubstation2HighPickups}
                 placeholder="Substation 2 High Pickups"
@@ -73,6 +81,8 @@ export const Teleop: FC = () => {
                 size="lg"
                 my={4}
             />
+
+            <Divider />
 
             <Checkbox
                 label="Scavenger/Runner Robot"
@@ -85,7 +95,6 @@ export const Teleop: FC = () => {
                 error={errors.teleopRunnerRobot}
             />
 
-            <Text size="lg">Grid</Text>
             <SimpleGridInput
                 onChange={(data) => set("teleopGridData")(data)}
                 data={teleopGridData}
