@@ -39,8 +39,11 @@ export const ViewData: FC = () => {
     const downloadBlob = (fileBlob: Blob) => {
         const element = document.createElement("a");
 
+        const time = new Date();
+        const dateString = `${time.getMonth()}-${time.getDay()}-${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}`;
+
         element.href = URL.createObjectURL(fileBlob);
-        element.download = `data.${fileBlob.type.split("/")[1]}`;
+        element.download = `data-${dateString}.${fileBlob.type.split("/")[1]}`;
 
         document.body.appendChild(element); // Required for this to work in FireFox
 
