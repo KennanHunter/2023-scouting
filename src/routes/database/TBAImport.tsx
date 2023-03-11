@@ -1,19 +1,18 @@
 import {
+    Badge,
     Button,
     Divider,
-    TextInput,
     Select,
     Stack,
-    Chip,
-    Badge,
     Table,
+    TextInput,
 } from "@mantine/core";
 import { IconKey } from "@tabler/icons-react";
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
-import { TeamPosition } from "../../stores/thebluealliance/teamTypes";
-import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 import { z } from "zod";
+import { useTeamDB } from "../../stores/thebluealliance/teamDB";
+import { TeamPosition } from "../../stores/thebluealliance/teamTypes";
 
 const MatchesSchema = () =>
     z
@@ -53,10 +52,11 @@ const MatchesSchema = () =>
         .array();
 
 export const TBAImport: FC = () => {
-    const teamDB = useTeamDB();
+    const teamDB = useTeamDB((state) => state);
+    const { eventKey, setEventKey } = teamDB;
 
     const [isLoadingMatches, setIsLoadingMatches] = useState<boolean>(false);
-    const [eventKey, setEventKey] = useState<string>("");
+
     const [fetchError, setFetchError] = useState<string>("");
     const [fetchSucceeded, setFetchSucceeded] = useState<boolean>(
         teamDB.db.length > 0
@@ -108,7 +108,7 @@ export const TBAImport: FC = () => {
                     return;
                 }
 
-                teamDB.clear();
+                teamDB.clearDB();
 
                 teamDB.push(
                     safelyParsedJson.data.map((match) => ({

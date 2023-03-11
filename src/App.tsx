@@ -63,9 +63,18 @@ const App: FC = () => {
                                     : "3494 Scouting App"}
                             </Title>
                         </a>
-                        <Badge color={side.includes("Red") ? "red" : "blue"}>
-                            {side}
-                        </Badge>
+                        <a
+                            href="/#/database/tba"
+                            style={{
+                                all: "inherit",
+                            }}
+                        >
+                            <Badge
+                                color={side.includes("Red") ? "red" : "blue"}
+                            >
+                                {side}
+                            </Badge>
+                        </a>
                     </Group>
                     <ActionIcon
                         variant="outline"

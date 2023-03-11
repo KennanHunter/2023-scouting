@@ -7,7 +7,7 @@ import {
     DefenseRating,
     EndgameParkState,
     MatchLevel,
-    MatchState,
+    MatchState
 } from "./matchTypes";
 
 type ActiveMatchActions = {
@@ -59,7 +59,7 @@ export const useActiveMatch = create<MatchState & ActiveMatchActions>()(
             ...defaultActiveMatchState(),
 
             save: () => {
-                const { teamPosition } = useTeamDB.getState();
+                const { teamPosition, eventKey } = useTeamDB.getState();
 
                 const state = Object.entries(get()).filter(
                     ([key, value]) => typeof value !== "function"
@@ -69,6 +69,7 @@ export const useActiveMatch = create<MatchState & ActiveMatchActions>()(
                     ...(Object.fromEntries(state) as MatchState),
                     date: new Date().toString(),
                     side: teamPosition,
+                    eventCode: eventKey,
                 } as MatchState;
             },
 

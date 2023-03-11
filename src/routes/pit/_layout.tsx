@@ -67,7 +67,8 @@ export const PitLayout: FC = () => {
                         onClick={() => {
                             openConfirmModal({
                                 title: "Confirm",
-                                children: "This action will delete all data",
+                                children:
+                                    "This action will remove all data in the currently scouted match",
                                 labels: {
                                     confirm: "Confirm",
                                     cancel: "Cancel",

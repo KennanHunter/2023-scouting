@@ -9,7 +9,7 @@ import {
     Tabs,
     Text,
 } from "@mantine/core";
-import { openModal } from "@mantine/modals";
+import { openConfirmModal, openModal } from "@mantine/modals";
 import { showNotification } from "@mantine/notifications";
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
@@ -238,7 +238,17 @@ export const ViewData: FC = () => {
                             <Flex gap={"sm"} w={"100%"}>
                                 <Button
                                     m={4}
-                                    onClick={clearMatchDB}
+                                    onClick={() =>
+                                        openConfirmModal({
+                                            title: "You will lose ALL DATA on this device",
+                                            labels: {
+                                                confirm: "Confirm",
+                                                cancel: "Cancel",
+                                            },
+
+                                            onConfirm: () => clearMatchDB(),
+                                        })
+                                    }
                                     style={{ flexGrow: 1 }}
                                 >
                                     Clear
