@@ -35,7 +35,7 @@ export const CreateQR: FC = () => {
                                 width: "min(100vw, 50vh)",
                                 backgroundColor: "white",
                             }}
-                            level="H"
+                            level="L"
                             value={(() => {
                                 if (!activePage)
                                     throw new Error(
