@@ -7,7 +7,7 @@ import {
     DefenseRating,
     EndgameParkState,
     MatchLevel,
-    MatchState
+    MatchState,
 } from "./matchTypes";
 
 type ActiveMatchActions = {

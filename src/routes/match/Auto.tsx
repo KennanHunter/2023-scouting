@@ -1,6 +1,5 @@
-import { Checkbox, Radio, Text, Title } from "@mantine/core";
+import { Checkbox, Radio, Title } from "@mantine/core";
 import { FC } from "react";
-import { FieldInput } from "../../components/FieldInput";
 import { SimpleGridInput } from "../../components/SimpleGridInput";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { useActiveMatch } from "../../stores/match/activeMatch";

@@ -2,8 +2,9 @@ import {
     Checkbox,
     NumberInput,
     Radio,
-    Select, Textarea,
-    Title
+    Select,
+    Textarea,
+    Title,
 } from "@mantine/core";
 import { FC } from "react";
 import { StackValidationChecker } from "../../components/StackValidationChecker";

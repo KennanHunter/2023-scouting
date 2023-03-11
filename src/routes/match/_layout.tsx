@@ -64,7 +64,7 @@ export const MatchLayout: FC = () => {
                 <Tooltip label={"Clear all data and Quit"}>
                     <Button
                         leftIcon={<IconTrash />}
-                        onClick={() => {
+                        onClick={() =>
                             openConfirmModal({
                                 title: "Confirm",
                                 children:
@@ -79,8 +79,8 @@ export const MatchLayout: FC = () => {
                                     clearActiveMatch();
                                     navigate("/");
                                 },
-                            });
-                        }}
+                            })
+                        }
                     >
                         Clear
                     </Button>

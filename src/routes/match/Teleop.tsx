@@ -1,4 +1,4 @@
-import { Checkbox, Divider, Text, Title } from "@mantine/core";
+import { Checkbox, Divider, Title } from "@mantine/core";
 import { FC } from "react";
 import { SimpleGridInput } from "../../components/SimpleGridInput";
 import { StackValidationChecker } from "../../components/StackValidationChecker";

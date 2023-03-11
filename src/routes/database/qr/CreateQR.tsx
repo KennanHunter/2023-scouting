@@ -1,22 +1,10 @@
-import {
-    Box,
-    Button,
-    Center,
-    Divider,
-    Pagination,
-    Stack,
-    Tabs,
-    Text,
-    Title,
-} from "@mantine/core";
+import { Button, Pagination, Stack, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { FC, useCallback, useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import { JSONGzip } from "../../../data/formats/JSONGzip";
 import { useMatchDB } from "../../../stores/match/matchDB";
 import { usePitDB } from "../../../stores/pit/pitDB";
-import { PitState } from "../../../stores/pit/pitTypes";
-import { Link } from "react-router-dom";
 
 export const CreateQR: FC = () => {
     const pitDB = usePitDB((state) => state.db);

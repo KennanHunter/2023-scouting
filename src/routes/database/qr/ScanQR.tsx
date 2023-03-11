@@ -1,14 +1,13 @@
-import { Box, Button, Center, Stack, Tabs, Title } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { FC, useState } from "react";
 
+import { openModal } from "@mantine/modals";
 // @ts-ignore don't ask
 import QrReader from "react-web-qr-reader"; // note: the types for this library are entirely wrong for some reason, ignore the "any" type
 import { JSONGzip } from "../../../data/formats/JSONGzip";
 import { useMatchDB } from "../../../stores/match/matchDB";
 import { usePitDB } from "../../../stores/pit/pitDB";
-import { Link } from "react-router-dom";
-import { openModal } from "@mantine/modals";
 
 export const ScanQR: FC = () => {
     const insertNewMatchDB = useMatchDB((state) => state.insertNew);
