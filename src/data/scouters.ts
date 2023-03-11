@@ -2,6 +2,7 @@
 export const scouterOptions = [
     "Addie Ivey",
     "Ashton Shalley",
+    "Allen Brown",
     "Aviv Sarraf",
     "Ben Flood",
     "Blake Hatcher",
