@@ -1,7 +1,9 @@
 import {
     ActionIcon,
+    Badge,
     Box,
     Flex,
+    Group,
     Paper,
     Title,
     useMantineColorScheme,
@@ -10,12 +12,14 @@ import { IconMoonStars, IconSun } from "@tabler/icons-react";
 import { FC } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
+import { useTeamDB } from "./stores/thebluealliance/teamDB";
 import { useIsMobile } from "./util/useIsMobile";
 
 const App: FC = () => {
     const { colorScheme, toggleColorScheme } = useMantineColorScheme();
     const isMobile = useIsMobile();
     const dark = colorScheme === "dark";
+    const side = useTeamDB((state) => state.teamPosition);
 
     return (
         <Box
@@ -46,17 +50,23 @@ const App: FC = () => {
                     justify={"space-between"}
                     px={"md"}
                 >
-                    <a
-                        href="/"
-                        style={{
-                            all: "inherit",
-                        }}
-                    >
-                        <Title>
-                            {isMobile ? "3494 Scouting" : "3494 Scouting App"}
-                        </Title>
-                    </a>
-                    {/* </Link> */}
+                    <Group align={"center"}>
+                        <a
+                            href="/"
+                            style={{
+                                all: "inherit",
+                            }}
+                        >
+                            <Title>
+                                {isMobile
+                                    ? "3494 Scouting"
+                                    : "3494 Scouting App"}
+                            </Title>
+                        </a>
+                        <Badge color={side.includes("Red") ? "red" : "blue"}>
+                            {side}
+                        </Badge>
+                    </Group>
                     <ActionIcon
                         variant="outline"
                         color={dark ? "yellow" : "blue"}

@@ -1,5 +1,5 @@
 import { Checkbox, NumberInput, Select, Title } from "@mantine/core";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { scouterOptions } from "../../data/scouters";
 import { useActiveMatch } from "../../stores/match/activeMatch";
@@ -9,18 +9,38 @@ import { useTeamDB } from "../../stores/thebluealliance/teamDB";
 
 export const Meta: FC = () => {
     const set = useActiveMatch((state) => state.set);
-    const { scouter, matchLevel, matchNumber, teamNoShow } = useActiveMatch(
-        (state) => state
-    );
+    const {
+        scouter,
+        matchLevel,
+        matchNumber,
+        teamNoShow,
+        teamNumber: activeMatchGeneratedTeamNumber,
+    } = useActiveMatch((state) => state);
 
     const errors = useActiveMatchErrors();
 
-    const teamNumber = useTeamDB((state) => state.getTeamNumber)(matchNumber);
+    const teamDBGeneratedNumber = useTeamDB((state) => state.getTeamNumber)(
+        matchNumber
+    );
+
+    useEffect(() => {
+        if (!teamDBGeneratedNumber) return;
+
+        if (teamDBGeneratedNumber !== activeMatchGeneratedTeamNumber) {
+            set("teamNumber")(teamDBGeneratedNumber);
+            console.dir({
+                teamDBGeneratedNumber,
+            });
+        }
+    });
 
     return (
         <StackValidationChecker>
             <Title align="center">
-                Match Information {teamNumber ? `for Team ${teamNumber}` : ""}
+                Match Information{" "}
+                {activeMatchGeneratedTeamNumber
+                    ? `for Team ${activeMatchGeneratedTeamNumber}`
+                    : ""}
             </Title>
 
             <Select
@@ -49,7 +69,7 @@ export const Meta: FC = () => {
                 value={matchNumber}
                 onChange={(value) => {
                     set("matchNumber")(value ?? 0);
-                    set("teamNumber")(teamNumber ?? 0);
+                    set("teamNumber")(activeMatchGeneratedTeamNumber ?? 0);
                 }}
                 error={errors.matchNumber}
                 placeholder="Match Number"
@@ -59,7 +79,7 @@ export const Meta: FC = () => {
             />
 
             <NumberInput
-                value={teamNumber}
+                value={activeMatchGeneratedTeamNumber}
                 placeholder="No Team Selected"
                 label="Your Team to Scout"
                 size="lg"

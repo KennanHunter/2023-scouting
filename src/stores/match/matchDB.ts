@@ -13,7 +13,13 @@ export const useMatchDB = create<{
             db: [],
             push: (newMatch) =>
                 set((get) => ({
-                    db: [...get.db, { ...newMatch, time: Date.now() }],
+                    db: [
+                        ...get.db,
+                        {
+                            ...newMatch,
+                            time: newMatch.time ? newMatch.time : Date.now(),
+                        },
+                    ],
                 })),
             insertNew: (newMatches) =>
                 set((get) => {

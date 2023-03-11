@@ -65,11 +65,6 @@ export const useActiveMatch = create<MatchState & ActiveMatchActions>()(
                     ([key, value]) => typeof value !== "function"
                 );
 
-                console.dir({
-                    pos: get().side,
-                    teamPositionFromStore: teamPosition,
-                });
-
                 return {
                     ...(Object.fromEntries(state) as MatchState),
                     date: new Date().toString(),
