@@ -1,6 +1,7 @@
 import { MatchState } from "../../stores/match/matchTypes";
 import { PitState } from "../../stores/pit/pitTypes";
 import { CSV } from "./CSV";
+import { SimpleJSON } from "./SimpleJSON";
 import { JSONGzip } from "./JSONGzip";
 import { MadyCSV } from "./MadyCSV";
 
@@ -27,4 +28,5 @@ export const exporters: Record<string, Exporter<any>> = {
     CSV: CSV,
     "Mady CSV": MadyCSV,
     "7-Bit Gzipped JSON": JSONGzip,
+    "Simple JSON": SimpleJSON,
 };
