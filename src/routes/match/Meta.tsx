@@ -44,7 +44,7 @@ export const Meta: FC = () => {
             </Title>
 
             <Select
-                label={"Scouter"}
+                label={"Scout Name"}
                 size="lg"
                 searchable
                 data={scouterOptions}
@@ -81,14 +81,14 @@ export const Meta: FC = () => {
             <NumberInput
                 value={activeMatchGeneratedTeamNumber}
                 placeholder="No Team Selected"
-                label="Your Team to Scout"
+                label="Team"
                 size="lg"
                 my={4}
                 readOnly
             />
 
             <Checkbox
-                label="Team No Show"
+                label="No Show"
                 size="lg"
                 my={8}
                 checked={teamNoShow}

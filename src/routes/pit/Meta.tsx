@@ -16,7 +16,7 @@ export const Meta: FC = () => {
             <Title align="center">Pit Information</Title>
 
             <Select
-                label={"Scouter"}
+                label={"Scout Name"}
                 size="lg"
                 searchable
                 data={scouterOptions}

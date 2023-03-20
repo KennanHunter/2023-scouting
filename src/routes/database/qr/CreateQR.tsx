@@ -13,7 +13,7 @@ export const CreateQR: FC = () => {
     const [activePage, setPage] = useState<number | undefined>();
     const [usingMatchDB, setUsingMatchDB] = useState<boolean>(true);
 
-    const entriesPerQRCode = 10;
+    const entriesPerQRCode = 5;
 
     const openQRCodeModal = useCallback(
         () =>
@@ -93,9 +93,12 @@ export const CreateQR: FC = () => {
                     View Match QR Codes
                 </Button>
             ) : (
-                <Text size="lg" align="center">
+                <Button
+                    disabled
+                    variant="subtle"
+                >
                     No match data to export
-                </Text>
+                </Button>
             )}
 
             {pitDB.length != 0 ? (
@@ -110,9 +113,12 @@ export const CreateQR: FC = () => {
                     View Pit QR Codes
                 </Button>
             ) : (
-                <Text size="lg" align="center">
+                <Button
+                    disabled
+                    variant="subtle"
+                >
                     No pit data to export
-                </Text>
+                </Button>
             )}
         </>
     );

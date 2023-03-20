@@ -38,6 +38,16 @@ export const Robot: FC = () => {
             <Title align="center">Robot Information</Title>
 
             <NumberInput
+                value={robotHeight}
+                onChange={(value) => set("robotHeight")(value ?? 0)}
+                error={errors.robotHeight}
+                placeholder="Height"
+                label="Height"
+                size="lg"
+                my={4}
+            />
+
+            <NumberInput
                 value={robotLength}
                 onChange={(value) => set("robotLength")(value ?? 0)}
                 error={errors.robotLength}
@@ -53,16 +63,6 @@ export const Robot: FC = () => {
                 error={errors.robotWidth}
                 placeholder="Width"
                 label="Width"
-                size="lg"
-                my={4}
-            />
-
-            <NumberInput
-                value={robotHeight}
-                onChange={(value) => set("robotHeight")(value ?? 0)}
-                error={errors.robotHeight}
-                placeholder="Height"
-                label="Height"
                 size="lg"
                 my={4}
             />
@@ -86,30 +86,6 @@ export const Robot: FC = () => {
                 onChange={set("robotDrivetrain")}
                 my={4}
                 error={errors.robotDrivetrain}
-            />
-
-            <Text size="lg" mt={8}>
-                What game pieces can you hold?
-            </Text>
-            <Checkbox
-                label="Cone"
-                size="lg"
-                my={4}
-                checked={robotCanManipulateCone}
-                onChange={(event) => {
-                    set("robotCanManipulateCone")(event.target.checked);
-                }}
-                error={errors.robotCanManipulateCone}
-            />
-            <Checkbox
-                label="Cube"
-                size="lg"
-                my={4}
-                checked={robotCanManipulateCube}
-                onChange={(event) => {
-                    set("robotCanManipulateCube")(event.target.checked);
-                }}
-                error={errors.robotCanManipulateCube}
             />
 
             <Divider my="xs" variant="dashed" />
@@ -151,7 +127,7 @@ export const Robot: FC = () => {
             <Divider my="xs" variant="dashed" />
 
             <Text size="lg" mt={8}>
-                Can you dock in:
+                Can Dock in:
             </Text>
             <Checkbox
                 label="Auto"
@@ -177,7 +153,7 @@ export const Robot: FC = () => {
             <Divider my="xs" variant="dashed" />
 
             <Text size="lg" mt={8}>
-                Can you engage in:
+                Can Engage in:
             </Text>
             <Checkbox
                 label="Auto"
@@ -198,6 +174,32 @@ export const Robot: FC = () => {
                     set("robotCanEngageTeleop")(event.target.checked);
                 }}
                 error={errors.robotCanEngageTeleop}
+            />
+
+            <Divider my="xs" variant="dashed" />
+
+            <Text size="lg" mt={8}>
+                What Game Pieces Can You Place?
+            </Text>
+            <Checkbox
+                label="Cone"
+                size="lg"
+                my={4}
+                checked={robotCanManipulateCone}
+                onChange={(event) => {
+                    set("robotCanManipulateCone")(event.target.checked);
+                }}
+                error={errors.robotCanManipulateCone}
+            />
+            <Checkbox
+                label="Cube"
+                size="lg"
+                my={4}
+                checked={robotCanManipulateCube}
+                onChange={(event) => {
+                    set("robotCanManipulateCube")(event.target.checked);
+                }}
+                error={errors.robotCanManipulateCube}
             />
         </StackValidationChecker>
     );

@@ -39,7 +39,7 @@ export const Auto: FC = () => {
             /> */}
 
             <Checkbox
-                label="Left Community Zone"
+                label="Left Community"
                 size="lg"
                 my={8}
                 checked={autonomousLeftCommunityZone}
@@ -63,6 +63,12 @@ export const Auto: FC = () => {
                 error={errors.autonomousParking}
             >
                 <Radio
+                    value={AutoParkState().enum.None}
+                    label="None"
+                    size="lg"
+                    m={4}
+                />
+                <Radio
                     value={AutoParkState().enum.DockEngage}
                     label="Docked + Engaged"
                     size="lg"
@@ -71,12 +77,6 @@ export const Auto: FC = () => {
                 <Radio
                     value={AutoParkState().enum.Dock}
                     label="Docked Only"
-                    size="lg"
-                    m={4}
-                />
-                <Radio
-                    value={AutoParkState().enum.None}
-                    label="None"
                     size="lg"
                     m={4}
                 />

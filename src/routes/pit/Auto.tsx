@@ -21,7 +21,7 @@ export const Meta: FC = () => {
             <Title align="center">Auto Abilities</Title>
 
             <Checkbox
-                label="Can you exit the community?"
+                label="Exit Community?"
                 size="lg"
                 my={8}
                 checked={autonomousCanExitCommunity}
@@ -32,7 +32,7 @@ export const Meta: FC = () => {
             />
 
             <Text size="lg" mt={8}>
-                Where do you place game pieces?
+                Grid Locations
             </Text>
             <Checkbox
                 label="Top"
@@ -73,8 +73,8 @@ export const Meta: FC = () => {
                     set("autonomousNumberOfPrograms")(value ?? 0)
                 }
                 error={errors.autonomousNumberOfPrograms}
-                placeholder="Number of Auto Programs"
-                label="Number of Auto Programs"
+                placeholder="# Auto Programs"
+                label="# Auto Programs"
                 size="lg"
                 my={4}
             />

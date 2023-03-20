@@ -50,8 +50,8 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                     <NumberInput
                         value={data.gridColumns[0].level2}
                         onChange={(value) => setRowCol(value ?? 0, 3, 0)}
-                        placeholder="High Cones"
-                        label="High Cones"
+                        placeholder="Top Cones"
+                        label="Top Cones"
                         size="lg"
                         m={4}
                     />
@@ -60,8 +60,8 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                     <NumberInput
                         value={data.gridColumns[1].level2}
                         onChange={(value) => setRowCol(value ?? 0, 3, 1)}
-                        placeholder="High Cubes"
-                        label="High Cubes"
+                        placeholder="Top Cubes"
+                        label="Top Cubes"
                         size="lg"
                         m={4}
                     />
@@ -73,8 +73,8 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                     <NumberInput
                         value={data.gridColumns[0].level1}
                         onChange={(value) => setRowCol(value ?? 0, 2, 0)}
-                        placeholder="Medium Cones"
-                        label="Medium Cones"
+                        placeholder="Middle Cones"
+                        label="Middle Cones"
                         size="lg"
                         m={4}
                     />
@@ -83,8 +83,8 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                     <NumberInput
                         value={data.gridColumns[1].level1}
                         onChange={(value) => setRowCol(value ?? 0, 2, 1)}
-                        placeholder="Medium Cubes"
-                        label="Medium Cubes"
+                        placeholder="Middle Cubes"
+                        label="Middle Cubes"
                         size="lg"
                         m={4}
                     />
@@ -96,8 +96,8 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                     <NumberInput
                         value={data.gridColumns[0].hybridCone}
                         onChange={(value) => setRowCol(value ?? 0, 1, 0)}
-                        placeholder="Hybrid Cones"
-                        label="Hybrid Cones"
+                        placeholder="Bottom Cones"
+                        label="Bottom Cones"
                         size="lg"
                         m={4}
                     />
@@ -106,8 +106,8 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                     <NumberInput
                         value={data.gridColumns[0].hybridCube}
                         onChange={(value) => setRowCol(value ?? 0, 0, 0)}
-                        placeholder="Hybrid Cubes"
-                        label="Hybrid Cubes"
+                        placeholder="Bottom Cubes"
+                        label="Bottom Cubes"
                         size="lg"
                         m={4}
                     />

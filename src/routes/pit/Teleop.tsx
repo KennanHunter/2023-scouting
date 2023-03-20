@@ -22,7 +22,7 @@ export const Meta: FC = () => {
             <Title align="center">Teleop Abilities</Title>
 
             <Text size="lg" mt={8}>
-                Where do you place game pieces?
+                Grid Locations
             </Text>
             <Checkbox
                 label="Top"
@@ -57,7 +57,7 @@ export const Meta: FC = () => {
             <Divider my="xs" variant="dashed" />
 
             <Checkbox
-                label="Do you play defense?"
+                label="Plays Defense"
                 size="lg"
                 my={8}
                 checked={teleopPlaysDefense}
@@ -67,7 +67,7 @@ export const Meta: FC = () => {
                 error={errors.teleopPlaysDefense}
             />
             <Checkbox
-                label="Do you scavange/run pieces?"
+                label="Scavanger/Runner Bot"
                 size="lg"
                 my={8}
                 checked={teleopRunnerRobot}

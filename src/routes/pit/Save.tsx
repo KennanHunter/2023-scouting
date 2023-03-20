@@ -11,7 +11,7 @@ export const Save: FC = () => {
 
     return (
         <Stack>
-            <Title align="center">Save</Title>
+            <Title align="center">Download Data</Title>
 
             <Link to={"/pit/meta"} style={{ all: "unset" }}>
                 <Button
@@ -23,7 +23,7 @@ export const Save: FC = () => {
                     }}
                     my={4}
                 >
-                    Save and Reset
+                    Save and Clear Form
                 </Button>
             </Link>
 
@@ -37,7 +37,7 @@ export const Save: FC = () => {
                     }}
                     my={4}
                 >
-                    Save and Go Home
+                    Home
                 </Button>
             </Link>
         </Stack>

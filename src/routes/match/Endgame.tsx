@@ -37,7 +37,8 @@ export const Endgame: FC = () => {
             </Title>
 
             <Radio.Group
-                label="Parking"
+                label="Charging Station"
+                size="lg"
                 my={4}
                 onChange={(value) =>
                     set("endgameParking")(value as EndgameParkState)
@@ -45,6 +46,12 @@ export const Endgame: FC = () => {
                 value={endgameParking}
                 error={errors.endgameParking}
             >
+                <Radio
+                    value={EndgameParkState().enum.None}
+                    label="None"
+                    size="lg"
+                    m={4}
+                />
                 <Radio
                     value={EndgameParkState().enum.DockEngage}
                     label="Docked + Engaged"
@@ -60,12 +67,6 @@ export const Endgame: FC = () => {
                 <Radio
                     value={EndgameParkState().enum.Park}
                     label="Parked"
-                    size="lg"
-                    m={4}
-                />
-                <Radio
-                    value={EndgameParkState().enum.None}
-                    label="None"
                     size="lg"
                     m={4}
                 />

@@ -11,7 +11,7 @@ export const EndgameParkState = () =>
 export type EndgameParkState = z.infer<ReturnType<typeof EndgameParkState>>;
 
 export const DefenseRating = () =>
-    z.enum(["Not Played", "Average", "Effective", "Very Effective"]);
+    z.enum(["Not Played", "Not Effective", "Effective", "Very Effective"]);
 export type DefenseRating = z.infer<ReturnType<typeof DefenseRating>>;
 
 export const MatchLevel = () =>

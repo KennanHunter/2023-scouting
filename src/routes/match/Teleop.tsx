@@ -1,4 +1,4 @@
-import { Checkbox, Divider, Title } from "@mantine/core";
+import { Checkbox, Divider, Title, Text } from "@mantine/core";
 import { FC } from "react";
 import { SimpleGridInput } from "../../components/SimpleGridInput";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
@@ -28,6 +28,8 @@ export const Teleop: FC = () => {
                 Teleop {teamNumber ? `for Team ${teamNumber}` : ""}
             </Title>
 
+            <Text size="lg">Pickup Locations</Text>
+
             <Checkbox
                 checked={!!teleopGroundPickups}
                 onChange={(event) =>
@@ -36,22 +38,8 @@ export const Teleop: FC = () => {
                     )
                 }
                 error={errors.teleopGroundPickups}
-                placeholder="Ground Pickups"
-                label="Ground Pickups"
-                size="lg"
-                my={4}
-            />
-
-            <Checkbox
-                checked={!!teleopSubstation1Pickups}
-                onChange={(event) =>
-                    set("teleopSubstation1Pickups")(
-                        event.currentTarget.checked ? 1 : 0 ?? 0
-                    )
-                }
-                error={errors.teleopSubstation1Pickups}
-                placeholder="Substation 1 Pickups"
-                label="Substation 1 Pickups"
+                placeholder="Floor"
+                label="Floor"
                 size="lg"
                 my={4}
             />
@@ -76,8 +64,22 @@ export const Teleop: FC = () => {
                     )
                 }
                 error={errors.teleopSubstation2HighPickups}
-                placeholder="Substation 2 High Pickups"
-                label="Substation 2 High Pickups"
+                placeholder="Shelf"
+                label="Shelf"
+                size="lg"
+                my={4}
+            />
+
+            <Checkbox
+                checked={!!teleopSubstation1Pickups}
+                onChange={(event) =>
+                    set("teleopSubstation1Pickups")(
+                        event.currentTarget.checked ? 1 : 0 ?? 0
+                    )
+                }
+                error={errors.teleopSubstation1Pickups}
+                placeholder="Ramp"
+                label="Ramp"
                 size="lg"
                 my={4}
             />
@@ -85,7 +87,7 @@ export const Teleop: FC = () => {
             <Divider />
 
             <Checkbox
-                label="Scavenger/Runner Robot"
+                label="Runner Robot"
                 size="lg"
                 my={8}
                 checked={teleopRunnerRobot}
