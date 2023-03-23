@@ -1,13 +1,6 @@
-import {
-    Checkbox,
-    Divider,
-    NumberInput,
-    Select,
-    Tabs,
-    Text,
-    Textarea,
-} from "@mantine/core";
+import { Checkbox, Divider, Select, Tabs, Text, Textarea } from "@mantine/core";
 import { FC } from "react";
+import { StepperInput } from "../../components/StepperInput";
 import { DrivetrainType, PitState } from "../../stores/pit/pitTypes";
 
 type PitDataViewParams = {
@@ -18,7 +11,7 @@ export const PitDataView: FC<PitDataViewParams> = ({ pit }) => {
     return (
         <>
             <Tabs.Panel value="robot" pt="xs">
-                <NumberInput
+                <StepperInput
                     value={pit.robotLength}
                     placeholder="Length"
                     label="Length"
@@ -26,7 +19,7 @@ export const PitDataView: FC<PitDataViewParams> = ({ pit }) => {
                     my={4}
                 />
 
-                <NumberInput
+                <StepperInput
                     value={pit.robotWidth}
                     placeholder="Width"
                     label="Width"
@@ -34,7 +27,7 @@ export const PitDataView: FC<PitDataViewParams> = ({ pit }) => {
                     my={4}
                 />
 
-                <NumberInput
+                <StepperInput
                     value={pit.robotHeight}
                     placeholder="Height"
                     label="Height"
@@ -42,7 +35,7 @@ export const PitDataView: FC<PitDataViewParams> = ({ pit }) => {
                     my={4}
                 />
 
-                <NumberInput
+                <StepperInput
                     value={pit.robotWeight}
                     placeholder="Weight"
                     label="Weight"
@@ -168,7 +161,7 @@ export const PitDataView: FC<PitDataViewParams> = ({ pit }) => {
 
                 <Divider my="xs" variant="dashed" />
 
-                <NumberInput
+                <StepperInput
                     value={pit.autonomousNumberOfPrograms}
                     placeholder="Number of Auto Programs"
                     label="Number of Auto Programs"

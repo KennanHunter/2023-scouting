@@ -1,6 +1,7 @@
-import { Checkbox, NumberInput, Select, Title } from "@mantine/core";
+import { Checkbox, Select, Title } from "@mantine/core";
 import { FC, useEffect } from "react";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { StepperInput } from "../../components/StepperInput";
 import { scouterOptions } from "../../data/scouters";
 import { useActiveMatch } from "../../stores/match/activeMatch";
 import { MatchLevel } from "../../stores/match/matchTypes";
@@ -65,7 +66,7 @@ export const Meta: FC = () => {
                 error={errors.matchLevel}
             />
 
-            <NumberInput
+            <StepperInput
                 value={matchNumber}
                 onChange={(value) => {
                     set("matchNumber")(value ?? 0);
@@ -78,7 +79,7 @@ export const Meta: FC = () => {
                 my={4}
             />
 
-            <NumberInput
+            <StepperInput
                 value={activeMatchGeneratedTeamNumber}
                 placeholder="No Team Selected"
                 label="Team"

@@ -1,13 +1,7 @@
-import {
-    Checkbox,
-    NumberInput,
-    Radio,
-    Select,
-    Textarea,
-    Title,
-} from "@mantine/core";
+import { Checkbox, Radio, Select, Textarea, Title } from "@mantine/core";
 import { FC } from "react";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { StepperInput } from "../../components/StepperInput";
 import { useActiveMatch } from "../../stores/match/activeMatch";
 import { DefenseRating, EndgameParkState } from "../../stores/match/matchTypes";
 import { useActiveMatchErrors } from "../../stores/match/useActiveMatchErrors";
@@ -72,7 +66,7 @@ export const Endgame: FC = () => {
                 />
             </Radio.Group>
 
-            <NumberInput
+            <StepperInput
                 value={endgameRobotsDocked}
                 onChange={(value) => set("endgameRobotsDocked")(value ?? 0)}
                 error={errors.endgameRobotsDocked}
@@ -82,7 +76,7 @@ export const Endgame: FC = () => {
                 my={4}
             />
 
-            <NumberInput
+            <StepperInput
                 value={endgameLinksCompleted}
                 onChange={(value) => set("endgameLinksCompleted")(value ?? 0)}
                 error={errors.endgameLinksCompleted}

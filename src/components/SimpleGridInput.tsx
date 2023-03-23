@@ -1,15 +1,7 @@
-import {
-    ActionIcon,
-    Box,
-    Button,
-    Grid,
-    NumberInput,
-    Text,
-} from "@mantine/core";
-import { IconSquare, IconTrafficCone } from "@tabler/icons-react";
+import { Box, Grid } from "@mantine/core";
 import { FC } from "react";
-import z from "zod";
-import { GridColumn, GridData } from "./GridInput";
+import { GridData } from "./GridInput";
+import { StepperInput } from "./StepperInput";
 
 type SimpleGridInputParams = {
     onChange: (data: GridData) => void;
@@ -47,7 +39,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
         <Box my={8} miw={300}>
             <Grid justify="center" gutter={4} grow my={8}>
                 <Grid.Col span={2}>
-                    <NumberInput
+                    <StepperInput
                         value={data.gridColumns[0].level2}
                         onChange={(value) => setRowCol(value ?? 0, 3, 0)}
                         placeholder="Top Cones"
@@ -57,7 +49,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                     />
                 </Grid.Col>
                 <Grid.Col span={2}>
-                    <NumberInput
+                    <StepperInput
                         value={data.gridColumns[1].level2}
                         onChange={(value) => setRowCol(value ?? 0, 3, 1)}
                         placeholder="Top Cubes"
@@ -70,7 +62,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
 
             <Grid justify="center" gutter={4} grow my={8}>
                 <Grid.Col span={2}>
-                    <NumberInput
+                    <StepperInput
                         value={data.gridColumns[0].level1}
                         onChange={(value) => setRowCol(value ?? 0, 2, 0)}
                         placeholder="Middle Cones"
@@ -80,7 +72,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                     />
                 </Grid.Col>
                 <Grid.Col span={2}>
-                    <NumberInput
+                    <StepperInput
                         value={data.gridColumns[1].level1}
                         onChange={(value) => setRowCol(value ?? 0, 2, 1)}
                         placeholder="Middle Cubes"
@@ -93,7 +85,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
 
             <Grid justify="center" gutter={4} grow my={8}>
                 <Grid.Col span={2}>
-                    <NumberInput
+                    <StepperInput
                         value={data.gridColumns[0].hybridCone}
                         onChange={(value) => setRowCol(value ?? 0, 1, 0)}
                         placeholder="Bottom Cones"
@@ -103,7 +95,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                     />
                 </Grid.Col>
                 <Grid.Col span={2}>
-                    <NumberInput
+                    <StepperInput
                         value={data.gridColumns[0].hybridCube}
                         onChange={(value) => setRowCol(value ?? 0, 0, 0)}
                         placeholder="Bottom Cubes"

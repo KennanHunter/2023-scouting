@@ -1,6 +1,5 @@
 import {
     Checkbox,
-    NumberInput,
     Radio,
     Select,
     Tabs,
@@ -10,6 +9,7 @@ import {
 import { FC } from "react";
 import { FieldInput } from "../../components/FieldInput";
 import { GridInput } from "../../components/GridInput";
+import { StepperInput } from "../../components/StepperInput";
 import {
     AutoParkState,
     DefenseRating,
@@ -72,7 +72,7 @@ export const MatchDataView: FC<MatchDataViewParams> = ({ match }) => {
             </Tabs.Panel>
 
             <Tabs.Panel value="teleop" pt="xs">
-                <NumberInput
+                <StepperInput
                     value={match.teleopGroundPickups}
                     placeholder="Ground Pickups"
                     label="Ground Pickups"
@@ -80,7 +80,7 @@ export const MatchDataView: FC<MatchDataViewParams> = ({ match }) => {
                     my={4}
                 />
 
-                <NumberInput
+                <StepperInput
                     value={match.teleopSubstation1Pickups}
                     placeholder="Substation 1 Pickups"
                     label="Substation 1 Pickups"
@@ -88,7 +88,7 @@ export const MatchDataView: FC<MatchDataViewParams> = ({ match }) => {
                     my={4}
                 />
 
-                <NumberInput
+                <StepperInput
                     value={match.teleopSubstation2LowPickups}
                     placeholder="Substation 2 Low Pickups"
                     label="Substation 2 Low Pickups"
@@ -96,7 +96,7 @@ export const MatchDataView: FC<MatchDataViewParams> = ({ match }) => {
                     my={4}
                 />
 
-                <NumberInput
+                <StepperInput
                     value={match.teleopSubstation2HighPickups}
                     placeholder="Substation 2 High Pickups"
                     label="Substation 2 High Pickups"
@@ -151,7 +151,7 @@ export const MatchDataView: FC<MatchDataViewParams> = ({ match }) => {
                     />
                 </Radio.Group>
 
-                <NumberInput
+                <StepperInput
                     value={match.endgameRobotsDocked}
                     placeholder="Robots Docked"
                     label="Robots Docked"
@@ -159,7 +159,7 @@ export const MatchDataView: FC<MatchDataViewParams> = ({ match }) => {
                     my={4}
                 />
 
-                <NumberInput
+                <StepperInput
                     value={match.endgameLinksCompleted}
                     placeholder="Links Completed"
                     label="Links Completed"

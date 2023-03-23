@@ -1,13 +1,7 @@
-import {
-    Checkbox,
-    Divider,
-    NumberInput,
-    Select,
-    Text,
-    Title,
-} from "@mantine/core";
+import { Checkbox, Divider, Select, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { StepperInput } from "../../components/StepperInput";
 import { useActivePit } from "../../stores/pit/activePit";
 import { DrivetrainType } from "../../stores/pit/pitTypes";
 import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
@@ -37,7 +31,7 @@ export const Robot: FC = () => {
         <StackValidationChecker>
             <Title align="center">Robot Information</Title>
 
-            <NumberInput
+            <StepperInput
                 value={robotHeight}
                 onChange={(value) => set("robotHeight")(value ?? 0)}
                 error={errors.robotHeight}
@@ -47,7 +41,7 @@ export const Robot: FC = () => {
                 my={4}
             />
 
-            <NumberInput
+            <StepperInput
                 value={robotLength}
                 onChange={(value) => set("robotLength")(value ?? 0)}
                 error={errors.robotLength}
@@ -57,7 +51,7 @@ export const Robot: FC = () => {
                 my={4}
             />
 
-            <NumberInput
+            <StepperInput
                 value={robotWidth}
                 onChange={(value) => set("robotWidth")(value ?? 0)}
                 error={errors.robotWidth}
@@ -67,7 +61,7 @@ export const Robot: FC = () => {
                 my={4}
             />
 
-            <NumberInput
+            <StepperInput
                 value={robotWeight}
                 onChange={(value) => set("robotWeight")(value ?? 0)}
                 error={errors.robotWeight}

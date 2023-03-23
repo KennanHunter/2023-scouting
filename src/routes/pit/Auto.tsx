@@ -1,6 +1,7 @@
-import { Checkbox, Divider, NumberInput, Text, Title } from "@mantine/core";
+import { Checkbox, Divider, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { StepperInput } from "../../components/StepperInput";
 import { useActivePit } from "../../stores/pit/activePit";
 import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
 
@@ -67,7 +68,7 @@ export const Meta: FC = () => {
 
             <Divider my="xs" variant="dashed" />
 
-            <NumberInput
+            <StepperInput
                 value={autonomousNumberOfPrograms}
                 onChange={(value) =>
                     set("autonomousNumberOfPrograms")(value ?? 0)

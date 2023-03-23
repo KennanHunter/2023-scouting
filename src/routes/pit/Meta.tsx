@@ -1,6 +1,7 @@
-import { NumberInput, Select, Title } from "@mantine/core";
+import { Select, Title } from "@mantine/core";
 import { FC } from "react";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
+import { StepperInput } from "../../components/StepperInput";
 import { scouterOptions } from "../../data/scouters";
 import { useActivePit } from "../../stores/pit/activePit";
 import { useActivePitErrors } from "../../stores/pit/useActivePitErrors";
@@ -26,7 +27,7 @@ export const Meta: FC = () => {
                 error={errors.scouter}
             />
 
-            <NumberInput
+            <StepperInput
                 value={teamNumber}
                 onChange={(value) => set("teamNumber")(value ?? 0)}
                 error={errors.teamNumber}
