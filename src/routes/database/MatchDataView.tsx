@@ -1,11 +1,4 @@
-import {
-    Checkbox,
-    Radio,
-    Select,
-    Tabs,
-    Text,
-    Textarea,
-} from "@mantine/core";
+import { Checkbox, Radio, Select, Tabs, Text, Textarea } from "@mantine/core";
 import { FC } from "react";
 import { FieldInput } from "../../components/FieldInput";
 import { GridInput } from "../../components/GridInput";
