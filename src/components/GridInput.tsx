@@ -40,6 +40,7 @@ type GridInputParams = {
     onChange: (data: GridData) => void;
     data: GridData;
     readonly?: boolean;
+    error: string | undefined;
 };
 
 export const initGridData = (): GridData => {

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { FieldPoint } from "../../components/FieldInput";
 import { GridData } from "../../components/GridInput";
+import { gridUtilities } from "../../util/gridUtilities";
 import { TeamPosition } from "../thebluealliance/teamTypes";
 
 export const AutoParkState = () => z.enum(["None", "DockEngage", "Dock"]);
@@ -36,7 +37,48 @@ export const MatchState = () =>
 
         autonomousStartingLocation: FieldPoint(),
         autonomousLeftCommunityZone: z.boolean(),
-        autonomousGridData: GridData(),
+
+        autonomousGridData: GridData()
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.coneColumnsTotals.level2 <= 6;
+            }, "Too many cones on high row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.coneColumnsTotals.level1 <= 6;
+            }, "Too many cones on middle row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.coneColumnsTotals.hybrid <= 9;
+            }, "Too many cones on the bottom row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.cubeColumnsTotals.level2 <= 3;
+            }, "Too many cubes on high row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.cubeColumnsTotals.level1 <= 3;
+            }, "Too many cubes on middle row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.cubeColumnsTotals.hybrid <= 9;
+            }, "Too many cubes on the bottom row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return (
+                    gridData.coneColumnsTotals.hybrid +
+                        gridData.cubeColumnsTotals.hybrid <=
+                    9
+                );
+            }, "Too many game pieces on the bottom row"),
+
         autonomousParking: AutoParkState(),
 
         teleopGroundPickups: z.number().min(0),
@@ -44,7 +86,46 @@ export const MatchState = () =>
         teleopSubstation2LowPickups: z.number().min(0),
         teleopSubstation2HighPickups: z.number().min(0),
         teleopRunnerRobot: z.boolean(),
-        teleopGridData: GridData(),
+        teleopGridData: GridData()
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.coneColumnsTotals.level2 <= 6;
+            }, "Too many cones on high row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.coneColumnsTotals.level1 <= 6;
+            }, "Too many cones on middle row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.coneColumnsTotals.hybrid <= 9;
+            }, "Too many cones on the bottom row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.cubeColumnsTotals.level2 <= 3;
+            }, "Too many cubes on high row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.cubeColumnsTotals.level1 <= 3;
+            }, "Too many cubes on middle row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return gridData.cubeColumnsTotals.hybrid <= 9;
+            }, "Too many cubes on the bottom row")
+            .refine((data) => {
+                const gridData = gridUtilities(data);
+
+                return (
+                    gridData.coneColumnsTotals.hybrid +
+                        gridData.cubeColumnsTotals.hybrid <=
+                    9
+                );
+            }, "Too many game pieces on the bottom row"),
 
         endgameParking: EndgameParkState(),
         endgameCoopertitionBonus: z.boolean(),

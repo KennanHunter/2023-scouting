@@ -7,12 +7,14 @@ type SimpleGridInputParams = {
     onChange: (data: GridData) => void;
     data: GridData;
     readonly?: boolean;
+    error: string | undefined;
 };
 
 export const SimpleGridInput: FC<SimpleGridInputParams> = ({
     data,
     readonly,
     onChange,
+    error,
 }) => {
     const setRowCol = (value: number, row: number, col: number) => {
         if (readonly) return;
@@ -45,6 +47,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                         placeholder="Top Cones"
                         label="Top Cones"
                         size="lg"
+                        error={error}
                         m={4}
                     />
                 </Grid.Col>
@@ -55,6 +58,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                         placeholder="Top Cubes"
                         label="Top Cubes"
                         size="lg"
+                        error={error}
                         m={4}
                     />
                 </Grid.Col>
@@ -68,6 +72,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                         placeholder="Middle Cones"
                         label="Middle Cones"
                         size="lg"
+                        error={error}
                         m={4}
                     />
                 </Grid.Col>
@@ -78,6 +83,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                         placeholder="Middle Cubes"
                         label="Middle Cubes"
                         size="lg"
+                        error={error}
                         m={4}
                     />
                 </Grid.Col>
@@ -91,6 +97,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                         placeholder="Bottom Cones"
                         label="Bottom Cones"
                         size="lg"
+                        error={error}
                         m={4}
                     />
                 </Grid.Col>
@@ -101,6 +108,7 @@ export const SimpleGridInput: FC<SimpleGridInputParams> = ({
                         placeholder="Bottom Cubes"
                         label="Bottom Cubes"
                         size="lg"
+                        error={error}
                         m={4}
                     />
                 </Grid.Col>

@@ -14,7 +14,6 @@ export const Auto: FC = () => {
         autonomousParking,
         autonomousGridData,
         autonomousLeftCommunityZone,
-        autonomousStartingLocation,
     } = useActiveMatch((state) => state);
 
     const errors = useActiveMatchErrors();
@@ -51,6 +50,7 @@ export const Auto: FC = () => {
             <SimpleGridInput
                 onChange={(data) => set("autonomousGridData")(data)}
                 data={autonomousGridData}
+                error={errors.autonomousGridData?.join(" ")}
             />
 
             <Radio.Group

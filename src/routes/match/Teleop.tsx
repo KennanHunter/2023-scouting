@@ -100,6 +100,7 @@ export const Teleop: FC = () => {
             <SimpleGridInput
                 onChange={(data) => set("teleopGridData")(data)}
                 data={teleopGridData}
+                error={errors.teleopGridData?.join(" ")}
             />
         </StackValidationChecker>
     );
