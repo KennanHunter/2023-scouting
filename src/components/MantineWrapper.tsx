@@ -7,6 +7,7 @@ import { useLocalStorage } from "@mantine/hooks";
 import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
 import { FC, PropsWithChildren } from "react";
+import { useTeamDB } from "../stores/thebluealliance/teamDB";
 
 export const MantineWrapper: FC<PropsWithChildren<{}>> = ({ children }) => {
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -17,6 +18,10 @@ export const MantineWrapper: FC<PropsWithChildren<{}>> = ({ children }) => {
 
     const toggleColorScheme = (value?: ColorScheme) =>
         setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
+    const primaryColor = useTeamDB(
+        (state) => state.teamPosition.split(" ")[0] as "Red" | "Blue"
+    );
 
     return (
         <ColorSchemeProvider
@@ -33,6 +38,7 @@ export const MantineWrapper: FC<PropsWithChildren<{}>> = ({ children }) => {
                         lg: 1200,
                         xl: 1400,
                     },
+                    primaryColor: "blue", // primaryColor.toLowerCase(),
                 }}
                 withGlobalStyles
                 withNormalizeCSS

@@ -28,20 +28,16 @@ const App: FC = () => {
                 minHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor:
-                    theme.colorScheme === "dark"
-                        ? theme.colors.dark[8]
-                        : theme.colors.gray[2],
+                backgroundColor: dark
+                    ? theme.colors.dark[8]
+                    : theme.colors.gray[2],
             })}
         >
             <Paper
                 shadow={"md"}
                 h={60}
                 sx={(theme) => ({
-                    backgroundColor:
-                        theme.colorScheme === "dark"
-                            ? theme.colors.dark[7]
-                            : "white",
+                    backgroundColor: dark ? theme.colors.dark[7] : "white",
                 })}
             >
                 <Flex
@@ -92,7 +88,7 @@ const App: FC = () => {
                 </Flex>
             </Paper>
             <Box
-                sx={(theme) => ({
+                sx={() => ({
                     display: "grid",
                     gridTemplateColumns: "auto auto auto",
                 })}

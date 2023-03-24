@@ -7,7 +7,7 @@ import {
     Stack,
     Table,
     Tabs,
-    Text,
+    Text
 } from "@mantine/core";
 import { openConfirmModal, openModal } from "@mantine/modals";
 import { showNotification } from "@mantine/notifications";
@@ -345,7 +345,17 @@ export const ViewData: FC = () => {
                             <Flex gap={"sm"} w={"100%"}>
                                 <Button
                                     m={4}
-                                    onClick={clearPitDB}
+                                    onClick={() =>
+                                        openConfirmModal({
+                                            title: "You will lose ALL DATA on this device",
+                                            labels: {
+                                                confirm: "Confirm",
+                                                cancel: "Cancel",
+                                            },
+
+                                            onConfirm: () => clearPitDB(),
+                                        })
+                                    }
                                     style={{ flexGrow: 1 }}
                                 >
                                     Clear

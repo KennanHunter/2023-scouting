@@ -1,4 +1,4 @@
-import { Checkbox, Select, Title } from "@mantine/core";
+import { Checkbox, NumberInput, Select, Title } from "@mantine/core";
 import { FC, useEffect } from "react";
 import { StackValidationChecker } from "../../components/StackValidationChecker";
 import { StepperInput } from "../../components/StepperInput";
@@ -79,7 +79,7 @@ export const Meta: FC = () => {
                 my={4}
             />
 
-            <StepperInput
+            <NumberInput
                 value={activeMatchGeneratedTeamNumber}
                 placeholder="No Team Selected"
                 label="Team"
