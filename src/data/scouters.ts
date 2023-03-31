@@ -31,6 +31,7 @@ export const scouterOptions = [
     "June Harris",
     "Karsten Sladky",
     "Kennan Hunter",
+    "Kloe Wang",
     "Levi Smelser",
     "Logan Richison",
     "Mady Stricker",
