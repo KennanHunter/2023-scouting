@@ -14,27 +14,25 @@ import { Link } from "react-router-dom";
 import { MadyCSV } from "../../data/formats/MadyCSV";
 import { useActiveMatch } from "../../stores/match/activeMatch";
 import { useMatchDB } from "../../stores/match/matchDB";
+import { MatchState } from "../../stores/match/matchTypes";
+
+const computeFiles = (matchDB: MatchState[]) => {
+    const time = new Date();
+    const dateString = `${time.getMonth()}-${time.getDay()}-${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}`;
+
+    return [
+        new File([MadyCSV.match.blobify(matchDB)], `data-${dateString}.csv`, {
+            type: "text/csv",
+        }),
+    ];
+};
 
 export const Save: FC = () => {
     const pushToDB = useMatchDB((state) => state.push);
     const matchDB = useMatchDB((state) => state.db);
     const saveActiveMatch = useActiveMatch((state) => state.save);
     const resetActiveMatch = useActiveMatch((state) => state.clear);
-
-    const files: File[] = useMemo(() => {
-        const time = new Date();
-        const dateString = `${time.getMonth()}-${time.getDay()}-${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}`;
-
-        return [
-            new File(
-                [MadyCSV.match.blobify(matchDB)],
-                `data-${dateString}.csv`,
-                {
-                    type: "text/csv",
-                }
-            ),
-        ];
-    }, [matchDB]);
+    const files: File[] = useMemo(() => computeFiles(matchDB), [matchDB]);
 
     return (
         <Stack>
@@ -57,7 +55,10 @@ export const Save: FC = () => {
                         });
 
                         navigator
-                            .share({ files, title: "Share CSV" })
+                            .share({
+                                files: computeFiles(useMatchDB.getState().db),
+                                title: "Share CSV",
+                            })
                             .then(() => {
                                 showNotification({
                                     message: "Sharing completed",
