@@ -1,4 +1,12 @@
-import { Button, Divider, Loader, Stack, Text, Title } from "@mantine/core";
+import {
+    Button,
+    Center,
+    Divider,
+    Loader,
+    Stack,
+    Text,
+    Title,
+} from "@mantine/core";
 import { closeModal, openModal } from "@mantine/modals";
 import { showNotification } from "@mantine/notifications";
 import { FC, useMemo } from "react";
@@ -41,11 +49,15 @@ export const Save: FC = () => {
 
                         openModal({
                             modalId: "Share-Loader",
-                            children: <Loader />,
+                            children: (
+                                <Center>
+                                    <Loader />
+                                </Center>
+                            ),
                         });
 
                         navigator
-                            .share({ files })
+                            .share({ files, title: "Share CSV" })
                             .then(() => {
                                 showNotification({
                                     message: "Sharing completed",
