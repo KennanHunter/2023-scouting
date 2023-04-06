@@ -50,4 +50,5 @@ export const scouterOptions = [
     "Traevor Myers",
     "Will Yi",
     "Wyatt Kinzer",
+    "Xavier Brown",
 ];
