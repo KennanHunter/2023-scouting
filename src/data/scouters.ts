@@ -51,4 +51,13 @@ export const scouterOptions = [
     "Will Yi",
     "Wyatt Kinzer",
     "Xavier Brown",
+    "Raphael Yeom",
+    "Ismail Taha",
+    "Dylan Rickert",
+    "Yale Han",
+    "JiuJiu Liu",
+    "Ethan Zhang",
+    "Caitlin Wobschall",
+    "Serena Maxwell",
+    "Eugene Zhang",
 ];
