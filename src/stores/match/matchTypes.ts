@@ -135,7 +135,6 @@ export const MatchState = () =>
         defenseRating: DefenseRating(),
         diedOnField: z.boolean(),
         comments: z.string(),
-
         time: z.number().optional(),
     });
 

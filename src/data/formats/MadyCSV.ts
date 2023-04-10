@@ -127,7 +127,16 @@ export const MadyCSV: Exporter<string> = {
                         DefenseRating().options.indexOf(row.defenseRating), // DefenseRating
                         EndgameParkState().options.indexOf(row.endgameParking), // ChargingStation
                         row.endgameRobotsDocked, // RobotsDocked
-                        row.comments, // Comments
+                        row.comments
+                            .split("")
+                            .map((letter) =>
+                                "abcdefghijklmnopqrstuvwxyz ".includes(
+                                    letter.toLowerCase()
+                                )
+                                    ? letter
+                                    : "*"
+                            )
+                            .join(""), // Comments
                         row.endgameLinksCompleted, // LinksCompleted
                         row.endgameCoopertitionBonus, // CoopertitionBonus
                         row.time
