@@ -111,30 +111,32 @@ export const TBAImport: FC = () => {
                 teamDB.clearDB();
 
                 teamDB.push(
-                    safelyParsedJson.data.map((match) => ({
-                        matchLevel: "Qualifications",
-                        matchNumber: match.match_number,
+                    safelyParsedJson.data
+                        .filter((match) => match.comp_level === "qm")
+                        .map((match) => ({
+                            matchLevel: "Qualifications",
+                            matchNumber: match.match_number,
 
-                        "Red 1": Number.parseInt(
-                            match.alliances.red.team_keys[0].slice(3)
-                        ),
-                        "Red 2": Number.parseInt(
-                            match.alliances.red.team_keys[1].slice(3)
-                        ),
-                        "Red 3": Number.parseInt(
-                            match.alliances.red.team_keys[2].slice(3)
-                        ),
+                            "Red 1": Number.parseInt(
+                                match.alliances.red.team_keys[0].slice(3)
+                            ),
+                            "Red 2": Number.parseInt(
+                                match.alliances.red.team_keys[1].slice(3)
+                            ),
+                            "Red 3": Number.parseInt(
+                                match.alliances.red.team_keys[2].slice(3)
+                            ),
 
-                        "Blue 1": Number.parseInt(
-                            match.alliances.blue.team_keys[0].slice(3)
-                        ),
-                        "Blue 2": Number.parseInt(
-                            match.alliances.blue.team_keys[1].slice(3)
-                        ),
-                        "Blue 3": Number.parseInt(
-                            match.alliances.blue.team_keys[2].slice(3)
-                        ),
-                    }))
+                            "Blue 1": Number.parseInt(
+                                match.alliances.blue.team_keys[0].slice(3)
+                            ),
+                            "Blue 2": Number.parseInt(
+                                match.alliances.blue.team_keys[1].slice(3)
+                            ),
+                            "Blue 3": Number.parseInt(
+                                match.alliances.blue.team_keys[2].slice(3)
+                            ),
+                        }))
                 );
 
                 setFetchError("");
